@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Живица",
+      "hasCanvas": false,
+      "bodyTextLen": 2281,
+      "bodyTextHash": "21846d64b861d0d77813e1f271806fdf4c3a8730abad14be057285460544b4ce",
+      "bodyTextPrefix": "Живица Витрина Физическое Цифровое Выставить О дворе Заказы МАРК",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Живица",
+      "hasCanvas": false,
+      "bodyTextLen": 2228,
+      "bodyTextHash": "bf82291ff9e95c7c4491d70fd8f0550c00a88ba9a704d9c2c0f11faf41a1e6d2",
+      "bodyTextPrefix": "Живица МАРКЕТПЛЕЙС РУЧНОЙ РАБОТЫ Вещи с теплом рук — и файлы, ко",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-preview.json"
+}
