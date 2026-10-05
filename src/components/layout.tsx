@@ -3,6 +3,7 @@ import { Heart, Menu, Search, ShoppingBag } from "lucide-react";
 import { useEffect, useState, type FormEvent, type ReactNode } from "react";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import { SignedIn, SignedOut, UserButton } from "@/lib/auth/gates";
 import { useCartCount, useMarket } from "@/lib/store";
 import { cn } from "@/lib/utils";
 
@@ -97,6 +98,19 @@ export function SiteHeader() {
           <HeaderSearch />
         </div>
         <div className="ml-auto flex items-center gap-0.5 md:ml-2">
+          <SignedOut>
+            <Link
+              to="/login"
+              className="hidden h-11 items-center px-3 text-sm text-muted-foreground hover:text-foreground sm:flex"
+            >
+              Войти
+            </Link>
+          </SignedOut>
+          <SignedIn>
+            <div className="hidden sm:block">
+              <UserButton />
+            </div>
+          </SignedIn>
           <Link
             to="/favorites"
             aria-label="Избранное"
