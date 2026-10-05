@@ -5,11 +5,27 @@ import { Section } from "@/components/layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { authClient } from "@/lib/auth/client";
 
 export const Route = createFileRoute("/login")({ component: LoginPage });
 
 type Mode = "sign-in" | "sign-up";
+
+async function authFetch(path: string, body: Record<string, unknown>) {
+  const res = await fetch(`/api/auth/${path}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+    credentials: "same-origin",
+  });
+  const data = (await res.json().catch(() => ({}))) as {
+    error?: { message?: string };
+    message?: string;
+  };
+  if (!res.ok) {
+    throw new Error(data.error?.message ?? data.message ?? "Что-то пошло не так");
+  }
+  return data;
+}
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -35,22 +51,19 @@ function LoginPage() {
     setBusy(true);
     try {
       if (mode === "sign-up") {
-        const { error } = await authClient.signUp.email({
+        await authFetch("sign-up/email", {
           email,
           password,
           name: name || email.split("@")[0],
         });
-        if (error) throw new Error(error.message ?? "Не удалось зарегистрироваться");
         toast.success("Добро пожаловать!");
       } else {
-        const { error } = await authClient.signIn.email({ email, password });
-        if (error) throw new Error(error.message ?? "Неверный email или пароль");
+        await authFetch("sign-in/email", { email, password });
         toast.success("С возвращением!");
       }
-      // После входа — на главную. Позже поменяем на /master/onboarding.
-      void navigate({ to: "/" });
-      // Перезагружаем, чтобы сессия подхватилась во всех хуках.
-      if (typeof window !== "undefined") window.location.reload();
+      if (typeof window !== "undefined") {
+        window.location.href = "/";
+      }
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Что-то пошло не так");
     } finally {
@@ -61,9 +74,7 @@ function LoginPage() {
   return (
     <main className="py-16 pb-24">
       <Section className="mx-auto max-w-md">
-        <p className="text-xs tracking-[0.22em] text-muted-foreground uppercase">
-          Живица
-        </p>
+        <p className="text-xs tracking-[0.22em] text-muted-foreground uppercase">Живица</p>
         <h1 className="font-display mt-3 text-4xl font-medium tracking-tight">
           {mode === "sign-in" ? "Вход" : "Регистрация"}
         </h1>
