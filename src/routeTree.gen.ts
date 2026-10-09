@@ -20,6 +20,7 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as OrdersRouteImport } from './routes/orders'
 import { Route as SellRouteImport } from './routes/sell'
 import { Route as ArtisanIdRouteImport } from './routes/artisan.$id'
+import { Route as MasterOnboardingRouteImport } from './routes/master.onboarding'
 import { Route as OrderIdRouteImport } from './routes/order.$id'
 import { Route as ProductIdRouteImport } from './routes/product.$id'
 import { Route as ApiAuthSplatRouteImport } from './routes/api.auth.$'
@@ -79,6 +80,11 @@ const ArtisanIdRoute = ArtisanIdRouteImport.update({
   path: '/artisan/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MasterOnboardingRoute = MasterOnboardingRouteImport.update({
+  id: '/master/onboarding',
+  path: '/master/onboarding',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OrderIdRoute = OrderIdRouteImport.update({
   id: '/order/$id',
   path: '/order/$id',
@@ -107,6 +113,7 @@ export interface FileRoutesByFullPath {
   '/orders': typeof OrdersRoute
   '/sell': typeof SellRoute
   '/artisan/$id': typeof ArtisanIdRoute
+  '/master/onboarding': typeof MasterOnboardingRoute
   '/order/$id': typeof OrderIdRoute
   '/product/$id': typeof ProductIdRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
@@ -123,6 +130,7 @@ export interface FileRoutesByTo {
   '/orders': typeof OrdersRoute
   '/sell': typeof SellRoute
   '/artisan/$id': typeof ArtisanIdRoute
+  '/master/onboarding': typeof MasterOnboardingRoute
   '/order/$id': typeof OrderIdRoute
   '/product/$id': typeof ProductIdRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
@@ -140,6 +148,7 @@ export interface FileRoutesById {
   '/orders': typeof OrdersRoute
   '/sell': typeof SellRoute
   '/artisan/$id': typeof ArtisanIdRoute
+  '/master/onboarding': typeof MasterOnboardingRoute
   '/order/$id': typeof OrderIdRoute
   '/product/$id': typeof ProductIdRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
@@ -158,6 +167,7 @@ export interface FileRouteTypes {
     | '/orders'
     | '/sell'
     | '/artisan/$id'
+    | '/master/onboarding'
     | '/order/$id'
     | '/product/$id'
     | '/api/auth/$'
@@ -174,6 +184,7 @@ export interface FileRouteTypes {
     | '/orders'
     | '/sell'
     | '/artisan/$id'
+    | '/master/onboarding'
     | '/order/$id'
     | '/product/$id'
     | '/api/auth/$'
@@ -190,6 +201,7 @@ export interface FileRouteTypes {
     | '/orders'
     | '/sell'
     | '/artisan/$id'
+    | '/master/onboarding'
     | '/order/$id'
     | '/product/$id'
     | '/api/auth/$'
@@ -207,6 +219,7 @@ export interface RootRouteChildren {
   OrdersRoute: typeof OrdersRoute
   SellRoute: typeof SellRoute
   ArtisanIdRoute: typeof ArtisanIdRoute
+  MasterOnboardingRoute: typeof MasterOnboardingRoute
   OrderIdRoute: typeof OrderIdRoute
   ProductIdRoute: typeof ProductIdRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
@@ -291,6 +304,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ArtisanIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/master/onboarding': {
+      id: '/master/onboarding'
+      path: '/master/onboarding'
+      fullPath: '/master/onboarding'
+      preLoaderRoute: typeof MasterOnboardingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/order/$id': {
       id: '/order/$id'
       path: '/order/$id'
@@ -327,6 +347,7 @@ const rootRouteChildren: RootRouteChildren = {
   OrdersRoute: OrdersRoute,
   SellRoute: SellRoute,
   ArtisanIdRoute: ArtisanIdRoute,
+  MasterOnboardingRoute: MasterOnboardingRoute,
   OrderIdRoute: OrderIdRoute,
   ProductIdRoute: ProductIdRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
