@@ -1,10 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageHeading, Section } from "@/components/layout";
 import { Button } from "@/components/ui/button";
-import { getAllArtisans } from "@/lib/products.server";
+import type { Artisan } from "@/lib/types";
 
 export const Route = createFileRoute("/about")({
-  loader: () => getAllArtisans(),
+  loader: async (): Promise<Artisan[]> => {
+    const res = await fetch("/api/artisans");
+    if (!res.ok) throw new Error("Не удалось загрузить мастерские");
+    return res.json();
+  },
   component: AboutPage,
 });
 

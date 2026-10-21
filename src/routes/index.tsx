@@ -4,21 +4,27 @@ import { ProductCard } from "@/components/product-card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Section } from "@/components/layout";
-import { CATEGORIES } from "@/lib/types";
+import { CATEGORIES, type Artisan, type Product } from "@/lib/types";
 import { formatPrice } from "@/lib/format";
-import { getHomeData } from "@/lib/products.server";
+import { apiFetch } from "@/lib/api-fetch";
+
+type HomeData = {
+  featured: Product[];
+  digital: Product[];
+  physical: Product[];
+  artisans: Artisan[];
+  totalProducts: number;
+};
 
 export const Route = createFileRoute("/")({
-  loader: () => getHomeData(),
+  loader: () => apiFetch<HomeData>("/api/home"),
   component: Home,
 });
 
 function Home() {
-  const { featured, digital, physical, artisans } = Route.useLoaderData();
+  const { featured, digital, physical, artisans, totalProducts } = Route.useLoaderData();
   const heroProduct = featured[0];
-  const heroArtisan = heroProduct
-    ? artisans.find((a) => a.id === heroProduct.artisanId)
-    : undefined;
+  const heroArtisan = heroProduct ? artisans.find((a) => a.id === heroProduct.artisanId) : undefined;
 
   return (
     <main>
@@ -73,7 +79,7 @@ function Home() {
 
       <Section className="grid grid-cols-3 gap-4 py-8 text-center md:text-left">
         <div>
-          <p className="font-display text-3xl tabular-nums">16</p>
+          <p className="font-display text-3xl tabular-nums">{totalProducts}</p>
           <p className="mt-1 text-sm text-muted-foreground">работ на витрине</p>
         </div>
         <div>
@@ -114,7 +120,7 @@ function Home() {
           </Button>
         </div>
         <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
-          {featured.map((product) => (
+          {featured.slice(0, 6).map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>

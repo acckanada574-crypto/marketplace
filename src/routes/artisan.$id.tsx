@@ -1,20 +1,21 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { PageHeading, Section } from "@/components/layout";
 import { ProductGrid } from "@/components/product-card";
-import { getArtisanById, getProductsByArtisanId } from "@/lib/products.server";
+import type { Artisan, Product } from "@/lib/types";
 
 export const Route = createFileRoute("/artisan/$id")({
   loader: async ({ params }) => {
-    const artisan = await getArtisanById(params.id);
-    if (!artisan) throw notFound();
-    const works = await getProductsByArtisanId(artisan.id);
-    return { artisan, works };
+    const res = await fetch(`/api/artisan/${params.id}`);
+    if (res.status === 404) throw notFound();
+    if (!res.ok) throw new Error("Не удалось загрузить мастера");
+    const data = (await res.json()) as { artisan: Artisan; products: Product[] };
+    return data;
   },
   component: ArtisanPage,
 });
 
 function ArtisanPage() {
-  const { artisan, works } = Route.useLoaderData();
+  const { artisan, products } = Route.useLoaderData();
 
   return (
     <main className="py-10 pb-20">
@@ -27,7 +28,7 @@ function ArtisanPage() {
           title={artisan.name}
           description={artisan.bio}
         />
-        <ProductGrid products={works} />
+        <ProductGrid products={products} />
       </Section>
     </main>
   );

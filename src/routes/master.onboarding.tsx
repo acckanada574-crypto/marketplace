@@ -8,7 +8,6 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { RedirectToSignIn } from "@/lib/auth/gates";
 import { useCurrentUserState } from "@/lib/auth/use-current-user";
-import { becomeArtisan } from "@/lib/artisans";
 
 export const Route = createFileRoute("/master/onboarding")({
   component: OnboardingPage,
@@ -35,14 +34,20 @@ function OnboardingPage() {
       toast.error("Заполните все поля");
       return;
     }
-    if (mark.length > 3) {
-      toast.error("Инициалы: не больше 3 символов");
-      return;
-    }
 
     setBusy(true);
     try {
-      const result = await becomeArtisan({ data: { name, city, craft, bio, mark } });
+      const res = await fetch("/api/become-artisan", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, city, craft, bio, mark }),
+        credentials: "same-origin",
+      });
+      if (!res.ok) {
+        const errBody = (await res.json().catch(() => ({}))) as { error?: string };
+        throw new Error(errBody.error ?? "Не удалось создать мастерскую");
+      }
+      const result = (await res.json()) as { id: string; created: boolean };
       toast.success(result.created ? "Мастерская создана!" : "Добро пожаловать обратно!");
       void navigate({ to: "/artisan/$id", params: { id: result.id } });
     } catch (err) {

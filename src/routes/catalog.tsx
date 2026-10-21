@@ -6,8 +6,7 @@ import { ProductGrid } from "@/components/product-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
-import { CATEGORIES, type CategoryId, type ProductKind } from "@/lib/types";
-import { getFilteredProducts, type ProductFilter } from "@/lib/products.server";
+import { CATEGORIES, type CategoryId, type Product, type ProductKind } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 export type CatalogSearch = {
@@ -37,7 +36,17 @@ function parseSearch(search: Record<string, unknown>): CatalogSearch {
 export const Route = createFileRoute("/catalog")({
   validateSearch: parseSearch,
   loaderDeps: ({ search }) => ({ search }),
-  loader: ({ deps }) => getFilteredProducts(deps.search as ProductFilter),
+  loader: async ({ deps }): Promise<Product[]> => {
+    const params = new URLSearchParams();
+    if (deps.search.q) params.set("q", deps.search.q);
+    if (deps.search.kind) params.set("kind", deps.search.kind);
+    if (deps.search.category) params.set("category", deps.search.category);
+    if (deps.search.sort) params.set("sort", deps.search.sort);
+
+    const res = await fetch(`/api/catalog?${params.toString()}`);
+    if (!res.ok) throw new Error("Не удалось загрузить каталог");
+    return res.json();
+  },
   component: CatalogPage,
 });
 
