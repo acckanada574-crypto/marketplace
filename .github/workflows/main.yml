@@ -25,3 +25,6 @@ jobs:
       - uses: prisma/cloud-deploy-action@v1
         with:
           build-command: npm run build
+          install-command: npm install
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
