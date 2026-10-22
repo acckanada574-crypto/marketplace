@@ -20,6 +20,7 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as OrdersRouteImport } from './routes/orders'
 import { Route as SellRouteImport } from './routes/sell'
 import { Route as ArtisanIdRouteImport } from './routes/artisan.$id'
+import { Route as MasterMarketingRouteImport } from './routes/master.marketing'
 import { Route as MasterOnboardingRouteImport } from './routes/master.onboarding'
 import { Route as MasterOrdersRouteImport } from './routes/master.orders'
 import { Route as OrderIdRouteImport } from './routes/order.$id'
@@ -81,6 +82,11 @@ const ArtisanIdRoute = ArtisanIdRouteImport.update({
   path: '/artisan/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MasterMarketingRoute = MasterMarketingRouteImport.update({
+  id: '/master/marketing',
+  path: '/master/marketing',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MasterOnboardingRoute = MasterOnboardingRouteImport.update({
   id: '/master/onboarding',
   path: '/master/onboarding',
@@ -119,6 +125,7 @@ export interface FileRoutesByFullPath {
   '/orders': typeof OrdersRoute
   '/sell': typeof SellRoute
   '/artisan/$id': typeof ArtisanIdRoute
+  '/master/marketing': typeof MasterMarketingRoute
   '/master/onboarding': typeof MasterOnboardingRoute
   '/master/orders': typeof MasterOrdersRoute
   '/order/$id': typeof OrderIdRoute
@@ -137,6 +144,7 @@ export interface FileRoutesByTo {
   '/orders': typeof OrdersRoute
   '/sell': typeof SellRoute
   '/artisan/$id': typeof ArtisanIdRoute
+  '/master/marketing': typeof MasterMarketingRoute
   '/master/onboarding': typeof MasterOnboardingRoute
   '/master/orders': typeof MasterOrdersRoute
   '/order/$id': typeof OrderIdRoute
@@ -156,6 +164,7 @@ export interface FileRoutesById {
   '/orders': typeof OrdersRoute
   '/sell': typeof SellRoute
   '/artisan/$id': typeof ArtisanIdRoute
+  '/master/marketing': typeof MasterMarketingRoute
   '/master/onboarding': typeof MasterOnboardingRoute
   '/master/orders': typeof MasterOrdersRoute
   '/order/$id': typeof OrderIdRoute
@@ -176,6 +185,7 @@ export interface FileRouteTypes {
     | '/orders'
     | '/sell'
     | '/artisan/$id'
+    | '/master/marketing'
     | '/master/onboarding'
     | '/master/orders'
     | '/order/$id'
@@ -194,6 +204,7 @@ export interface FileRouteTypes {
     | '/orders'
     | '/sell'
     | '/artisan/$id'
+    | '/master/marketing'
     | '/master/onboarding'
     | '/master/orders'
     | '/order/$id'
@@ -212,6 +223,7 @@ export interface FileRouteTypes {
     | '/orders'
     | '/sell'
     | '/artisan/$id'
+    | '/master/marketing'
     | '/master/onboarding'
     | '/master/orders'
     | '/order/$id'
@@ -231,6 +243,7 @@ export interface RootRouteChildren {
   OrdersRoute: typeof OrdersRoute
   SellRoute: typeof SellRoute
   ArtisanIdRoute: typeof ArtisanIdRoute
+  MasterMarketingRoute: typeof MasterMarketingRoute
   MasterOnboardingRoute: typeof MasterOnboardingRoute
   MasterOrdersRoute: typeof MasterOrdersRoute
   OrderIdRoute: typeof OrderIdRoute
@@ -317,6 +330,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ArtisanIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/master/marketing': {
+      id: '/master/marketing'
+      path: '/master/marketing'
+      fullPath: '/master/marketing'
+      preLoaderRoute: typeof MasterMarketingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/master/onboarding': {
       id: '/master/onboarding'
       path: '/master/onboarding'
@@ -367,6 +387,7 @@ const rootRouteChildren: RootRouteChildren = {
   OrdersRoute: OrdersRoute,
   SellRoute: SellRoute,
   ArtisanIdRoute: ArtisanIdRoute,
+  MasterMarketingRoute: MasterMarketingRoute,
   MasterOnboardingRoute: MasterOnboardingRoute,
   MasterOrdersRoute: MasterOrdersRoute,
   OrderIdRoute: OrderIdRoute,
