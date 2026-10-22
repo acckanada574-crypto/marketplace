@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { CATEGORIES, type CategoryId, type Product, type ProductKind } from "@/lib/types";
+import { apiFetch } from "@/lib/api-fetch";
 import { cn } from "@/lib/utils";
 
 export type CatalogSearch = {
@@ -36,16 +37,13 @@ function parseSearch(search: Record<string, unknown>): CatalogSearch {
 export const Route = createFileRoute("/catalog")({
   validateSearch: parseSearch,
   loaderDeps: ({ search }) => ({ search }),
-  loader: async ({ deps }): Promise<Product[]> => {
+  loader: ({ deps }) => {
     const params = new URLSearchParams();
     if (deps.search.q) params.set("q", deps.search.q);
     if (deps.search.kind) params.set("kind", deps.search.kind);
     if (deps.search.category) params.set("category", deps.search.category);
     if (deps.search.sort) params.set("sort", deps.search.sort);
-
-    const res = await fetch(`/api/catalog?${params.toString()}`);
-    if (!res.ok) throw new Error("Не удалось загрузить каталог");
-    return res.json();
+    return apiFetch<Product[]>(`/api/catalog?${params.toString()}`);
   },
   component: CatalogPage,
 });
@@ -58,6 +56,7 @@ function Filters({
   counts: { all: number; physical: number; digital: number };
 }) {
   const navigate = Route.useNavigate();
+  
   function patch(partial: Partial<CatalogSearch>) {
     void navigate({
       to: "/catalog",

@@ -10,33 +10,39 @@ import { Separator } from "@/components/ui/separator";
 import { downloadProductFile } from "@/lib/downloads";
 import { formatPrice, kindLabel } from "@/lib/format";
 import { useMarket } from "@/lib/store";
-import { getProductWithArtisan, getRelatedProducts } from "@/lib/products.server";
+import { apiFetch, ApiError } from "@/lib/api-fetch";
+import type { Artisan, Product } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/product/$id")({
   loader: async ({ params }) => {
-    const data = await getProductWithArtisan(params.id);
-    if (!data) throw notFound();
-    const related = await getRelatedProducts(
-      data.product.id,
-      data.product.kind,
-      data.product.artisanId,
-      3,
-    );
-    return { product: data.product, artisan: data.artisan, related };
+    try {
+      return await apiFetch<{ product: Product; artisan: Artisan; related: Product[] }>(
+        `/api/product/${params.id}`,
+      );
+    } catch (err) {
+      if (err instanceof ApiError && err.status === 404) throw notFound();
+      throw err;
+    }
   },
   component: ProductPage,
 });
 
 function ProductPage() {
   const { product, artisan, related } = Route.useLoaderData();
+  
   const addToCart = useMarket((s) => s.addToCart);
+  const addListing = useMarket((s) => s.addListing); // Добавляем в локальный кэш
   const favorites = useMarket((s) => s.favorites);
   const toggleFavorite = useMarket((s) => s.toggleFavorite);
+  
   const loved = favorites.includes(product.id);
   const [qty, setQty] = useState(1);
 
   function add() {
+    // Сначала добавляем товар в локальный список (чтобы корзина его узнала),
+    // а затем кладем в саму корзину
+    addListing(product);
     addToCart(product.id, qty);
     toast.success("В корзине", { description: product.title });
   }

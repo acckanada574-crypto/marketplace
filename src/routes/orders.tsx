@@ -1,55 +1,57 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageHeading, Section } from "@/components/layout";
 import { Button } from "@/components/ui/button";
-import { formatDate, formatPrice } from "@/lib/format";
-import { useMarket } from "@/lib/store";
+import { apiFetch } from "@/lib/api-fetch";
+import { formatPrice } from "@/lib/format";
 
-export const Route = createFileRoute("/orders")({ component: OrdersPage });
-
-const STATUS: Record<string, string> = {
-  paid: "Оплачен",
-  shipped: "В пути",
-  delivered: "Выполнен",
-};
+export const Route = createFileRoute("/orders")({
+  loader: () => apiFetch<any[]>("/api/orders"),
+  component: OrdersPage,
+});
 
 function OrdersPage() {
-  const orders = useMarket((s) => s.orders);
+  const orders = Route.useLoaderData();
 
   return (
     <main className="py-10 pb-20">
-      <Section>
-        <PageHeading
-          kicker="Покупатель"
-          title="Заказы"
-          description="История хранится в этом браузере. Цифровые файлы можно скачать повторно."
+      <Section className="mx-auto max-w-3xl">
+        <PageHeading 
+          kicker="Покупатель" 
+          title="Мои заказы" 
+          description="Здесь хранится история ваших покупок." 
         />
+
         {orders.length === 0 ? (
-          <div className="rounded-2xl bg-card px-6 py-12 text-center shadow-border">
-            <p className="text-muted-foreground">Заказов пока нет.</p>
-            <Button asChild className="mt-6">
+          <div className="text-center py-16 bg-card rounded-2xl shadow-border mt-8">
+            <p className="text-muted-foreground">У вас пока нет заказов.</p>
+            <Button asChild className="mt-4">
               <Link to="/catalog">На витрину</Link>
             </Button>
           </div>
         ) : (
-          <ul className="flex flex-col gap-3">
+          <div className="space-y-4 mt-8">
             {orders.map((order) => (
-              <li key={order.id}>
-                <Link
-                  to="/order/$id"
-                  params={{ id: order.id }}
-                  className="flex flex-col gap-2 rounded-2xl bg-card px-5 py-4 shadow-border sm:flex-row sm:items-center sm:justify-between"
-                >
-                  <div>
-                    <p className="font-medium">{order.id}</p>
-                    <p className="text-sm text-muted-foreground">
-                      {formatDate(order.createdAt)} · {STATUS[order.status]}
-                    </p>
+              <Link
+                key={order.id}
+                to="/order/$id"
+                params={{ id: order.id }}
+                className="block rounded-2xl bg-card p-6 shadow-border hover:-translate-y-0.5 transition-transform"
+              >
+                <div className="flex justify-between items-center mb-2">
+                  <span className="font-display text-lg font-medium">Заказ {order.id}</span>
+                  <span className="text-sm text-muted-foreground">
+                    {new Date(order.created_at).toLocaleDateString("ru-RU")}
+                  </span>
+                </div>
+                <div className="flex justify-between items-end">
+                  <div className="text-sm text-muted-foreground line-clamp-1">
+                    {order.items.map((i: any) => `${i.title} (${i.qty} шт.)`).join(", ")}
                   </div>
-                  <p className="tabular-nums">{formatPrice(order.total)}</p>
-                </Link>
-              </li>
+                  <div className="font-medium tabular-nums">{formatPrice(order.total)}</div>
+                </div>
+              </Link>
             ))}
-          </ul>
+          </div>
         )}
       </Section>
     </main>
