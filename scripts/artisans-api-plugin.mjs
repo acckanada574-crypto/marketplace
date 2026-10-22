@@ -59,6 +59,10 @@ export function artisansApiPlugin() {
           await handleGetMyOrders(server, req, res);
           return;
         }
+        if (pathOnly === "/api/artisan-orders") {
+          await handleGetArtisanOrders(server, req, res);
+          return;
+        }
         if (pathOnly.startsWith("/api/order/")) {
           await handleGetOrder(server, req, res, pathOnly);
           return;
@@ -98,15 +102,11 @@ async function handleBecomeArtisan(server, req, res) {
   try {
     const input = await readJsonBody(req);
     const session = await getSession(server, req);
-    if (!session?.user?.id) {
-      res.statusCode = 401; res.setHeader("content-type", "application/json; charset=utf-8"); res.end(JSON.stringify({ error: "Не авторизован" })); return;
-    }
+    if (!session?.user?.id) { res.statusCode = 401; res.setHeader("content-type", "application/json; charset=utf-8"); res.end(JSON.stringify({ error: "Не авторизован" })); return; }
     const { getSql } = await server.ssrLoadModule("/src/lib/db.ts");
     const sql = await getSql();
     const existing = await sql`select id from artisans where user_id = ${session.user.id} limit 1`;
-    if (existing.length > 0) {
-      res.statusCode = 200; res.setHeader("content-type", "application/json; charset=utf-8"); res.end(JSON.stringify({ id: existing[0].id, created: false })); return;
-    }
+    if (existing.length > 0) { res.statusCode = 200; res.setHeader("content-type", "application/json; charset=utf-8"); res.end(JSON.stringify({ id: existing[0].id, created: false })); return; }
     const id = `art-${session.user.id.slice(0, 10)}`;
     const year = new Date().getFullYear();
     await sql`
@@ -284,6 +284,31 @@ async function handleGetOrder(server, req, res, pathOnly) {
     res.statusCode = 200; res.setHeader("content-type", "application/json; charset=utf-8"); res.end(JSON.stringify({ order: orders[0], items }));
   } catch (err) {
     console.error("[api/order]", err);
+    if (!res.headersSent) { res.statusCode = 500; res.setHeader("content-type", "application/json; charset=utf-8"); res.end(JSON.stringify({ error: err?.message ?? "Ошибка" })); }
+  }
+}
+
+async function handleGetArtisanOrders(server, req, res) {
+  try {
+    const session = await getSession(server, req);
+    if (!session?.user?.id) { res.statusCode = 401; res.setHeader("content-type", "application/json; charset=utf-8"); res.end(JSON.stringify({ error: "Не авторизован" })); return; }
+    const { getSql } = await server.ssrLoadModule("/src/lib/db.ts");
+    const sql = await getSql();
+    const artisanRows = await sql`select id from artisans where user_id = ${session.user.id} limit 1`;
+    if (artisanRows.length === 0) { res.statusCode = 200; res.setHeader("content-type", "application/json; charset=utf-8"); res.end(JSON.stringify([])); return; }
+    const artisanId = artisanRows[0].id;
+    const rows = await sql`
+      select 
+        oi.id as item_id, oi.title, oi.qty, oi.price, oi.line_total, oi.payout_amount,
+        o.id as order_id, o.customer_name, o.customer_city, o.customer_address, o.customer_phone, o.status, o.created_at
+      from order_items oi
+      join orders o on o.id = oi.order_id
+      where oi.artisan_id = ${artisanId}
+      order by o.created_at desc
+    `;
+    res.statusCode = 200; res.setHeader("content-type", "application/json; charset=utf-8"); res.end(JSON.stringify(rows));
+  } catch (err) {
+    console.error("[api/artisan-orders]", err);
     if (!res.headersSent) { res.statusCode = 500; res.setHeader("content-type", "application/json; charset=utf-8"); res.end(JSON.stringify({ error: err?.message ?? "Ошибка" })); }
   }
 }

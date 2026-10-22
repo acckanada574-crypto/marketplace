@@ -125,6 +125,12 @@ export function SiteHeader() {
             Заказы
           </Link>
           <Link
+            to="/master/orders"
+            className="hidden h-11 items-center px-2 text-sm text-muted-foreground hover:text-foreground sm:flex"
+          >
+            Заказы мастера
+          </Link>
+          <Link
             to="/cart"
             aria-label="Корзина"
             className="relative flex size-11 items-center justify-center rounded-md hover:bg-muted"
@@ -158,6 +164,9 @@ export function SiteHeader() {
             ))}
             <Link to="/orders" onClick={() => setOpen(false)} className="flex h-12 items-center">
               Заказы
+            </Link>
+            <Link to="/master/orders" onClick={() => setOpen(false)} className="flex h-12 items-center">
+              Заказы мастера
             </Link>
           </div>
         </SheetContent>
