@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+  id-token: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -12,8 +16,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
-      - run: npm install
-      - run: npm run build
-      - name: Deploy
-        uses: prisma/cloud-deploy-action@v1
+          node-version: '22'
+          cache: 'npm'
+      - uses: prisma/cloud-deploy-action@v1
+        with:
+          build-command: npm run build
