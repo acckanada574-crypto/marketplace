@@ -7,12 +7,12 @@
   "nf3": "0.3.17",
   "react": "$react",
   "react-dom": "$react-dom",
-  "vitest": "$vitest"
+ "vitest": "^5.0.0"
   },
   "scripts": {
     "dev": "node --env-file=.env ./node_modules/vite/bin/vite.js --host 0.0.0.0 --port 8080",
-    "build": "vite build && npm run db:migrate",
-    "db:migrate": "node --env-file-if-exists=.env scripts/migrate.mjs",
+    "build": "node scripts/with-app-env.mjs vite build && npm run db:migrate",
+    "db:migrate": "node --env-file=.env scripts/migrate.mjs",
     "build:dev": "node scripts/with-app-env.mjs vite build --mode development",
     "preview": "node scripts/with-app-env.mjs vite preview",
     "preview:restart": "node scripts/preview.mjs restart",
