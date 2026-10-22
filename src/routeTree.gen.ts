@@ -17,6 +17,7 @@ import { Route as CheckoutRouteImport } from './routes/checkout'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as FavoritesRouteImport } from './routes/favorites'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as MascotRouteImport } from './routes/mascot'
 import { Route as OrdersRouteImport } from './routes/orders'
 import { Route as SellRouteImport } from './routes/sell'
 import { Route as ArtisanIdRouteImport } from './routes/artisan.$id'
@@ -65,6 +66,11 @@ const FavoritesRoute = FavoritesRouteImport.update({
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MascotRoute = MascotRouteImport.update({
+  id: '/mascot',
+  path: '/mascot',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OrdersRoute = OrdersRouteImport.update({
@@ -122,6 +128,7 @@ export interface FileRoutesByFullPath {
   '/faq': typeof FaqRoute
   '/favorites': typeof FavoritesRoute
   '/login': typeof LoginRoute
+  '/mascot': typeof MascotRoute
   '/orders': typeof OrdersRoute
   '/sell': typeof SellRoute
   '/artisan/$id': typeof ArtisanIdRoute
@@ -141,6 +148,7 @@ export interface FileRoutesByTo {
   '/faq': typeof FaqRoute
   '/favorites': typeof FavoritesRoute
   '/login': typeof LoginRoute
+  '/mascot': typeof MascotRoute
   '/orders': typeof OrdersRoute
   '/sell': typeof SellRoute
   '/artisan/$id': typeof ArtisanIdRoute
@@ -161,6 +169,7 @@ export interface FileRoutesById {
   '/faq': typeof FaqRoute
   '/favorites': typeof FavoritesRoute
   '/login': typeof LoginRoute
+  '/mascot': typeof MascotRoute
   '/orders': typeof OrdersRoute
   '/sell': typeof SellRoute
   '/artisan/$id': typeof ArtisanIdRoute
@@ -182,6 +191,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/favorites'
     | '/login'
+    | '/mascot'
     | '/orders'
     | '/sell'
     | '/artisan/$id'
@@ -201,6 +211,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/favorites'
     | '/login'
+    | '/mascot'
     | '/orders'
     | '/sell'
     | '/artisan/$id'
@@ -220,6 +231,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/favorites'
     | '/login'
+    | '/mascot'
     | '/orders'
     | '/sell'
     | '/artisan/$id'
@@ -240,6 +252,7 @@ export interface RootRouteChildren {
   FaqRoute: typeof FaqRoute
   FavoritesRoute: typeof FavoritesRoute
   LoginRoute: typeof LoginRoute
+  MascotRoute: typeof MascotRoute
   OrdersRoute: typeof OrdersRoute
   SellRoute: typeof SellRoute
   ArtisanIdRoute: typeof ArtisanIdRoute
@@ -307,6 +320,13 @@ declare module '@tanstack/react-router' {
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mascot': {
+      id: '/mascot'
+      path: '/mascot'
+      fullPath: '/mascot'
+      preLoaderRoute: typeof MascotRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/orders': {
@@ -384,6 +404,7 @@ const rootRouteChildren: RootRouteChildren = {
   FaqRoute: FaqRoute,
   FavoritesRoute: FavoritesRoute,
   LoginRoute: LoginRoute,
+  MascotRoute: MascotRoute,
   OrdersRoute: OrdersRoute,
   SellRoute: SellRoute,
   ArtisanIdRoute: ArtisanIdRoute,
