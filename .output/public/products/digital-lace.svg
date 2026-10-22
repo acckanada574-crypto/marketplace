@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1200" role="img" aria-label="Обложка схемы вязания">
+  <rect width="1600" height="1200" fill="#3E4F45"/>
+  <rect x="72" y="72" width="1456" height="1056" fill="none" stroke="#E7E0D4" stroke-width="1.25"/>
+  <rect x="112" y="112" width="1376" height="976" fill="#F3EEE6"/>
+  <g fill="#3E4F45" opacity="0.16">
+    <circle cx="400" cy="360" r="8"/><circle cx="460" cy="360" r="8"/><circle cx="520" cy="360" r="8"/>
+    <circle cx="430" cy="412" r="8"/><circle cx="490" cy="412" r="8"/>
+    <circle cx="400" cy="464" r="8"/><circle cx="460" cy="464" r="8"/><circle cx="520" cy="464" r="8"/>
+    <circle cx="1080" cy="720" r="8"/><circle cx="1140" cy="720" r="8"/><circle cx="1200" cy="720" r="8"/>
+    <circle cx="1110" cy="772" r="8"/><circle cx="1170" cy="772" r="8"/>
+    <circle cx="1080" cy="824" r="8"/><circle cx="1140" cy="824" r="8"/><circle cx="1200" cy="824" r="8"/>
+  </g>
+  <text x="180" y="300" fill="#6F655C" font-family="Georgia, 'Times New Roman', serif" font-size="22" letter-spacing="6">ЦИФРОВОЕ ИЗДАНИЕ</text>
+  <text x="180" y="430" fill="#241C16" font-family="Georgia, 'Times New Roman', serif" font-size="72" font-weight="600">Кружево</text>
+  <text x="180" y="520" fill="#241C16" font-family="Georgia, 'Times New Roman', serif" font-size="72" font-weight="600">тумана</text>
+  <line x1="180" y1="580" x2="420" y2="580" stroke="#3E4F45" stroke-width="1.5"/>
+  <text x="180" y="640" fill="#3E4F45" font-family="Georgia, 'Times New Roman', serif" font-size="28">Схема салфетки крючком</text>
+  <text x="180" y="980" fill="#6F655C" font-family="Georgia, 'Times New Roman', serif" font-size="22">PDF · 18 страниц · Живица</text>
+</svg>
