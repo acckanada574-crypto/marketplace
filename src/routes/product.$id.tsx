@@ -1,5 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { Check, Download, Heart, Minus, Plus, Truck } from "lucide-react";
+import { Check, Download, Heart, Minus, Plus, Share2, Truck } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { ProductCard } from "@/components/product-card";
@@ -25,26 +25,90 @@ export const Route = createFileRoute("/product/$id")({
       throw err;
     }
   },
+  head: ({ loaderData }) => {
+    if (!loaderData) return { meta: [] };
+    const { product, artisan } = loaderData;
+    const title = `${product.title} — ${product.subtitle} | Живица`;
+    const description = product.description.slice(0, 160);
+    const url = `https://zhivitsa.ru/product/${product.id}`;
+
+    return {
+      meta: [
+        { title },
+        { name: "description", content: description },
+        { property: "og:title", content: title },
+        { property: "og:description", content: description },
+        { property: "og:image", content: product.image },
+        { property: "og:url", content: url },
+        { property: "og:type", content: "product" },
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:title", content: title },
+        { name: "twitter:description", content: description },
+        { name: "twitter:image", content: product.image },
+        {
+          "script:ld+json": {
+            "@context": "https://schema.org",
+            "@type": "Product",
+            name: product.title,
+            image: product.image,
+            description: product.description,
+            brand: { "@type": "Brand", name: "Живица" },
+            offers: {
+              "@type": "Offer",
+              price: product.price,
+              priceCurrency: "RUB",
+              availability: product.stock > 0
+                ? "https://schema.org/InStock"
+                : "https://schema.org/OutOfStock",
+            },
+            aggregateRating: product.reviewCount > 0 ? {
+              "@type": "AggregateRating",
+              ratingValue: product.rating,
+              reviewCount: product.reviewCount,
+            } : undefined,
+            seller: { "@type": "Person", name: artisan.name },
+          },
+        },
+      ],
+    };
+  },
   component: ProductPage,
 });
 
 function ProductPage() {
   const { product, artisan, related } = Route.useLoaderData();
-  
   const addToCart = useMarket((s) => s.addToCart);
-  const addListing = useMarket((s) => s.addListing); // Добавляем в локальный кэш
+  const addListing = useMarket((s) => s.addListing);
   const favorites = useMarket((s) => s.favorites);
   const toggleFavorite = useMarket((s) => s.toggleFavorite);
-  
   const loved = favorites.includes(product.id);
   const [qty, setQty] = useState(1);
 
   function add() {
-    // Сначала добавляем товар в локальный список (чтобы корзина его узнала),
-    // а затем кладем в саму корзину
     addListing(product);
     addToCart(product.id, qty);
     toast.success("В корзине", { description: product.title });
+  }
+
+  async function handleShare() {
+    const baseUrl = `${window.location.origin}/product/${product.id}`;
+    const utmUrl = `${baseUrl}?utm_source=share&utm_medium=product&utm_campaign=zhivitsa`;
+
+    const shareData = {
+      title: product.title,
+      text: `${product.title} — ${product.subtitle}. На Живице.`,
+      url: utmUrl,
+    };
+
+    if (navigator.share) {
+      try { await navigator.share(shareData); return; } catch (e) { /* отменил */ }
+    }
+    try {
+      await navigator.clipboard.writeText(utmUrl);
+      toast.success("Ссылка скопирована", { description: "Отправьте её другу" });
+    } catch {
+      toast.error("Не удалось скопировать");
+    }
   }
 
   return (
@@ -120,6 +184,10 @@ function ProductPage() {
               >
                 <Heart className={cn("size-4", loved && "fill-primary text-primary")} />
                 {loved ? "В избранном" : "Избранное"}
+              </Button>
+              <Button size="lg" variant="ghost" onClick={handleShare}>
+                <Share2 className="size-4" />
+                Поделиться
               </Button>
             </div>
 
