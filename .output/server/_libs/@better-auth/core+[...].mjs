@@ -1,5 +1,5 @@
 import { t as __commonJSMin } from "../../_runtime.mjs";
-//#region node_modules/@better-auth/core/dist/utils/error-codes.mjs
+// node_modules/@better-auth/core/dist/utils/error-codes.mjs
 function defineErrorCodes(codes) {
 	return Object.fromEntries(Object.entries(codes).map(([key, value]) => [key, {
 		code: key,
@@ -7,8 +7,7 @@ function defineErrorCodes(codes) {
 		toString: () => key
 	}]));
 }
-//#endregion
-//#region node_modules/@better-auth/core/dist/error/codes.mjs
+// node_modules/@better-auth/core/dist/error/codes.mjs
 var BASE_ERROR_CODES = defineErrorCodes({
 	USER_NOT_FOUND: "User not found",
 	FAILED_TO_CREATE_USER: "Failed to create user",
@@ -60,8 +59,7 @@ var BASE_ERROR_CODES = defineErrorCodes({
 	BODY_MUST_BE_AN_OBJECT: "Body must be an object",
 	PASSWORD_ALREADY_SET: "User already has a password set"
 });
-//#endregion
-//#region node_modules/better-call/dist/error.mjs
+// node_modules/better-call/dist/error.mjs
 function isErrorStackTraceLimitWritable() {
 	const desc = Object.getOwnPropertyDescriptor(Error, "stackTraceLimit");
 	if (desc === void 0) return Object.isExtensible(Error);
@@ -196,8 +194,7 @@ var BetterCallError = class extends Error {
 };
 var kAPIErrorHeaderSymbol = Symbol.for("better-call:api-error-headers");
 var APIError$1 = makeErrorForHideStackFrame(InternalAPIError, Error);
-//#endregion
-//#region node_modules/@better-auth/core/dist/error/index.mjs
+// node_modules/@better-auth/core/dist/error/index.mjs
 var BetterAuthError = class extends Error {
 	constructor(message, options) {
 		super(message, options);
@@ -220,8 +217,7 @@ var APIError = class APIError extends APIError$1 {
 		});
 	}
 };
-//#endregion
-//#region node_modules/@better-auth/core/dist/db/adapter/get-default-model-name.mjs
+// node_modules/@better-auth/core/dist/db/adapter/get-default-model-name.mjs
 var initGetDefaultModelName = ({ usePlural, schema }) => {
 	/**
 	* This function helps us get the default model name from the schema defined by devs.
@@ -249,8 +245,7 @@ var initGetDefaultModelName = ({ usePlural, schema }) => {
 	};
 	return getDefaultModelName;
 };
-//#endregion
-//#region node_modules/@better-auth/core/dist/db/adapter/get-default-field-name.mjs
+// node_modules/@better-auth/core/dist/db/adapter/get-default-field-name.mjs
 var initGetDefaultFieldName = ({ schema, usePlural }) => {
 	const getDefaultModelName = initGetDefaultModelName({
 		schema,
@@ -282,8 +277,7 @@ var initGetDefaultFieldName = ({ schema, usePlural }) => {
 	};
 	return getDefaultFieldName;
 };
-//#endregion
-//#region node_modules/@better-auth/core/dist/env/env-impl.mjs
+// node_modules/@better-auth/core/dist/env/env-impl.mjs
 var _envShim = Object.create(null);
 var _getEnv = (useShim) => globalThis.process?.env || globalThis.Deno?.env.toObject() || globalThis.__env__ || (useShim ? _envShim : globalThis);
 var env = new Proxy(_envShim, {
@@ -362,8 +356,7 @@ var ENV = Object.freeze({
 		return getEnvVar("BETTER_AUTH_TELEMETRY_ENDPOINT", "");
 	}
 });
-//#endregion
-//#region node_modules/@better-auth/core/dist/env/color-depth.mjs
+// node_modules/@better-auth/core/dist/env/color-depth.mjs
 var COLORS_2 = 1;
 var COLORS_16 = 4;
 var COLORS_256 = 8;
@@ -446,8 +439,7 @@ function getColorDepth() {
 	if (getEnvVar("COLORTERM")) return COLORS_16;
 	return COLORS_2;
 }
-//#endregion
-//#region node_modules/@better-auth/core/dist/env/logger.mjs
+// node_modules/@better-auth/core/dist/env/logger.mjs
 var TTY_COLORS = {
 	reset: "\x1B[0m",
 	bright: "\x1B[1m",
@@ -523,8 +515,7 @@ var createLogger = (options) => {
 	};
 };
 var logger = createLogger();
-//#endregion
-//#region node_modules/@better-auth/utils/dist/random.mjs
+// node_modules/@better-auth/utils/dist/random.mjs
 function expandAlphabet(alphabet) {
 	switch (alphabet) {
 		case "a-z": return "abcdefghijklmnopqrstuvwxyz";
@@ -563,13 +554,11 @@ function createRandomStringGenerator(...baseAlphabets) {
 		return result;
 	};
 }
-//#endregion
-//#region node_modules/@better-auth/core/dist/utils/id.mjs
+// node_modules/@better-auth/core/dist/utils/id.mjs
 var generateId = (size) => {
 	return createRandomStringGenerator("a-z", "A-Z", "0-9")(size || 32);
 };
-//#endregion
-//#region node_modules/@better-auth/core/dist/db/adapter/get-id-field.mjs
+// node_modules/@better-auth/core/dist/db/adapter/get-id-field.mjs
 var initGetIdField = ({ usePlural, schema, disableIdGeneration, options, customIdGenerator, supportsUUIDs }) => {
 	const getDefaultModelName = initGetDefaultModelName({
 		usePlural,
@@ -628,8 +617,7 @@ var initGetIdField = ({ usePlural, schema, disableIdGeneration, options, customI
 	};
 	return idField;
 };
-//#endregion
-//#region node_modules/@better-auth/core/dist/db/adapter/get-field-attributes.mjs
+// node_modules/@better-auth/core/dist/db/adapter/get-field-attributes.mjs
 var initGetFieldAttributes = ({ usePlural, schema, options, customIdGenerator, disableIdGeneration }) => {
 	const getDefaultModelName = initGetDefaultModelName({
 		usePlural,
@@ -660,8 +648,7 @@ var initGetFieldAttributes = ({ usePlural, schema, options, customIdGenerator, d
 	};
 	return getFieldAttributes;
 };
-//#endregion
-//#region node_modules/@better-auth/core/dist/db/adapter/get-field-name.mjs
+// node_modules/@better-auth/core/dist/db/adapter/get-field-name.mjs
 var initGetFieldName = ({ schema, usePlural }) => {
 	const getDefaultModelName = initGetDefaultModelName({
 		schema,
@@ -688,8 +675,7 @@ var initGetFieldName = ({ schema, usePlural }) => {
 	}
 	return getFieldName;
 };
-//#endregion
-//#region node_modules/@better-auth/core/dist/db/adapter/get-model-name.mjs
+// node_modules/@better-auth/core/dist/db/adapter/get-model-name.mjs
 var initGetModelName = ({ usePlural, schema }) => {
 	const getDefaultModelName = initGetDefaultModelName({
 		schema,
@@ -707,8 +693,7 @@ var initGetModelName = ({ usePlural, schema }) => {
 	};
 	return getModelName;
 };
-//#endregion
-//#region node_modules/@better-auth/core/dist/db/adapter/utils.mjs
+// node_modules/@better-auth/core/dist/db/adapter/utils.mjs
 function withApplyDefault(value, field, action) {
 	if (action === "update") {
 		if (value === void 0 && field.onUpdate !== void 0) {
@@ -727,8 +712,7 @@ function withApplyDefault(value, field, action) {
 	}
 	return value;
 }
-//#endregion
-//#region node_modules/@better-auth/core/dist/context/global.mjs
+// node_modules/@better-auth/core/dist/context/global.mjs
 var symbol = Symbol.for("better-auth:global");
 var bind = null;
 var __context = {};
@@ -762,8 +746,7 @@ function __getBetterAuthGlobal() {
 function getBetterAuthVersion() {
 	return __getBetterAuthGlobal().version;
 }
-//#endregion
-//#region node_modules/@better-auth/core/dist/async_hooks/index.mjs
+// node_modules/@better-auth/core/dist/async_hooks/index.mjs
 var AsyncLocalStoragePromise = import(
 	/* @vite-ignore */
 	/* webpackIgnore: true */
@@ -781,8 +764,7 @@ async function getAsyncLocalStorage() {
 	if (mod === null) throw new Error("getAsyncLocalStorage is only available in server code");
 	else return mod;
 }
-//#endregion
-//#region node_modules/@better-auth/core/dist/context/transaction.mjs
+// node_modules/@better-auth/core/dist/context/transaction.mjs
 var ensureAsyncStorage$2 = async () => {
 	const betterAuthGlobal = __getBetterAuthGlobal();
 	const existing = betterAuthGlobal.context.adapterAsyncStorage;
@@ -866,8 +848,7 @@ var queueAfterTransactionHook = async (hook) => {
 		return hook();
 	});
 };
-//#endregion
-//#region node_modules/@better-auth/core/dist/db/get-tables.mjs
+// node_modules/@better-auth/core/dist/db/get-tables.mjs
 var getAuthTables = (options) => {
 	const pluginSchema = (options.plugins ?? []).reduce((acc, plugin) => {
 		const schema = plugin.schema;
@@ -1131,8 +1112,7 @@ var getAuthTables = (options) => {
 		...shouldAddRateLimitTable ? rateLimitTable : {}
 	};
 };
-//#endregion
-//#region node_modules/@better-auth/core/dist/utils/json.mjs
+// node_modules/@better-auth/core/dist/utils/json.mjs
 var iso8601Regex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z$/;
 function reviveDate(value) {
 	if (typeof value === "string" && iso8601Regex.test(value)) {
@@ -1170,8 +1150,7 @@ function safeJSONParse(data) {
 		return null;
 	}
 }
-//#endregion
-//#region node_modules/@opentelemetry/semantic-conventions/build/src/internal/utils.js
+// node_modules/@opentelemetry/semantic-conventions/build/src/internal/utils.js
 var require_utils = /* @__PURE__ */ __commonJSMin(((exports) => {
 	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.createConstMap = void 0;
@@ -1192,8 +1171,7 @@ var require_utils = /* @__PURE__ */ __commonJSMin(((exports) => {
 	}
 	exports.createConstMap = createConstMap;
 }));
-//#endregion
-//#region node_modules/@opentelemetry/semantic-conventions/build/src/trace/SemanticAttributes.js
+// node_modules/@opentelemetry/semantic-conventions/build/src/trace/SemanticAttributes.js
 var require_SemanticAttributes = /* @__PURE__ */ __commonJSMin(((exports) => {
 	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.SEMATTRS_NET_HOST_CARRIER_ICC = exports.SEMATTRS_NET_HOST_CARRIER_MNC = exports.SEMATTRS_NET_HOST_CARRIER_MCC = exports.SEMATTRS_NET_HOST_CARRIER_NAME = exports.SEMATTRS_NET_HOST_CONNECTION_SUBTYPE = exports.SEMATTRS_NET_HOST_CONNECTION_TYPE = exports.SEMATTRS_NET_HOST_NAME = exports.SEMATTRS_NET_HOST_PORT = exports.SEMATTRS_NET_HOST_IP = exports.SEMATTRS_NET_PEER_NAME = exports.SEMATTRS_NET_PEER_PORT = exports.SEMATTRS_NET_PEER_IP = exports.SEMATTRS_NET_TRANSPORT = exports.SEMATTRS_FAAS_INVOKED_REGION = exports.SEMATTRS_FAAS_INVOKED_PROVIDER = exports.SEMATTRS_FAAS_INVOKED_NAME = exports.SEMATTRS_FAAS_COLDSTART = exports.SEMATTRS_FAAS_CRON = exports.SEMATTRS_FAAS_TIME = exports.SEMATTRS_FAAS_DOCUMENT_NAME = exports.SEMATTRS_FAAS_DOCUMENT_TIME = exports.SEMATTRS_FAAS_DOCUMENT_OPERATION = exports.SEMATTRS_FAAS_DOCUMENT_COLLECTION = exports.SEMATTRS_FAAS_EXECUTION = exports.SEMATTRS_FAAS_TRIGGER = exports.SEMATTRS_EXCEPTION_ESCAPED = exports.SEMATTRS_EXCEPTION_STACKTRACE = exports.SEMATTRS_EXCEPTION_MESSAGE = exports.SEMATTRS_EXCEPTION_TYPE = exports.SEMATTRS_DB_SQL_TABLE = exports.SEMATTRS_DB_MONGODB_COLLECTION = exports.SEMATTRS_DB_REDIS_DATABASE_INDEX = exports.SEMATTRS_DB_HBASE_NAMESPACE = exports.SEMATTRS_DB_CASSANDRA_COORDINATOR_DC = exports.SEMATTRS_DB_CASSANDRA_COORDINATOR_ID = exports.SEMATTRS_DB_CASSANDRA_SPECULATIVE_EXECUTION_COUNT = exports.SEMATTRS_DB_CASSANDRA_IDEMPOTENCE = exports.SEMATTRS_DB_CASSANDRA_TABLE = exports.SEMATTRS_DB_CASSANDRA_CONSISTENCY_LEVEL = exports.SEMATTRS_DB_CASSANDRA_PAGE_SIZE = exports.SEMATTRS_DB_CASSANDRA_KEYSPACE = exports.SEMATTRS_DB_MSSQL_INSTANCE_NAME = exports.SEMATTRS_DB_OPERATION = exports.SEMATTRS_DB_STATEMENT = exports.SEMATTRS_DB_NAME = exports.SEMATTRS_DB_JDBC_DRIVER_CLASSNAME = exports.SEMATTRS_DB_USER = exports.SEMATTRS_DB_CONNECTION_STRING = exports.SEMATTRS_DB_SYSTEM = exports.SEMATTRS_AWS_LAMBDA_INVOKED_ARN = void 0;
@@ -3434,10 +3412,9 @@ var require_SemanticAttributes = /* @__PURE__ */ __commonJSMin(((exports) => {
 	*/
 	exports.MessageTypeValues = /*#__PURE__*/ (0, utils_1.createConstMap)([TMP_MESSAGETYPEVALUES_SENT, TMP_MESSAGETYPEVALUES_RECEIVED]);
 }));
-//#endregion
-//#region node_modules/@opentelemetry/semantic-conventions/build/src/trace/index.js
-var require_trace = /* @__PURE__ */ __commonJSMin(((exports) => {
-	var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o, m, k, k2) {
+// node_modules/@opentelemetry/semantic-conventions/build/src/trace/index.js
+var require_trace = /* @__PURE__ */ __commonJSMin(((exports, module, this$3) => {
+	var __createBinding = this$3 && this$3.__createBinding || (Object.create ? (function(o, m, k, k2) {
 		if (k2 === void 0) k2 = k;
 		var desc = Object.getOwnPropertyDescriptor(m, k);
 		if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) desc = {
@@ -3451,14 +3428,13 @@ var require_trace = /* @__PURE__ */ __commonJSMin(((exports) => {
 		if (k2 === void 0) k2 = k;
 		o[k2] = m[k];
 	}));
-	var __exportStar = exports && exports.__exportStar || function(m, exports$3) {
-		for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports$3, p)) __createBinding(exports$3, m, p);
+	var __exportStar = this$3 && this$3.__exportStar || function(m, exports) {
+		for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 	};
 	Object.defineProperty(exports, "__esModule", { value: true });
 	__exportStar(require_SemanticAttributes(), exports);
 }));
-//#endregion
-//#region node_modules/@opentelemetry/semantic-conventions/build/src/resource/SemanticResourceAttributes.js
+// node_modules/@opentelemetry/semantic-conventions/build/src/resource/SemanticResourceAttributes.js
 var require_SemanticResourceAttributes = /* @__PURE__ */ __commonJSMin(((exports) => {
 	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.SEMRESATTRS_K8S_STATEFULSET_NAME = exports.SEMRESATTRS_K8S_STATEFULSET_UID = exports.SEMRESATTRS_K8S_DEPLOYMENT_NAME = exports.SEMRESATTRS_K8S_DEPLOYMENT_UID = exports.SEMRESATTRS_K8S_REPLICASET_NAME = exports.SEMRESATTRS_K8S_REPLICASET_UID = exports.SEMRESATTRS_K8S_CONTAINER_NAME = exports.SEMRESATTRS_K8S_POD_NAME = exports.SEMRESATTRS_K8S_POD_UID = exports.SEMRESATTRS_K8S_NAMESPACE_NAME = exports.SEMRESATTRS_K8S_NODE_UID = exports.SEMRESATTRS_K8S_NODE_NAME = exports.SEMRESATTRS_K8S_CLUSTER_NAME = exports.SEMRESATTRS_HOST_IMAGE_VERSION = exports.SEMRESATTRS_HOST_IMAGE_ID = exports.SEMRESATTRS_HOST_IMAGE_NAME = exports.SEMRESATTRS_HOST_ARCH = exports.SEMRESATTRS_HOST_TYPE = exports.SEMRESATTRS_HOST_NAME = exports.SEMRESATTRS_HOST_ID = exports.SEMRESATTRS_FAAS_MAX_MEMORY = exports.SEMRESATTRS_FAAS_INSTANCE = exports.SEMRESATTRS_FAAS_VERSION = exports.SEMRESATTRS_FAAS_ID = exports.SEMRESATTRS_FAAS_NAME = exports.SEMRESATTRS_DEVICE_MODEL_NAME = exports.SEMRESATTRS_DEVICE_MODEL_IDENTIFIER = exports.SEMRESATTRS_DEVICE_ID = exports.SEMRESATTRS_DEPLOYMENT_ENVIRONMENT = exports.SEMRESATTRS_CONTAINER_IMAGE_TAG = exports.SEMRESATTRS_CONTAINER_IMAGE_NAME = exports.SEMRESATTRS_CONTAINER_RUNTIME = exports.SEMRESATTRS_CONTAINER_ID = exports.SEMRESATTRS_CONTAINER_NAME = exports.SEMRESATTRS_AWS_LOG_STREAM_ARNS = exports.SEMRESATTRS_AWS_LOG_STREAM_NAMES = exports.SEMRESATTRS_AWS_LOG_GROUP_ARNS = exports.SEMRESATTRS_AWS_LOG_GROUP_NAMES = exports.SEMRESATTRS_AWS_EKS_CLUSTER_ARN = exports.SEMRESATTRS_AWS_ECS_TASK_REVISION = exports.SEMRESATTRS_AWS_ECS_TASK_FAMILY = exports.SEMRESATTRS_AWS_ECS_TASK_ARN = exports.SEMRESATTRS_AWS_ECS_LAUNCHTYPE = exports.SEMRESATTRS_AWS_ECS_CLUSTER_ARN = exports.SEMRESATTRS_AWS_ECS_CONTAINER_ARN = exports.SEMRESATTRS_CLOUD_PLATFORM = exports.SEMRESATTRS_CLOUD_AVAILABILITY_ZONE = exports.SEMRESATTRS_CLOUD_REGION = exports.SEMRESATTRS_CLOUD_ACCOUNT_ID = exports.SEMRESATTRS_CLOUD_PROVIDER = void 0;
@@ -4648,10 +4624,9 @@ var require_SemanticResourceAttributes = /* @__PURE__ */ __commonJSMin(((exports
 		TMP_TELEMETRYSDKLANGUAGEVALUES_WEBJS
 	]);
 }));
-//#endregion
-//#region node_modules/@opentelemetry/semantic-conventions/build/src/resource/index.js
-var require_resource = /* @__PURE__ */ __commonJSMin(((exports) => {
-	var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o, m, k, k2) {
+// node_modules/@opentelemetry/semantic-conventions/build/src/resource/index.js
+var require_resource = /* @__PURE__ */ __commonJSMin(((exports, module, this$2) => {
+	var __createBinding = this$2 && this$2.__createBinding || (Object.create ? (function(o, m, k, k2) {
 		if (k2 === void 0) k2 = k;
 		var desc = Object.getOwnPropertyDescriptor(m, k);
 		if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) desc = {
@@ -4665,14 +4640,13 @@ var require_resource = /* @__PURE__ */ __commonJSMin(((exports) => {
 		if (k2 === void 0) k2 = k;
 		o[k2] = m[k];
 	}));
-	var __exportStar = exports && exports.__exportStar || function(m, exports$2) {
-		for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports$2, p)) __createBinding(exports$2, m, p);
+	var __exportStar = this$2 && this$2.__exportStar || function(m, exports) {
+		for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 	};
 	Object.defineProperty(exports, "__esModule", { value: true });
 	__exportStar(require_SemanticResourceAttributes(), exports);
 }));
-//#endregion
-//#region node_modules/@opentelemetry/semantic-conventions/build/src/stable_attributes.js
+// node_modules/@opentelemetry/semantic-conventions/build/src/stable_attributes.js
 var require_stable_attributes = /* @__PURE__ */ __commonJSMin(((exports) => {
 	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.DOTNET_GC_HEAP_GENERATION_VALUE_GEN1 = exports.DOTNET_GC_HEAP_GENERATION_VALUE_GEN0 = exports.ATTR_DOTNET_GC_HEAP_GENERATION = exports.DEPLOYMENT_ENVIRONMENT_NAME_VALUE_TEST = exports.DEPLOYMENT_ENVIRONMENT_NAME_VALUE_STAGING = exports.DEPLOYMENT_ENVIRONMENT_NAME_VALUE_PRODUCTION = exports.DEPLOYMENT_ENVIRONMENT_NAME_VALUE_DEVELOPMENT = exports.ATTR_DEPLOYMENT_ENVIRONMENT_NAME = exports.DB_SYSTEM_NAME_VALUE_POSTGRESQL = exports.DB_SYSTEM_NAME_VALUE_MYSQL = exports.DB_SYSTEM_NAME_VALUE_MICROSOFT_SQL_SERVER = exports.DB_SYSTEM_NAME_VALUE_MARIADB = exports.ATTR_DB_SYSTEM_NAME = exports.ATTR_DB_STORED_PROCEDURE_NAME = exports.ATTR_DB_RESPONSE_STATUS_CODE = exports.ATTR_DB_QUERY_TEXT = exports.ATTR_DB_QUERY_SUMMARY = exports.ATTR_DB_OPERATION_NAME = exports.ATTR_DB_OPERATION_BATCH_SIZE = exports.ATTR_DB_NAMESPACE = exports.ATTR_DB_COLLECTION_NAME = exports.ATTR_CONTAINER_IMAGE_TAGS = exports.ATTR_CONTAINER_IMAGE_REPO_DIGESTS = exports.ATTR_CONTAINER_IMAGE_NAME = exports.ATTR_CONTAINER_ID = exports.ATTR_CODE_STACKTRACE = exports.ATTR_CODE_LINE_NUMBER = exports.ATTR_CODE_FUNCTION_NAME = exports.ATTR_CODE_FILE_PATH = exports.ATTR_CODE_COLUMN_NUMBER = exports.ATTR_CLIENT_PORT = exports.ATTR_CLIENT_ADDRESS = exports.ATTR_ASPNETCORE_USER_IS_AUTHENTICATED = exports.ASPNETCORE_ROUTING_MATCH_STATUS_VALUE_SUCCESS = exports.ASPNETCORE_ROUTING_MATCH_STATUS_VALUE_FAILURE = exports.ATTR_ASPNETCORE_ROUTING_MATCH_STATUS = exports.ATTR_ASPNETCORE_ROUTING_IS_FALLBACK = exports.ATTR_ASPNETCORE_REQUEST_IS_UNHANDLED = exports.ASPNETCORE_RATE_LIMITING_RESULT_VALUE_REQUEST_CANCELED = exports.ASPNETCORE_RATE_LIMITING_RESULT_VALUE_GLOBAL_LIMITER = exports.ASPNETCORE_RATE_LIMITING_RESULT_VALUE_ENDPOINT_LIMITER = exports.ASPNETCORE_RATE_LIMITING_RESULT_VALUE_ACQUIRED = exports.ATTR_ASPNETCORE_RATE_LIMITING_RESULT = exports.ATTR_ASPNETCORE_RATE_LIMITING_POLICY = exports.ATTR_ASPNETCORE_DIAGNOSTICS_HANDLER_TYPE = exports.ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT_VALUE_UNHANDLED = exports.ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT_VALUE_SKIPPED = exports.ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT_VALUE_HANDLED = exports.ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT_VALUE_ABORTED = exports.ATTR_ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT = void 0;
@@ -6425,8 +6399,7 @@ var require_stable_attributes = /* @__PURE__ */ __commonJSMin(((exports) => {
 	*/
 	exports.ATTR_USER_AGENT_ORIGINAL = "user_agent.original";
 }));
-//#endregion
-//#region node_modules/@opentelemetry/semantic-conventions/build/src/stable_metrics.js
+// node_modules/@opentelemetry/semantic-conventions/build/src/stable_metrics.js
 var require_stable_metrics = /* @__PURE__ */ __commonJSMin(((exports) => {
 	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.METRIC_SIGNALR_SERVER_ACTIVE_CONNECTIONS = exports.METRIC_KESTREL_UPGRADED_CONNECTIONS = exports.METRIC_KESTREL_TLS_HANDSHAKE_DURATION = exports.METRIC_KESTREL_REJECTED_CONNECTIONS = exports.METRIC_KESTREL_QUEUED_REQUESTS = exports.METRIC_KESTREL_QUEUED_CONNECTIONS = exports.METRIC_KESTREL_CONNECTION_DURATION = exports.METRIC_KESTREL_ACTIVE_TLS_HANDSHAKES = exports.METRIC_KESTREL_ACTIVE_CONNECTIONS = exports.METRIC_JVM_THREAD_COUNT = exports.METRIC_JVM_MEMORY_USED_AFTER_LAST_GC = exports.METRIC_JVM_MEMORY_USED = exports.METRIC_JVM_MEMORY_LIMIT = exports.METRIC_JVM_MEMORY_COMMITTED = exports.METRIC_JVM_GC_DURATION = exports.METRIC_JVM_CPU_TIME = exports.METRIC_JVM_CPU_RECENT_UTILIZATION = exports.METRIC_JVM_CPU_COUNT = exports.METRIC_JVM_CLASS_UNLOADED = exports.METRIC_JVM_CLASS_LOADED = exports.METRIC_JVM_CLASS_COUNT = exports.METRIC_HTTP_SERVER_REQUEST_DURATION = exports.METRIC_HTTP_CLIENT_REQUEST_DURATION = exports.METRIC_DOTNET_TIMER_COUNT = exports.METRIC_DOTNET_THREAD_POOL_WORK_ITEM_COUNT = exports.METRIC_DOTNET_THREAD_POOL_THREAD_COUNT = exports.METRIC_DOTNET_THREAD_POOL_QUEUE_LENGTH = exports.METRIC_DOTNET_PROCESS_MEMORY_WORKING_SET = exports.METRIC_DOTNET_PROCESS_CPU_TIME = exports.METRIC_DOTNET_PROCESS_CPU_COUNT = exports.METRIC_DOTNET_MONITOR_LOCK_CONTENTIONS = exports.METRIC_DOTNET_JIT_COMPILED_METHODS = exports.METRIC_DOTNET_JIT_COMPILED_IL_SIZE = exports.METRIC_DOTNET_JIT_COMPILATION_TIME = exports.METRIC_DOTNET_GC_PAUSE_TIME = exports.METRIC_DOTNET_GC_LAST_COLLECTION_MEMORY_COMMITTED_SIZE = exports.METRIC_DOTNET_GC_LAST_COLLECTION_HEAP_SIZE = exports.METRIC_DOTNET_GC_LAST_COLLECTION_HEAP_FRAGMENTATION_SIZE = exports.METRIC_DOTNET_GC_HEAP_TOTAL_ALLOCATED = exports.METRIC_DOTNET_GC_COLLECTIONS = exports.METRIC_DOTNET_EXCEPTIONS = exports.METRIC_DOTNET_ASSEMBLY_COUNT = exports.METRIC_DB_CLIENT_OPERATION_DURATION = exports.METRIC_ASPNETCORE_ROUTING_MATCH_ATTEMPTS = exports.METRIC_ASPNETCORE_RATE_LIMITING_REQUESTS = exports.METRIC_ASPNETCORE_RATE_LIMITING_REQUEST_LEASE_DURATION = exports.METRIC_ASPNETCORE_RATE_LIMITING_REQUEST_TIME_IN_QUEUE = exports.METRIC_ASPNETCORE_RATE_LIMITING_QUEUED_REQUESTS = exports.METRIC_ASPNETCORE_RATE_LIMITING_ACTIVE_REQUEST_LEASES = exports.METRIC_ASPNETCORE_DIAGNOSTICS_EXCEPTIONS = void 0;
@@ -6739,8 +6712,7 @@ var require_stable_metrics = /* @__PURE__ */ __commonJSMin(((exports) => {
 	*/
 	exports.METRIC_SIGNALR_SERVER_CONNECTION_DURATION = "signalr.server.connection.duration";
 }));
-//#endregion
-//#region node_modules/@opentelemetry/semantic-conventions/build/src/stable_events.js
+// node_modules/@opentelemetry/semantic-conventions/build/src/stable_events.js
 var require_stable_events = /* @__PURE__ */ __commonJSMin(((exports) => {
 	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.EVENT_EXCEPTION = void 0;
@@ -6749,10 +6721,9 @@ var require_stable_events = /* @__PURE__ */ __commonJSMin(((exports) => {
 	*/
 	exports.EVENT_EXCEPTION = "exception";
 }));
-//#endregion
-//#region node_modules/@better-auth/core/dist/instrumentation/attributes.mjs
-var import_src = (/* @__PURE__ */ __commonJSMin(((exports) => {
-	var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o, m, k, k2) {
+// node_modules/@better-auth/core/dist/instrumentation/attributes.mjs
+var import_src = (/* @__PURE__ */ __commonJSMin(((exports, module, this$1) => {
+	var __createBinding = this$1 && this$1.__createBinding || (Object.create ? (function(o, m, k, k2) {
 		if (k2 === void 0) k2 = k;
 		var desc = Object.getOwnPropertyDescriptor(m, k);
 		if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) desc = {
@@ -6766,8 +6737,8 @@ var import_src = (/* @__PURE__ */ __commonJSMin(((exports) => {
 		if (k2 === void 0) k2 = k;
 		o[k2] = m[k];
 	}));
-	var __exportStar = exports && exports.__exportStar || function(m, exports$1) {
-		for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports$1, p)) __createBinding(exports$1, m, p);
+	var __exportStar = this$1 && this$1.__exportStar || function(m, exports) {
+		for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 	};
 	Object.defineProperty(exports, "__esModule", { value: true });
 	__exportStar(require_trace(), exports);
@@ -6782,8 +6753,7 @@ var ATTR_OPERATION_ID = "better_auth.operation_id";
 var ATTR_HOOK_TYPE = "better_auth.hook.type";
 /** Execution context (e.g. user, plugin:id). */
 var ATTR_CONTEXT = "better_auth.context";
-//#endregion
-//#region node_modules/@better-auth/core/dist/instrumentation/noop.mjs
+// node_modules/@better-auth/core/dist/instrumentation/noop.mjs
 function createNoopSpan() {
 	const span = {
 		end() {},
@@ -6826,8 +6796,7 @@ var noopOpenTelemetryAPI = createNoopOpenTelemetryAPI();
 function noopWithSpan(_name, _attributes, fn) {
 	return fn();
 }
-//#endregion
-//#region node_modules/@better-auth/core/dist/instrumentation/api.mjs
+// node_modules/@better-auth/core/dist/instrumentation/api.mjs
 var openTelemetryAPIPromise;
 var openTelemetryAPI;
 function getOpenTelemetryAPI() {
@@ -6836,8 +6805,7 @@ function getOpenTelemetryAPI() {
 	}).catch(() => void 0);
 	return openTelemetryAPI ?? noopOpenTelemetryAPI;
 }
-//#endregion
-//#region node_modules/@better-auth/core/dist/instrumentation/tracer.mjs
+// node_modules/@better-auth/core/dist/instrumentation/tracer.mjs
 var INSTRUMENTATION_SCOPE = "better-auth";
 var INSTRUMENTATION_VERSION = "1.6.33";
 /**
@@ -6892,8 +6860,7 @@ function withSpan(name, attributes, fn) {
 function createWithSpan(options) {
 	return options.experimental?.instrumentation?.enabled === false ? noopWithSpan : withSpan;
 }
-//#endregion
-//#region node_modules/@better-auth/core/dist/db/adapter/factory.mjs
+// node_modules/@better-auth/core/dist/db/adapter/factory.mjs
 var debugLogs = [];
 var transactionId = -1;
 var createAsIsTransaction = (adapter) => (fn) => fn(adapter);
@@ -7783,8 +7750,7 @@ function formatMethod(method) {
 function formatAction(action) {
 	return `${TTY_COLORS.dim}(${action})${TTY_COLORS.reset}`;
 }
-//#endregion
-//#region node_modules/@better-auth/core/dist/utils/string.mjs
+// node_modules/@better-auth/core/dist/utils/string.mjs
 function capitalizeFirstLetter(str) {
 	return str.charAt(0).toUpperCase() + str.slice(1);
 }
@@ -7796,8 +7762,7 @@ function splitWords(input) {
 function toKebabCase(input) {
 	return splitWords(input).map((word) => word.toLowerCase()).join("-");
 }
-//#endregion
-//#region node_modules/zod/v4/core/util.js
+// node_modules/zod/v4/core/util.js
 function getEnumValues(entries) {
 	const numericValues = Object.values(entries).filter((v) => typeof v === "number");
 	return Object.entries(entries).filter(([k, _]) => numericValues.indexOf(+k) === -1).map(([_, v]) => v);
@@ -8104,6 +8069,17 @@ function prefixIssues(path, issues) {
 function unwrapMessage(message) {
 	return typeof message === "string" ? message : message?.message;
 }
+/** The leading size checks of `defChecks` that set an upper bound, each paired with it. */
+function sizeCaps(defChecks) {
+	const caps = [];
+	for (const ch of defChecks ?? []) {
+		const d = ch._zod.def;
+		if (!/_(length|size)$|_equals$/.test(d.check)) break;
+		const max = d.maximum ?? d.length ?? d.size;
+		if (max >= 0) caps.push([max, ch]);
+	}
+	return caps;
+}
 function attachSchema(issues, start, inst) {
 	var _a;
 	for (let i = start; i < issues.length; i++) (_a = issues[i]).schema ?? (_a.schema = inst);
@@ -8196,6 +8172,7 @@ function hide(inst, key, value) {
 	return own(inst, key, value, false);
 }
 /** Adds members a table derives from the instance: each builds on first read and shadows as own data, and assignment shadows the same way, as when these were own properties. */
+/* @__NO_SIDE_EFFECTS__ */
 function derived(computes, table) {
 	for (const key in computes) {
 		const compute = computes[key];
@@ -8319,8 +8296,7 @@ function constantCatch(value) {
 	fn[CONSTANT_CATCH] = true;
 	return fn;
 }
-//#endregion
-//#region node_modules/zod/v4/core/core.js
+// node_modules/zod/v4/core/core.js
 var _a$1;
 var _zodDesc = {
 	value: void 0,
@@ -8347,6 +8323,7 @@ function newError(Definition) {
 	}
 	return new Definition();
 }
+/* @__NO_SIDE_EFFECTS__ */
 function $constructor(name, initializer, proto, params) {
 	const zodProto = {};
 	function Internals(def) {
@@ -8425,8 +8402,7 @@ function config(newConfig) {
 	if (newConfig) Object.assign(globalConfig, newConfig);
 	return globalConfig;
 }
-//#endregion
-//#region node_modules/zod/v4/core/errors.js
+// node_modules/zod/v4/core/errors.js
 function _getMessage() {
 	const internals = this._zod;
 	internals.message ?? (internals.message = JSON.stringify(internals.def, jsonStringifyReplacer, 2));
@@ -8477,8 +8453,7 @@ var initializer$1 = (inst, def) => {
 		});
 	}
 };
-var $ZodError = $constructor("$ZodError", initializer$1);
-$constructor("$ZodError", initializer$1, void 0, { Parent: Error });
+var $ZodError = /* @__PURE__ */ $constructor("$ZodError", initializer$1);
 /** Get-or-create `obj[key]` as an own data property. A path segment naming an inherited member
 * ("toString", "constructor") would otherwise read through to the prototype, and assigning
 * "__proto__" would hit the setter instead of creating a key. */
@@ -8541,8 +8516,7 @@ function formatError(error, mapper = (issue) => issue.message) {
 	processError(error);
 	return fieldErrors;
 }
-//#endregion
-//#region node_modules/zod/v4/core/parse.js
+// node_modules/zod/v4/core/parse.js
 function finalizeParams(callee, params) {
 	return {
 		callee: params?.callee ?? callee,
@@ -8744,8 +8718,7 @@ var _safeEncodeAsync = (_Err) => async (schema, value, _ctx) => {
 var _safeDecodeAsync = (_Err) => async (schema, value, _ctx) => {
 	return _safeParseAsync(_Err)(schema, value, _ctx);
 };
-//#endregion
-//#region node_modules/zod/v4/core/regexes.js
+// node_modules/zod/v4/core/regexes.js
 /**
 * @deprecated CUID v1 is deprecated by its authors due to information leakage
 * (timestamps embedded in the id). Use {@link cuid2} instead.
@@ -8816,8 +8789,7 @@ var number$1 = /^-?\d+(?:\.\d+)?$/;
 var boolean$1 = /^(?:true|false)$/i;
 var lowercase = /^[^A-Z]*$/;
 var uppercase = /^[^a-z]*$/;
-//#endregion
-//#region node_modules/zod/v4/core/checks.js
+// node_modules/zod/v4/core/checks.js
 var $ZodCheck = /*@__PURE__*/ $constructor("$ZodCheck", (inst, def) => {
 	var _a;
 	inst._zod ?? (inst._zod = {});
@@ -9112,8 +9084,7 @@ var $ZodCheckOverwrite = /*@__PURE__*/ $constructor("$ZodCheckOverwrite", (inst,
 		payload.value = def.tx(payload.value);
 	};
 });
-//#endregion
-//#region node_modules/zod/v4/core/doc.js
+// node_modules/zod/v4/core/doc.js
 var Doc = class {
 	constructor(args = [], closed = {}) {
 		this.content = [];
@@ -9146,15 +9117,13 @@ var Doc = class {
 		return new F(...Object.keys(this.closed), `return function (${this.args.join(", ")}) {\n${content.join("\n")}\n};`)(...Object.values(this.closed));
 	}
 };
-//#endregion
-//#region node_modules/zod/v4/core/versions.js
+// node_modules/zod/v4/core/versions.js
 var version = {
 	major: 4,
 	minor: 6,
-	patch: 5
+	patch: 7
 };
-//#endregion
-//#region node_modules/zod/v4/core/schemas.js
+// node_modules/zod/v4/core/schemas.js
 var $ZodType = /*@__PURE__*/ $constructor("$ZodType", (inst, def) => {
 	var _a;
 	inst ?? (inst = {});
@@ -9655,6 +9624,26 @@ var $ZodNever = /*@__PURE__*/ $constructor("$ZodNever", (inst, def) => {
 		return payload;
 	};
 });
+function capSize(inst, size) {
+	const caps = sizeCaps(inst._zod.def.checks);
+	if (!caps.length) return;
+	const cap = Math.min(...caps.map((c) => c[0]));
+	const parse = inst._zod.parse;
+	inst._zod.parse = (payload, ctx) => {
+		const n = size(payload.value);
+		if (n > cap && !ctx?.skipChecks && ctx?.direction !== "backward") {
+			for (const [max, ch] of sizeCaps(inst._zod.def.checks)) if (n > max && ch._zod.def.when(payload)) {
+				const start = payload.issues.length;
+				ch._zod.check(payload);
+				payload.issues[start].continue = false;
+				attachSchema(payload.issues, start, inst);
+				return payload;
+			}
+		}
+		return parse(payload, ctx);
+	};
+}
+var arraySize = (input) => Array.isArray(input) ? input.length : -1;
 function handleArrayResult(result, final, index) {
 	if (result.issues.length) final.issues.push(...prefixIssues(index, result.issues));
 	final.value[index] = result.value;
@@ -9692,6 +9681,7 @@ var $ZodArray = /*@__PURE__*/ $constructor("$ZodArray", (inst, def) => {
 		if (proms.length) return Promise.all(proms).then(() => payload);
 		return payload;
 	};
+	capSize(inst, arraySize);
 });
 function handlePropertyResult(result, final, key, input, optin, optout) {
 	const isPresent = key in input;
@@ -10527,8 +10517,7 @@ function handleRefineResult(result, payload, input, inst) {
 		payload.issues.push(issue(_iss));
 	}
 }
-//#endregion
-//#region node_modules/zod/v4/core/memoizer.js
+// node_modules/zod/v4/core/memoizer.js
 var $ZodCyclicError = class extends Error {
 	constructor() {
 		super(`Cannot parse a reference cycle that closes through a transform`);
@@ -10780,8 +10769,7 @@ function isBackEdge(ctx, value) {
 	const backEdges = ctx[STATE]?.backEdges;
 	return backEdges !== void 0 && isRef(value) && backEdges.has(value);
 }
-//#endregion
-//#region node_modules/zod/v4/locales/en.js
+// node_modules/zod/v4/locales/en.js
 var error = () => {
 	const Sizable = {
 		string: {
@@ -10888,8 +10876,7 @@ var error = () => {
 function en_default() {
 	return { localeError: error() };
 }
-//#endregion
-//#region node_modules/zod/v4/core/registries.js
+// node_modules/zod/v4/core/registries.js
 var _a;
 var $ZodRegistry = class {
 	constructor() {
@@ -10935,8 +10922,7 @@ function registry() {
 }
 (_a = globalThis).__zod_globalRegistry ?? (_a.__zod_globalRegistry = registry());
 var globalRegistry = globalThis.__zod_globalRegistry;
-//#endregion
-//#region node_modules/zod/v4/core/api.js
+// node_modules/zod/v4/core/api.js
 function snapshotChecks(def) {
 	if (def.checks) def.checks = [...def.checks];
 	return def;
@@ -11464,8 +11450,7 @@ function _check(fn, params) {
 	ch._zod.check = fn;
 	return ch;
 }
-//#endregion
-//#region node_modules/zod/v4/core/to-json-schema.js
+// node_modules/zod/v4/core/to-json-schema.js
 function assignProps(target, ...sources) {
 	for (const source of sources) for (const key of Reflect.ownKeys(source)) if (Object.prototype.propertyIsEnumerable.call(source, key)) assignProp(target, key, source[key]);
 	return target;
@@ -11908,8 +11893,7 @@ var createStandardJSONSchemaMethod = (schema, io, processors = {}) => (params) =
 	extractDefs(ctx, schema);
 	return finalize(ctx, schema);
 };
-//#endregion
-//#region node_modules/zod/v4/core/json-schema-processors.js
+// node_modules/zod/v4/core/json-schema-processors.js
 var narrowMin = (agg, key, value) => {
 	if (agg[key] === void 0 || value > agg[key]) agg[key] = value;
 };
@@ -12356,8 +12340,7 @@ var optionalProcessor = (schema, ctx, _json, params) => {
 	const seen = ctx.seen.get(schema);
 	seen.ref = def.innerType;
 };
-//#endregion
-//#region node_modules/zod/v4/classic/errors.js
+// node_modules/zod/v4/classic/errors.js
 var _installedErrorProtos = /* @__PURE__ */ new WeakSet([Object.prototype, Error.prototype]);
 function _lazyMethod(proto, key, make) {
 	Object.defineProperty(proto, key, {
@@ -12406,8 +12389,7 @@ var initializer = (inst, issues) => {
 	});
 };
 var ZodRealError = /*@__PURE__*/ $constructor("ZodError", initializer, void 0, { Parent: Error });
-//#endregion
-//#region node_modules/zod/v4/classic/parse.js
+// node_modules/zod/v4/classic/parse.js
 var parse = /* @__PURE__ */ _parse(ZodRealError);
 var parseAsync = /* @__PURE__ */ _parseAsync(ZodRealError);
 var safeParse = /* @__PURE__ */ _safeParse(ZodRealError);
@@ -12420,8 +12402,7 @@ var safeEncode = /* @__PURE__ */ _safeEncode(ZodRealError);
 var safeDecode = /* @__PURE__ */ _safeDecode(ZodRealError);
 var safeEncodeAsync = /* @__PURE__ */ _safeEncodeAsync(ZodRealError);
 var safeDecodeAsync = /* @__PURE__ */ _safeDecodeAsync(ZodRealError);
-//#endregion
-//#region node_modules/zod/v4/classic/schemas.js
+// node_modules/zod/v4/classic/schemas.js
 function _ensureDefaultLocale() {
 	if (!globalConfig.localeError) config(en_default());
 }
@@ -13313,8 +13294,7 @@ function refine(fn, _params = {}) {
 function superRefine(fn, params) {
 	return /* @__PURE__ */ _superRefine(fn, params);
 }
-//#endregion
-//#region node_modules/@better-auth/core/dist/utils/url.mjs
+// node_modules/@better-auth/core/dist/utils/url.mjs
 /**
 * Normalizes a request pathname by removing the basePath prefix and trailing slashes.
 * This is useful for matching paths against configured path lists.
@@ -13373,8 +13353,7 @@ function isSafeUrlScheme(value) {
 	}
 	return !DANGEROUS_URL_SCHEMES.includes(parsed.protocol);
 }
-//#endregion
-//#region node_modules/@better-fetch/fetch/dist/index.js
+// node_modules/@better-fetch/fetch/dist/index.js
 var __defProp = Object.defineProperty;
 var __defProps = Object.defineProperties;
 var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
@@ -13849,8 +13828,7 @@ var betterFetch = async (url, options) => {
 		})
 	};
 };
-//#endregion
-//#region node_modules/jose/dist/webapi/lib/buffer_utils.js
+// node_modules/jose/dist/webapi/lib/buffer_utils.js
 var encoder = new TextEncoder();
 var decoder = new TextDecoder();
 var strictDecoder = new TextDecoder("utf-8", { fatal: true });
@@ -13896,8 +13874,7 @@ function encode$1(string) {
 	}
 	return bytes;
 }
-//#endregion
-//#region node_modules/jose/dist/webapi/lib/crypto_key.js
+// node_modules/jose/dist/webapi/lib/crypto_key.js
 var unusable = (name, prop = "algorithm.name") => /* @__PURE__ */ new TypeError(`CryptoKey does not support this operation, its ${prop} must be ${name}`);
 function checkUsage(key, usage) {
 	if (usage && !key.usages.includes(usage)) throw new TypeError(`CryptoKey does not support this operation, its usages must include ${usage}.`);
@@ -13914,8 +13891,7 @@ function checkCryptoKey(key, expected, usage) {
 	if (expected.length !== void 0 && algorithm.length !== expected.length) throw unusable(expected.length, "algorithm.length");
 	checkUsage(key, usage);
 }
-//#endregion
-//#region node_modules/jose/dist/webapi/lib/invalid_key_input.js
+// node_modules/jose/dist/webapi/lib/invalid_key_input.js
 function message(msg, actual, ...types) {
 	if (types.length > 2) {
 		const last = types.pop();
@@ -13931,8 +13907,7 @@ function message(msg, actual, ...types) {
 }
 var invalidKeyInput = (actual, ...types) => message("Key must be ", actual, ...types);
 var withAlg = (alg, actual, ...types) => message(`Key for the ${alg} algorithm must be `, actual, ...types);
-//#endregion
-//#region node_modules/jose/dist/webapi/util/errors.js
+// node_modules/jose/dist/webapi/util/errors.js
 var JOSEError = class extends Error {
 	static code = "ERR_JOSE_GENERIC";
 	code = "ERR_JOSE_GENERIC";
@@ -14040,8 +14015,7 @@ var JWSSignatureVerificationFailed = class extends JOSEError {
 		super(message, options);
 	}
 };
-//#endregion
-//#region node_modules/jose/dist/webapi/lib/is_key_like.js
+// node_modules/jose/dist/webapi/lib/is_key_like.js
 function assertCryptoKey(key) {
 	if (!isCryptoKey(key)) throw new Error("CryptoKey instance expected");
 }
@@ -14055,8 +14029,7 @@ var isCryptoKey = (key) => {
 };
 var isKeyObject = (key) => key?.[Symbol.toStringTag] === "KeyObject";
 var isKeyLike = (key) => isCryptoKey(key) || isKeyObject(key);
-//#endregion
-//#region node_modules/jose/dist/webapi/lib/base64.js
+// node_modules/jose/dist/webapi/lib/base64.js
 function encodeBase64(input) {
 	if (Uint8Array.prototype.toBase64) return input.toBase64();
 	const CHUNK_SIZE = 32768;
@@ -14071,8 +14044,7 @@ function decodeBase64(encoded) {
 	for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
 	return bytes;
 }
-//#endregion
-//#region node_modules/jose/dist/webapi/util/base64url.js
+// node_modules/jose/dist/webapi/util/base64url.js
 var invalid = "The input to be decoded is not correctly encoded.";
 function decode(input) {
 	if (Uint8Array.fromBase64) try {
@@ -14099,8 +14071,7 @@ function encode(input) {
 	});
 	return encodeBase64(unencoded).replace(/=/g, "").replace(/\+/g, "-").replace(/\//g, "_");
 }
-//#endregion
-//#region node_modules/jose/dist/webapi/lib/type_checks.js
+// node_modules/jose/dist/webapi/lib/type_checks.js
 function isObject(input) {
 	if (typeof input !== "object" || input === null || Object.prototype.toString.call(input) !== "[object Object]") return false;
 	const prototype = Object.getPrototypeOf(input);
@@ -14124,8 +14095,7 @@ var isJWK = (key) => isObject(key) && typeof key.kty === "string";
 var isPrivateJWK = (key) => key.kty !== "oct" && (key.kty === "AKP" && typeof key.priv === "string" || typeof key.d === "string");
 var isPublicJWK = (key) => key.kty !== "oct" && key.d === void 0 && key.priv === void 0;
 var isSecretJWK = (key) => key.kty === "oct" && typeof key.k === "string";
-//#endregion
-//#region node_modules/jose/dist/webapi/lib/helpers.js
+// node_modules/jose/dist/webapi/lib/helpers.js
 var unprotected = Symbol();
 function assertNotSet(value, name) {
 	if (value) throw new TypeError(`${name} can only be called once`);
@@ -14158,8 +14128,7 @@ function parseJoseHeader(b64, ErrorClass, message) {
 	if (!isObject(parsed)) throw new ErrorClass(message);
 	return parsed;
 }
-//#endregion
-//#region node_modules/jose/dist/webapi/lib/jwk_to_key.js
+// node_modules/jose/dist/webapi/lib/jwk_to_key.js
 async function jwkToKey(entry, jwk) {
 	if (jwk.kty === "RSA" && "oth" in jwk && jwk.oth !== void 0) throw new JOSENotSupported("RSA JWK \"oth\" (Other Primes Info) Parameter value is not supported");
 	if (!entry.kty.includes(jwk.kty)) throw new JOSENotSupported("Invalid or unsupported JWK \"alg\" (Algorithm) Parameter value");
@@ -14173,8 +14142,7 @@ async function jwkToKey(entry, jwk) {
 	delete keyData.use;
 	return crypto.subtle.importKey("jwk", keyData, algorithm, jwk.ext ?? !isPrivate, jwk.key_ops ?? entry.usages[isPrivate ? 1 : 0]);
 }
-//#endregion
-//#region node_modules/jose/dist/webapi/lib/key.js
+// node_modules/jose/dist/webapi/lib/key.js
 var tag = (key) => key[Symbol.toStringTag];
 var jwkMatchesOp = (entry, key, usage) => {
 	const { alg } = entry;
@@ -14273,8 +14241,7 @@ async function prepareKey(entry, key, usage) {
 		}
 	}
 }
-//#endregion
-//#region node_modules/jose/dist/webapi/lib/key_descriptor.js
+// node_modules/jose/dist/webapi/lib/key_descriptor.js
 function table(entries) {
 	const out = { __proto__: null };
 	for (const alg in entries) out[alg] = {
@@ -14283,8 +14250,7 @@ function table(entries) {
 	};
 	return out;
 }
-//#endregion
-//#region node_modules/jose/dist/webapi/lib/jwe_algorithms.js
+// node_modules/jose/dist/webapi/lib/jwe_algorithms.js
 var wrap = [["encrypt", "wrapKey"], ["decrypt", "unwrapKey"]];
 var derive = [[], ["deriveBits"]];
 var none = [[], []];
@@ -14395,8 +14361,7 @@ function jweAlgorithm(alg) {
 function jweEncryption(enc) {
 	return (typeof enc === "string" ? ENC[enc] : void 0) ?? unsupported("enc", "Encryption Algorithm");
 }
-//#endregion
-//#region node_modules/jose/dist/webapi/lib/options.js
+// node_modules/jose/dist/webapi/lib/options.js
 var JWS_RECOGNIZED = {
 	__proto__: null,
 	b64: true
@@ -14427,8 +14392,7 @@ function validateCrit(Err, recognizedDefault, recognizedOption, protectedHeader,
 	}
 	return protectedHeader.crit;
 }
-//#endregion
-//#region node_modules/jose/dist/webapi/lib/signing.js
+// node_modules/jose/dist/webapi/lib/signing.js
 async function getSigKey(entry, key, usage) {
 	if (key instanceof Uint8Array) return crypto.subtle.importKey("raw", key, entry.subtle, false, [usage]);
 	checkCryptoKey(key, entry.subtle, usage);
@@ -14448,8 +14412,7 @@ async function verify(entry, key, signature, data) {
 		return false;
 	}
 }
-//#endregion
-//#region node_modules/jose/dist/webapi/lib/jws_algorithms.js
+// node_modules/jose/dist/webapi/lib/jws_algorithms.js
 var sig = [["verify"], ["sign"]];
 function hmac(bits) {
 	const subtle = {
@@ -14538,8 +14501,7 @@ function jwsAlgorithm(alg) {
 	if (!entry) throw new JOSENotSupported(`alg ${alg} is not supported either by JOSE or your javascript runtime`);
 	return entry;
 }
-//#endregion
-//#region node_modules/jose/dist/webapi/lib/jws_verify.js
+// node_modules/jose/dist/webapi/lib/jws_verify.js
 function prepareVerify(options) {
 	return [options && validateAlgorithms("algorithms", options.algorithms), options?.crit];
 }
@@ -14600,8 +14562,7 @@ async function verifyCompact(jws, shared, key) {
 		signature
 	}, shared, key);
 }
-//#endregion
-//#region node_modules/jose/dist/webapi/lib/jwt_claims_set.js
+// node_modules/jose/dist/webapi/lib/jwt_claims_set.js
 var epoch = (date) => Math.floor(date.getTime() / 1e3);
 var multipliers = {
 	s: 1,
@@ -14735,8 +14696,7 @@ var JWTClaimsBuilder = class {
 		else this.#payload.iat = numericDate(value, "setIssuedAt");
 	}
 };
-//#endregion
-//#region node_modules/jose/dist/webapi/jwt/verify.js
+// node_modules/jose/dist/webapi/jwt/verify.js
 async function jwtVerify(jwt, key, options) {
 	const verified = await verifyCompact(jwt, prepareVerify(options), key);
 	if (!verified[2]) throw new JWTInvalid("JWTs MUST NOT use unencoded payload");
@@ -14750,16 +14710,14 @@ async function jwtVerify(jwt, key, options) {
 	};
 	return result;
 }
-//#endregion
-//#region node_modules/jose/dist/webapi/lib/key_algorithm.js
+// node_modules/jose/dist/webapi/lib/key_algorithm.js
 function unsupportedAlg(source = "JWK \"alg\" (Algorithm) Parameter") {
 	throw new JOSENotSupported(`Invalid or unsupported ${source} value`);
 }
 function keyAlgorithm(alg, source) {
 	return (typeof alg === "string" ? JWS[alg] ?? JWE[alg] : void 0) ?? unsupportedAlg(source);
 }
-//#endregion
-//#region node_modules/jose/dist/webapi/jwks/local.js
+// node_modules/jose/dist/webapi/jwks/local.js
 function signatureAlgorithm(alg) {
 	const entry = typeof alg === "string" ? JWS[alg] : void 0;
 	if (!entry || entry.secret) throw new JOSENotSupported("Unsupported \"alg\" value for a JSON Web Key Set");
@@ -14821,8 +14779,7 @@ function createLocalJWKSet(jwks) {
 	Object.defineProperty(localJWKSet, "jwks", { value: () => structuredClone(set.jwks()) });
 	return localJWKSet;
 }
-//#endregion
-//#region node_modules/jose/dist/webapi/jwks/remote.js
+// node_modules/jose/dist/webapi/jwks/remote.js
 function isCloudflareWorkers() {
 	return typeof WebSocketPair !== "undefined" || typeof navigator !== "undefined" && navigator.userAgent === "Cloudflare-Workers" || typeof EdgeRuntime !== "undefined" && EdgeRuntime === "vercel";
 }
@@ -14958,8 +14915,7 @@ function createRemoteJWKSet(url, options) {
 	});
 	return remoteJWKSet;
 }
-//#endregion
-//#region node_modules/jose/dist/webapi/key/import.js
+// node_modules/jose/dist/webapi/key/import.js
 async function importJWK(jwk, alg, options) {
 	if (!isObject(jwk)) throw new TypeError("JWK must be an object");
 	alg ??= jwk.alg;
@@ -14990,8 +14946,7 @@ async function importJWK(jwk, alg, options) {
 		default: throw new JOSENotSupported("Unsupported \"kty\" (Key Type) Parameter value");
 	}
 }
-//#endregion
-//#region node_modules/jose/dist/webapi/util/decode_protected_header.js
+// node_modules/jose/dist/webapi/util/decode_protected_header.js
 function decodeProtectedHeader(token) {
 	let protectedB64u;
 	if (typeof token === "string") {
@@ -15005,8 +14960,7 @@ function decodeProtectedHeader(token) {
 	if (typeof protectedB64u !== "string" || !protectedB64u) throw new TypeError(invalid);
 	return parseJoseHeader(protectedB64u, TypeError, invalid);
 }
-//#endregion
-//#region node_modules/jose/dist/webapi/util/decode_jwt.js
+// node_modules/jose/dist/webapi/util/decode_jwt.js
 function decodeJwt(jwt) {
 	if (typeof jwt !== "string") throw new JWTInvalid("JWTs must use Compact JWS serialization, JWT must be a string");
 	const { 1: payload, length } = jwt.split(".");
@@ -15028,8 +14982,7 @@ function decodeJwt(jwt) {
 	if (!isObject(result)) throw new JWTInvalid("Invalid JWT Claims Set");
 	return result;
 }
-//#endregion
-//#region node_modules/@better-auth/utils/dist/base64.mjs
+// node_modules/@better-auth/utils/dist/base64.mjs
 function getAlphabet(urlSafe) {
 	return urlSafe ? "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_" : "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 }
@@ -15091,8 +15044,7 @@ var base64Url = {
 		return base64Decode(data, getAlphabet(data.includes("-") || data.includes("_")));
 	}
 };
-//#endregion
-//#region node_modules/@better-auth/core/dist/utils/db.mjs
+// node_modules/@better-auth/core/dist/utils/db.mjs
 /**
 * Filters output data by removing fields with the `returned: false` attribute.
 * This ensures sensitive fields are not exposed in API responses.
@@ -15105,15 +15057,13 @@ function filterOutputFields(data, additionalFields) {
 		[key]: value
 	}), {});
 }
-//#endregion
-//#region node_modules/better-call/node_modules/@better-auth/utils/dist/index.mjs
+// node_modules/better-call/node_modules/@better-auth/utils/dist/index.mjs
 function getWebcryptoSubtle() {
 	const cr = typeof globalThis !== "undefined" && globalThis.crypto;
 	if (cr && typeof cr.subtle === "object" && cr.subtle != null) return cr.subtle;
 	throw new Error("crypto.subtle must be defined");
 }
-//#endregion
-//#region node_modules/better-call/dist/crypto.mjs
+// node_modules/better-call/dist/crypto.mjs
 var algorithm = {
 	name: "HMAC",
 	hash: "SHA-256"
@@ -15143,8 +15093,7 @@ var signCookieValue = async (value, secret) => {
 	value = encodeURIComponent(value);
 	return value;
 };
-//#endregion
-//#region node_modules/better-call/dist/utils.mjs
+// node_modules/better-call/dist/utils.mjs
 var jsonContentTypeRegex = /^application\/([a-z0-9.+-]*\+)?json/i;
 async function getBody(request, allowedMediaTypes) {
 	const contentType = request.headers.get("content-type") || "";
@@ -15228,8 +15177,7 @@ async function tryCatch(promise) {
 function isRequest(obj) {
 	return obj instanceof Request || Object.prototype.toString.call(obj) === "[object Request]";
 }
-//#endregion
-//#region node_modules/better-call/dist/cookies.mjs
+// node_modules/better-call/dist/cookies.mjs
 var getCookieKey = (key, prefix) => {
 	let finalKey = key;
 	if (prefix) if (prefix === "secure") finalKey = "__Secure-" + key;
@@ -15306,8 +15254,7 @@ var serializeSignedCookie = async (key, value, secret, opt) => {
 	value = await signCookieValue(value, secret);
 	return _serialize(key, value, opt);
 };
-//#endregion
-//#region node_modules/better-call/dist/validator.mjs
+// node_modules/better-call/dist/validator.mjs
 /**
 * Runs validation on body and query
 * @returns error and data object
@@ -15360,8 +15307,7 @@ function fromError(error, validating) {
 		issues: error
 	};
 }
-//#endregion
-//#region node_modules/better-call/dist/context.mjs
+// node_modules/better-call/dist/context.mjs
 var createInternalContext = async (context, { options, path }) => {
 	const headers = new Headers();
 	let responseStatus = void 0;
@@ -15454,8 +15400,7 @@ var createInternalContext = async (context, { options, path }) => {
 	}
 	return internalContext;
 };
-//#endregion
-//#region node_modules/better-call/dist/to-response.mjs
+// node_modules/better-call/dist/to-response.mjs
 function isJSONSerializable(value) {
 	if (value === void 0) return false;
 	const t = typeof value;
@@ -15614,8 +15559,7 @@ function toResponse(data, init) {
 		headers
 	});
 }
-//#endregion
-//#region node_modules/better-call/dist/endpoint.mjs
+// node_modules/better-call/dist/endpoint.mjs
 function createEndpoint(pathOrOptions, handlerOrOptions, handlerOrNever) {
 	const path = typeof pathOrOptions === "string" ? pathOrOptions : void 0;
 	const options = typeof handlerOrOptions === "object" ? handlerOrOptions : pathOrOptions;
@@ -15688,8 +15632,7 @@ createEndpoint.create = (opts) => {
 	}
 	return createConfiguredEndpoint;
 };
-//#endregion
-//#region node_modules/better-call/dist/middleware.mjs
+// node_modules/better-call/dist/middleware.mjs
 function createMiddleware(optionsOrHandler, handler) {
 	const internalHandler = async (inputCtx) => {
 		const context = inputCtx;
@@ -15732,8 +15675,7 @@ createMiddleware.create = (opts) => {
 	}
 	return fn;
 };
-//#endregion
-//#region node_modules/better-call/dist/openapi.mjs
+// node_modules/better-call/dist/openapi.mjs
 var paths = {};
 function getTypeFromZodType(zodType) {
 	switch (zodType.constructor.name) {
@@ -15916,8 +15858,7 @@ var getHTML = (apiReference, config) => `<!doctype html>
 	  <script src="https://cdn.jsdelivr.net/npm/@scalar/api-reference"><\/script>
   </body>
 </html>`;
-//#endregion
-//#region node_modules/rou3/dist/index.mjs
+// node_modules/rou3/dist/index.mjs
 var NullProtoObj = /* @__PURE__ */ (() => {
 	const e = function() {};
 	return e.prototype = Object.create(null), Object.freeze(e.prototype), e;
@@ -16328,8 +16269,7 @@ function pushSorted(matches, match, dynamicTerminal) {
 	}).sort((a, b) => a[1] - b[1]).map((e) => e[0]);
 	for (const m of match) matches.push(m);
 }
-//#endregion
-//#region node_modules/better-call/dist/router.mjs
+// node_modules/better-call/dist/router.mjs
 var createRouter$1 = (endpoints, config) => {
 	if (!config?.openapi?.disabled) {
 		const openapi = {
@@ -16436,8 +16376,7 @@ var createRouter$1 = (endpoints, config) => {
 		endpoints
 	};
 };
-//#endregion
-//#region node_modules/@better-auth/core/dist/context/endpoint-context.mjs
+// node_modules/@better-auth/core/dist/context/endpoint-context.mjs
 var ensureAsyncStorage$1 = async () => {
 	const betterAuthGlobal = __getBetterAuthGlobal();
 	const existing = betterAuthGlobal.context.endpointContextAsyncStorage;
@@ -16454,8 +16393,7 @@ async function getCurrentAuthContext() {
 async function runWithEndpointContext(context, fn) {
 	return (await ensureAsyncStorage$1()).run(context, fn);
 }
-//#endregion
-//#region node_modules/@better-auth/core/dist/context/request-state.mjs
+// node_modules/@better-auth/core/dist/context/request-state.mjs
 var ensureAsyncStorage = async () => {
 	const betterAuthGlobal = __getBetterAuthGlobal();
 	const existing = betterAuthGlobal.context.requestStateAsyncStorage;
@@ -16495,13 +16433,11 @@ function defineRequestState(initFn) {
 		}
 	};
 }
-//#endregion
-//#region node_modules/@better-auth/core/dist/utils/is-api-error.mjs
+// node_modules/@better-auth/core/dist/utils/is-api-error.mjs
 function isAPIError(error) {
 	return error instanceof APIError$1 || error instanceof APIError || error?.name === "APIError";
 }
-//#endregion
-//#region node_modules/@better-auth/core/dist/api/index.mjs
+// node_modules/@better-auth/core/dist/api/index.mjs
 /**
 * Better-call's createEndpoint re-throws APIError without exposing the headers
 * accumulated on ctx.responseHeaders (e.g. Set-Cookie from deleteSessionCookie
@@ -16584,8 +16520,7 @@ function withServerOnly(options) {
 * ```
 */
 createAuthEndpoint.serverOnly = (options, handler) => createAuthEndpoint(withServerOnly(options), handler);
-//#endregion
-//#region node_modules/@better-auth/core/dist/utils/deprecate.mjs
+// node_modules/@better-auth/core/dist/utils/deprecate.mjs
 /**
 * Wraps a function to log a deprecation warning at once.
 */
@@ -16599,8 +16534,7 @@ function deprecate(fn, message, logger) {
 		return fn.apply(this, args);
 	};
 }
-//#endregion
-//#region node_modules/@better-auth/core/dist/utils/ip.mjs
+// node_modules/@better-auth/core/dist/utils/ip.mjs
 /**
 * Checks if an IP is valid IPv4 or IPv6
 */
@@ -16826,8 +16760,7 @@ function getIp(req, options) {
 function createRateLimitKey(ip, path) {
 	return `${ip}|${path}`;
 }
-//#endregion
-//#region node_modules/@better-auth/core/dist/utils/host.mjs
+// node_modules/@better-auth/core/dist/utils/host.mjs
 /**
 * Cloud provider instance metadata service FQDNs. These resolve to link-local
 * IPs (usually `169.254.169.254`) inside their respective clouds and are
@@ -17069,8 +17002,7 @@ function isLoopbackHost(host) {
 	const kind = classifyHost(host).kind;
 	return kind === "loopback" || kind === "localhost";
 }
-//#endregion
-//#region node_modules/@better-auth/core/dist/oauth2/utils.mjs
+// node_modules/@better-auth/core/dist/oauth2/utils.mjs
 function getOAuth2Tokens(data) {
 	const getDate = (seconds) => {
 		return new Date((/* @__PURE__ */ new Date()).getTime() + seconds * 1e3);
@@ -17114,8 +17046,7 @@ async function generateCodeChallenge(codeVerifier) {
 	const hash = await crypto.subtle.digest("SHA-256", data);
 	return base64Url.encode(new Uint8Array(hash), { padding: false });
 }
-//#endregion
-//#region node_modules/@better-auth/core/dist/oauth2/create-authorization-url.mjs
+// node_modules/@better-auth/core/dist/oauth2/create-authorization-url.mjs
 async function createAuthorizationURL({ id, options, authorizationEndpoint, state, codeVerifier, scopes, claims, redirectURI, duration, prompt, accessType, responseType, display, loginHint, hd, responseMode, additionalParams, scopeJoiner }) {
 	options = typeof options === "function" ? await options() : options;
 	const url = new URL(options.authorizationEndpoint || authorizationEndpoint);
@@ -17153,8 +17084,7 @@ async function createAuthorizationURL({ id, options, authorizationEndpoint, stat
 	});
 	return url;
 }
-//#endregion
-//#region node_modules/@better-auth/core/dist/oauth2/reject-redirects.mjs
+// node_modules/@better-auth/core/dist/oauth2/reject-redirects.mjs
 var HTTP_REDIRECT_STATUSES = /* @__PURE__ */ new Set([
 	301,
 	302,
@@ -17202,8 +17132,7 @@ async function fetchRefusingRedirects(url, options) {
 	if (redirected) throw redirectRefused(url);
 	return result;
 }
-//#endregion
-//#region node_modules/@better-auth/core/dist/oauth2/refresh-access-token.mjs
+// node_modules/@better-auth/core/dist/oauth2/refresh-access-token.mjs
 /**
 * @deprecated use async'd refreshAccessTokenRequest instead
 */
@@ -17256,8 +17185,7 @@ async function refreshAccessToken({ refreshToken, options, tokenEndpoint, authen
 	if (data.refresh_token_expires_in) tokens.refreshTokenExpiresAt = new Date((/* @__PURE__ */ new Date()).getTime() + data.refresh_token_expires_in * 1e3);
 	return tokens;
 }
-//#endregion
-//#region node_modules/@better-auth/core/dist/oauth2/validate-authorization-code.mjs
+// node_modules/@better-auth/core/dist/oauth2/validate-authorization-code.mjs
 async function authorizationCodeRequest({ code, codeVerifier, redirectURI, options, authentication, deviceId, headers, additionalParams = {}, resource }) {
 	options = typeof options === "function" ? await options() : options;
 	return createAuthorizationCodeRequest({
@@ -17324,8 +17252,7 @@ async function validateAuthorizationCode({ code, codeVerifier, redirectURI, opti
 	if (error) throw error;
 	return getOAuth2Tokens(data);
 }
-//#endregion
-//#region node_modules/@better-auth/core/dist/social-providers/apple.mjs
+// node_modules/@better-auth/core/dist/social-providers/apple.mjs
 async function sha256Hex(value) {
 	const data = new TextEncoder().encode(value);
 	const digest = await crypto.subtle.digest("SHA-256", data);
@@ -17433,8 +17360,7 @@ var getApplePublicKey = async (kid) => {
 	if (!jwk) throw new Error(`JWK with kid ${kid} not found`);
 	return await importJWK(jwk, jwk.alg);
 };
-//#endregion
-//#region node_modules/@better-auth/core/dist/social-providers/atlassian.mjs
+// node_modules/@better-auth/core/dist/social-providers/atlassian.mjs
 var atlassian = (options) => {
 	const tokenEndpoint = "https://auth.atlassian.com/oauth/token";
 	return {
@@ -17506,8 +17432,7 @@ var atlassian = (options) => {
 		options
 	};
 };
-//#endregion
-//#region node_modules/@better-auth/core/dist/social-providers/cognito.mjs
+// node_modules/@better-auth/core/dist/social-providers/cognito.mjs
 var cognito = (options) => {
 	if (!options.domain || !options.region || !options.userPoolId) {
 		logger.error("Domain, region and userPoolId are required for Amazon Cognito. Make sure to provide them in the options.");
@@ -17659,8 +17584,7 @@ var getCognitoPublicKey = async (kid, region, userPoolId) => {
 		throw error;
 	}
 };
-//#endregion
-//#region node_modules/@better-auth/core/dist/social-providers/discord.mjs
+// node_modules/@better-auth/core/dist/social-providers/discord.mjs
 var discord = (options) => {
 	const tokenEndpoint = "https://discord.com/api/oauth2/token";
 	return {
@@ -17717,8 +17641,7 @@ var discord = (options) => {
 		options
 	};
 };
-//#endregion
-//#region node_modules/@better-auth/core/dist/social-providers/dropbox.mjs
+// node_modules/@better-auth/core/dist/social-providers/dropbox.mjs
 var dropbox = (options) => {
 	const tokenEndpoint = "https://api.dropboxapi.com/oauth2/token";
 	return {
@@ -17784,8 +17707,7 @@ var dropbox = (options) => {
 		options
 	};
 };
-//#endregion
-//#region node_modules/@better-auth/core/dist/social-providers/facebook.mjs
+// node_modules/@better-auth/core/dist/social-providers/facebook.mjs
 /**
 * Validate an opaque Facebook access token against the configured app.
 *
@@ -17932,8 +17854,7 @@ var facebook = (options) => {
 		options
 	};
 };
-//#endregion
-//#region node_modules/@better-auth/core/dist/social-providers/figma.mjs
+// node_modules/@better-auth/core/dist/social-providers/figma.mjs
 var figma = (options) => {
 	const tokenEndpoint = "https://api.figma.com/v1/oauth/token";
 	return {
@@ -18008,8 +17929,7 @@ var figma = (options) => {
 		options
 	};
 };
-//#endregion
-//#region node_modules/@better-auth/core/dist/social-providers/github.mjs
+// node_modules/@better-auth/core/dist/social-providers/github.mjs
 var github = (options) => {
 	const tokenEndpoint = "https://github.com/login/oauth/access_token";
 	return {
@@ -18093,8 +18013,7 @@ var github = (options) => {
 		options
 	};
 };
-//#endregion
-//#region node_modules/@better-auth/core/dist/social-providers/gitlab.mjs
+// node_modules/@better-auth/core/dist/social-providers/gitlab.mjs
 var cleanDoubleSlashes = (input = "") => {
 	return input.split("://").map((str) => str.replace(/\/{2,}/g, "/")).join("://");
 };
@@ -18167,8 +18086,7 @@ var gitlab = (options) => {
 		options
 	};
 };
-//#endregion
-//#region node_modules/@better-auth/core/dist/social-providers/google.mjs
+// node_modules/@better-auth/core/dist/social-providers/google.mjs
 var GOOGLE_ID_TOKEN_MAX_AGE = "1h";
 /**
 * Verifies a Google ID token against Google's issuer, audience, signature,
@@ -18295,8 +18213,7 @@ var getGooglePublicKey = async (kid) => {
 	if (!jwk) throw new Error(`JWK with kid ${kid} not found`);
 	return await importJWK(jwk, jwk.alg);
 };
-//#endregion
-//#region node_modules/@better-auth/core/dist/social-providers/huggingface.mjs
+// node_modules/@better-auth/core/dist/social-providers/huggingface.mjs
 var huggingface = (options) => {
 	const tokenEndpoint = "https://huggingface.co/oauth/token";
 	return {
@@ -18363,8 +18280,7 @@ var huggingface = (options) => {
 		options
 	};
 };
-//#endregion
-//#region node_modules/@better-auth/core/dist/social-providers/kakao.mjs
+// node_modules/@better-auth/core/dist/social-providers/kakao.mjs
 var kakao = (options) => {
 	const tokenEndpoint = "https://kauth.kakao.com/oauth/token";
 	return {
@@ -18428,8 +18344,7 @@ var kakao = (options) => {
 		options
 	};
 };
-//#endregion
-//#region node_modules/@better-auth/core/dist/social-providers/kick.mjs
+// node_modules/@better-auth/core/dist/social-providers/kick.mjs
 var kick = (options) => {
 	return {
 		id: "kick",
@@ -18491,8 +18406,7 @@ var kick = (options) => {
 		options
 	};
 };
-//#endregion
-//#region node_modules/@better-auth/core/dist/social-providers/line.mjs
+// node_modules/@better-auth/core/dist/social-providers/line.mjs
 /**
 * LINE Login v2.1
 * - Authorization endpoint: https://access.line.me/oauth2/v2.1/authorize
@@ -18595,8 +18509,7 @@ var line = (options) => {
 		options
 	};
 };
-//#endregion
-//#region node_modules/@better-auth/core/dist/social-providers/linear.mjs
+// node_modules/@better-auth/core/dist/social-providers/linear.mjs
 var linear = (options) => {
 	const tokenEndpoint = "https://api.linear.app/oauth/token";
 	return {
@@ -18675,8 +18588,7 @@ var linear = (options) => {
 		options
 	};
 };
-//#endregion
-//#region node_modules/@better-auth/core/dist/social-providers/linkedin.mjs
+// node_modules/@better-auth/core/dist/social-providers/linkedin.mjs
 var linkedin = (options) => {
 	const authorizationEndpoint = "https://www.linkedin.com/oauth/v2/authorization";
 	const tokenEndpoint = "https://www.linkedin.com/oauth/v2/accessToken";
@@ -18743,8 +18655,7 @@ var linkedin = (options) => {
 		options
 	};
 };
-//#endregion
-//#region node_modules/@better-auth/core/dist/social-providers/microsoft-entra-id.mjs
+// node_modules/@better-auth/core/dist/social-providers/microsoft-entra-id.mjs
 /**
 * Microsoft's fixed tenant id for personal (consumer) Microsoft accounts. Every
 * personal-account token carries it as the `tid` claim, so it distinguishes the
@@ -18885,8 +18796,7 @@ var getMicrosoftPublicKey = async (kid, tenant, authority) => {
 	if (!jwk) throw new Error(`JWK with kid ${kid} not found`);
 	return await importJWK(jwk, jwk.alg);
 };
-//#endregion
-//#region node_modules/@better-auth/core/dist/social-providers/naver.mjs
+// node_modules/@better-auth/core/dist/social-providers/naver.mjs
 var naver = (options) => {
 	const tokenEndpoint = "https://nid.naver.com/oauth2.0/token";
 	return {
@@ -18945,8 +18855,7 @@ var naver = (options) => {
 		options
 	};
 };
-//#endregion
-//#region node_modules/@better-auth/core/dist/social-providers/notion.mjs
+// node_modules/@better-auth/core/dist/social-providers/notion.mjs
 var notion = (options) => {
 	const tokenEndpoint = "https://api.notion.com/v1/oauth/token";
 	return {
@@ -19012,8 +18921,7 @@ var notion = (options) => {
 		options
 	};
 };
-//#endregion
-//#region node_modules/@better-auth/core/dist/social-providers/paybin.mjs
+// node_modules/@better-auth/core/dist/social-providers/paybin.mjs
 var paybin = (options) => {
 	const issuer = options.issuer || "https://idp.paybin.io";
 	const authorizationEndpoint = `${issuer}/oauth2/authorize`;
@@ -19086,8 +18994,7 @@ var paybin = (options) => {
 		options
 	};
 };
-//#endregion
-//#region node_modules/@better-auth/core/dist/social-providers/paypal.mjs
+// node_modules/@better-auth/core/dist/social-providers/paypal.mjs
 /**
 * ID token signing algorithms advertised by PayPal's OpenID configuration.
 * Anything outside this allowlist is rejected so each token is only ever
@@ -19267,8 +19174,7 @@ var getPayPalPublicKey = async (kid, jwksUri) => {
 	if (!jwk) throw new Error(`JWK with kid ${kid} not found`);
 	return await importJWK(jwk, jwk.alg);
 };
-//#endregion
-//#region node_modules/@better-auth/core/dist/social-providers/polar.mjs
+// node_modules/@better-auth/core/dist/social-providers/polar.mjs
 var polar = (options) => {
 	const tokenEndpoint = "https://api.polar.sh/v1/oauth2/token";
 	return {
@@ -19333,8 +19239,7 @@ var polar = (options) => {
 		options
 	};
 };
-//#endregion
-//#region node_modules/@better-auth/core/dist/social-providers/railway.mjs
+// node_modules/@better-auth/core/dist/social-providers/railway.mjs
 var authorizationEndpoint = "https://backboard.railway.com/oauth/auth";
 var tokenEndpoint = "https://backboard.railway.com/oauth/token";
 var userinfoEndpoint = "https://backboard.railway.com/oauth/me";
@@ -19402,8 +19307,7 @@ var railway = (options) => {
 		options
 	};
 };
-//#endregion
-//#region node_modules/@better-auth/core/dist/social-providers/reddit.mjs
+// node_modules/@better-auth/core/dist/social-providers/reddit.mjs
 var reddit = (options) => {
 	return {
 		id: "reddit",
@@ -19477,8 +19381,7 @@ var reddit = (options) => {
 		options
 	};
 };
-//#endregion
-//#region node_modules/@better-auth/core/dist/social-providers/roblox.mjs
+// node_modules/@better-auth/core/dist/social-providers/roblox.mjs
 var roblox = (options) => {
 	const tokenEndpoint = "https://apis.roblox.com/oauth/v1/token";
 	return {
@@ -19530,8 +19433,7 @@ var roblox = (options) => {
 		options
 	};
 };
-//#endregion
-//#region node_modules/@better-auth/core/dist/social-providers/salesforce.mjs
+// node_modules/@better-auth/core/dist/social-providers/salesforce.mjs
 var salesforce = (options) => {
 	const isSandbox = (options.environment ?? "production") === "sandbox";
 	const authorizationEndpoint = options.loginUrl ? `https://${options.loginUrl}/services/oauth2/authorize` : isSandbox ? "https://test.salesforce.com/services/oauth2/authorize" : "https://login.salesforce.com/services/oauth2/authorize";
@@ -19610,8 +19512,7 @@ var salesforce = (options) => {
 		options
 	};
 };
-//#endregion
-//#region node_modules/@better-auth/core/dist/social-providers/slack.mjs
+// node_modules/@better-auth/core/dist/social-providers/slack.mjs
 var slack = (options) => {
 	const tokenEndpoint = "https://slack.com/api/openid.connect.token";
 	return {
@@ -19672,8 +19573,7 @@ var slack = (options) => {
 		options
 	};
 };
-//#endregion
-//#region node_modules/@better-auth/core/dist/social-providers/spotify.mjs
+// node_modules/@better-auth/core/dist/social-providers/spotify.mjs
 var spotify = (options) => {
 	const tokenEndpoint = "https://accounts.spotify.com/api/token";
 	return {
@@ -19736,8 +19636,7 @@ var spotify = (options) => {
 		options
 	};
 };
-//#endregion
-//#region node_modules/@better-auth/core/dist/social-providers/tiktok.mjs
+// node_modules/@better-auth/core/dist/social-providers/tiktok.mjs
 var tiktok = (options) => {
 	const tokenEndpoint = "https://open.tiktokapis.com/v2/oauth/token/";
 	return {
@@ -19792,8 +19691,7 @@ var tiktok = (options) => {
 		options
 	};
 };
-//#endregion
-//#region node_modules/@better-auth/core/dist/social-providers/twitch.mjs
+// node_modules/@better-auth/core/dist/social-providers/twitch.mjs
 var twitch = (options) => {
 	const tokenEndpoint = "https://id.twitch.tv/oauth2/token";
 	return {
@@ -19861,8 +19759,7 @@ var twitch = (options) => {
 		options
 	};
 };
-//#endregion
-//#region node_modules/@better-auth/core/dist/social-providers/twitter.mjs
+// node_modules/@better-auth/core/dist/social-providers/twitter.mjs
 var twitter = (options) => {
 	const tokenEndpoint = "https://api.x.com/2/oauth2/token";
 	return {
@@ -19941,8 +19838,7 @@ var twitter = (options) => {
 		options
 	};
 };
-//#endregion
-//#region node_modules/@better-auth/core/dist/social-providers/vercel.mjs
+// node_modules/@better-auth/core/dist/social-providers/vercel.mjs
 var vercel = (options) => {
 	return {
 		id: "vercel",
@@ -19994,8 +19890,7 @@ var vercel = (options) => {
 		options
 	};
 };
-//#endregion
-//#region node_modules/@better-auth/core/dist/social-providers/vk.mjs
+// node_modules/@better-auth/core/dist/social-providers/vk.mjs
 var vk = (options) => {
 	const tokenEndpoint = "https://id.vk.com/oauth2/auth";
 	return {
@@ -20069,8 +19964,7 @@ var vk = (options) => {
 		options
 	};
 };
-//#endregion
-//#region node_modules/@better-auth/core/dist/social-providers/wechat.mjs
+// node_modules/@better-auth/core/dist/social-providers/wechat.mjs
 var wechat = (options) => {
 	return {
 		id: "wechat",
@@ -20148,8 +20042,7 @@ var wechat = (options) => {
 		options
 	};
 };
-//#endregion
-//#region node_modules/@better-auth/core/dist/social-providers/zoom.mjs
+// node_modules/@better-auth/core/dist/social-providers/zoom.mjs
 var zoom = (userOptions) => {
 	const options = {
 		pkce: true,
@@ -20212,8 +20105,7 @@ var zoom = (userOptions) => {
 		}
 	};
 };
-//#endregion
-//#region node_modules/@better-auth/core/dist/social-providers/index.mjs
+// node_modules/@better-auth/core/dist/social-providers/index.mjs
 var socialProviders = {
 	apple,
 	atlassian,
@@ -20252,5 +20144,4 @@ var socialProviders = {
 	wechat
 };
 var SocialProviderListEnum = _enum(Object.keys(socialProviders)).or(string());
-//#endregion
 export { encode as $, queueAfterTransactionHook as $t, jwtVerify as A, boolean as At, jweAlgorithm as B, _coercedBoolean as Bt, serializeSignedCookie as C, createFetch as Ct, decodeJwt as D, ZodString as Dt, base64Url as E, ZodBoolean as Et, JWE_RECOGNIZED as F, object as Ft, decodeBase64url as G, createWithSpan as Gt, prepareKey as H, capitalizeFirstLetter as Ht, JWS_RECOGNIZED as I, optional as It, parseJoseHeader as J, ATTR_OPERATION_ID as Jt, digest as K, ATTR_CONTEXT as Kt, validateAlgorithms as L, record as Lt, validateClaimsSet as M, literal as Mt, jwsAlgorithm as N, looseObject as Nt, decodeProtectedHeader as O, any as Ot, sign as P, number as Pt, isObject as Q, getCurrentAdapter as Qt, validateCrit as R, string as Rt, serializeCookie as S, betterFetch as St, base64 as T, normalizePathname as Tt, jwkToKey as U, toKebabCase as Ut, jweEncryption as V, _coercedString as Vt, assertNotSet as W, createAdapterFactory as Wt, isDisjoint as X, safeJSONParse as Xt, unprotected as Y, import_src as Yt, isJWK as Z, getAuthTables as Zt, runWithRequestState as _, APIError as _n, concat as _t, createAuthorizationURL as a, generateId as an, JOSENotSupported as at, createRouter$1 as b, BASE_ERROR_CODES as bn, uint32be as bt, createRateLimitKey as c, logger as cn, JWKInvalid as ct, deprecate as d, env as dn, JWTExpired as dt, runWithAdapter as en, assertCryptoKey as et, createAuthEndpoint as f, getBooleanEnvVar as fn, JWTInvalid as ft, hasRequestState as g, isTest as gn, checkUsage as gt, defineRequestState as h, isProduction as hn, checkModulusLength as ht, refreshAccessToken as i, initGetFieldName as in, JOSEAlgNotAllowed as it, JWTClaimsBuilder as j, email as jt, importJWK as k, array as kt, findInvalidTrustedProxies as l, shouldPublishLog as ln, JWSInvalid as lt, isAPIError as m, isDevelopment as mn, checkCryptoKey as mt, socialProviders as n, getBetterAuthVersion as nn, isKeyLike as nt, applyDefaultAccessTokenExpiry as o, createRandomStringGenerator as on, JWEDecryptionFailed as ot, createAuthMiddleware as p, getEnvVar as pn, invalidKeyInput as pt, encodeBase64url as q, ATTR_HOOK_TYPE as qt, validateAuthorizationCode as r, initGetModelName as rn, isKeyObject as rt, isLoopbackHost as s, createLogger as sn, JWEInvalid as st, SocialProviderListEnum as t, runWithTransaction as tn, isCryptoKey as tt, getIp as u, ENV as un, JWTClaimValidationFailed as ut, getCurrentAuthContext as v, BetterAuthError as vn, decoder as vt, filterOutputFields as w, isSafeUrlScheme as wt, toResponse as x, defineErrorCodes as xn, uint64be as xt, runWithEndpointContext as y, kAPIErrorHeaderSymbol as yn, encode$1 as yt, validateCritDuplicates as z, union as zt };

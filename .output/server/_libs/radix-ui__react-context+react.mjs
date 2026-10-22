@@ -1,6 +1,6 @@
 import { o as __toESM, t as __commonJSMin } from "../_runtime.mjs";
 import { n as require_react } from "./@radix-ui/react-compose-refs+[...].mjs";
-//#region node_modules/react/cjs/react-jsx-runtime.production.js
+// node_modules/react/cjs/react-jsx-runtime.production.js
 /**
 * @license React
 * react-jsx-runtime.production.js
@@ -34,13 +34,11 @@ var require_react_jsx_runtime_production = /* @__PURE__ */ __commonJSMin(((expor
 	exports.jsx = jsxProd;
 	exports.jsxs = jsxProd;
 }));
-//#endregion
-//#region node_modules/react/jsx-runtime.js
+// node_modules/react/jsx-runtime.js
 var require_jsx_runtime = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 	module.exports = require_react_jsx_runtime_production();
 }));
-//#endregion
-//#region node_modules/@radix-ui/react-context/dist/index.mjs
+// node_modules/@radix-ui/react-context/dist/index.mjs
 var import_react = /* @__PURE__ */ __toESM(require_react(), 1);
 var import_jsx_runtime = require_jsx_runtime();
 var __defProp = Object.defineProperty;
@@ -143,5 +141,4 @@ function composeContextScopes(...scopes) {
 	return createScope;
 }
 __name(composeContextScopes, "composeContextScopes");
-//#endregion
 export { require_jsx_runtime as n, createContextScope as t };

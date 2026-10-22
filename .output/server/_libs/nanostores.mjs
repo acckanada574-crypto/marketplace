@@ -1,4 +1,4 @@
-//#region node_modules/nanostores/atom/index.js
+// node_modules/nanostores/atom/index.js
 var listenerQueue = [];
 var lqIndex = 0;
 var batchSeen = null;
@@ -78,8 +78,7 @@ var atom = /* @__NO_SIDE_EFFECTS__ */ (initialValue) => {
 	};
 	return $atom;
 };
-//#endregion
-//#region node_modules/nanostores/lifecycle/index.js
+// node_modules/nanostores/lifecycle/index.js
 var SET = 2;
 var MOUNT = 5;
 var UNMOUNT = 6;
@@ -173,8 +172,7 @@ var onMount = ($store, initialize) => {
 		};
 	});
 };
-//#endregion
-//#region node_modules/nanostores/deep-map/path.js
+// node_modules/nanostores/deep-map/path.js
 function getPath(obj, path) {
 	let allKeys = getAllKeysFromPath(path);
 	let res = obj;
@@ -195,8 +193,7 @@ function getKeyAndIndicesFromKey(key) {
 	}
 	return [key];
 }
-//#endregion
-//#region node_modules/nanostores/listen-keys/index.js
+// node_modules/nanostores/listen-keys/index.js
 function listenKeys($store, keys, listener) {
 	let keysSet = new Set(keys);
 	return $store.listen((value, oldValue, changed) => {
@@ -204,5 +201,4 @@ function listenKeys($store, keys, listener) {
 		if (changed === void 0 ? keys.some((key) => oldValue === void 0 || ($store.eqKey ? !$store.eqKey(oldValue[key], value[key], key) : pathChanged(key))) : keysSet.has(changed) || typeof changed === "string" && (keysSet.has(changed.split(/\.|\[/)[0]) || !$store.eqKey && oldValue !== void 0 && keys.some(pathChanged))) listener(value, oldValue, changed);
 	});
 }
-//#endregion
 export { atom as a, onSet as i, STORE_UNMOUNT_DELAY as n, onMount as r, listenKeys as t };

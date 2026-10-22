@@ -1,267 +1,260 @@
 globalThis.__nitro_main__ = import.meta.url;
-import { a as toEventHandler, c as serve, i as defineLazyEventHandler, n as HTTPError, r as defineHandler, s as NodeResponse, t as H3Core } from "./_libs/h3+rou3+srvx.mjs";
+import { n as serve, t as NodeResponse } from "./_libs/srvx.mjs";
+import { a as toEventHandler, i as defineLazyEventHandler, n as HTTPError, r as defineHandler, t as H3Core } from "./_libs/h3+rou3+srvx.mjs";
 import { i as withoutTrailingSlash, n as joinURL, r as withLeadingSlash, t as decodePath } from "./_libs/ufo.mjs";
 import { existsSync, promises, readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join, resolve } from "node:path";
-//#region node_modules/nitro/dist/runtime/internal/route-rules.mjs
+// node_modules/nitro/dist/runtime/internal/route-rules.mjs
 var headers = ((m) => function headersRouteRule(event) {
 	for (const [key, value] of Object.entries(m.options || {})) event.res.headers.set(key, value);
 });
-//#endregion
-//#region #nitro/virtual/public-assets-data
+// #nitro/virtual/public-assets-data
 var public_assets_data_default = {
-	"/assets/about-t2JwTAr2.js": {
+	"/assets/about-DCAg73PV.js": {
 		"type": "text/javascript; charset=utf-8",
-		"etag": "\"855-704ylr2vT/1cyluJqBD7K2a3rGQ\"",
-		"mtime": "2026-10-22T20:08:24.424Z",
+		"etag": "\"855-dC49QXa1mxMTv1z7jKI/TSOkLmk\"",
+		"mtime": "2026-10-22T23:15:00.293Z",
 		"size": 2133,
-		"path": "../public/assets/about-t2JwTAr2.js"
+		"path": "../public/assets/about-DCAg73PV.js"
 	},
-	"/assets/artisan._id-KC1kSPQ0.js": {
+	"/assets/artisan._id-2E2782_I.js": {
 		"type": "text/javascript; charset=utf-8",
-		"etag": "\"259-X9Ru+iUj8yVRKN8jVYpX07k2ASY\"",
-		"mtime": "2026-10-22T20:08:24.424Z",
+		"etag": "\"259-h3Uv6YHe1sDyKo6G0mry9/ws/zE\"",
+		"mtime": "2026-10-22T23:15:00.294Z",
 		"size": 601,
-		"path": "../public/assets/artisan._id-KC1kSPQ0.js"
+		"path": "../public/assets/artisan._id-2E2782_I.js"
 	},
-	"/assets/button-DbYWstxl.js": {
+	"/assets/button-B6PtR0Zg.js": {
 		"type": "text/javascript; charset=utf-8",
-		"etag": "\"4ff-9ej3gKIHxVdWcaFPyw49nBGPbvk\"",
-		"mtime": "2026-10-22T20:08:24.424Z",
+		"etag": "\"4ff-qSpIaHQjjjCW3U4XRGqEcW3ctng\"",
+		"mtime": "2026-10-22T23:15:00.294Z",
 		"size": 1279,
-		"path": "../public/assets/button-DbYWstxl.js"
+		"path": "../public/assets/button-B6PtR0Zg.js"
 	},
-	"/assets/cart-K7TBHqvH.js": {
+	"/assets/cart-BSWTd2Af.js": {
 		"type": "text/javascript; charset=utf-8",
-		"etag": "\"1012-D5Vxx4UbT9ytY0KvksmVi/C6PGw\"",
-		"mtime": "2026-10-22T20:08:24.425Z",
+		"etag": "\"1012-+W40yMKZ2sSTk/HLsoHlhRM67Wk\"",
+		"mtime": "2026-10-22T23:15:00.294Z",
 		"size": 4114,
-		"path": "../public/assets/cart-K7TBHqvH.js"
+		"path": "../public/assets/cart-BSWTd2Af.js"
 	},
-	"/assets/catalog-CvBK4D7k.js": {
+	"/assets/catalog-BAiIDKt3.js": {
 		"type": "text/javascript; charset=utf-8",
-		"etag": "\"1313-3UfD4OWp3d15ALKfAY/8yvc488k\"",
-		"mtime": "2026-10-22T20:08:24.425Z",
+		"etag": "\"1313-CCrcCnuXzfKOYJ3mXTwMgdvXBVE\"",
+		"mtime": "2026-10-22T23:15:00.294Z",
 		"size": 4883,
-		"path": "../public/assets/catalog-CvBK4D7k.js"
+		"path": "../public/assets/catalog-BAiIDKt3.js"
 	},
-	"/assets/checkout-ZRjD90ea.js": {
+	"/assets/checkout-9MZuYbkA.js": {
 		"type": "text/javascript; charset=utf-8",
-		"etag": "\"127f-sp93y+0iLdU6JiptotyIIhKaaYk\"",
-		"mtime": "2026-10-22T20:08:24.425Z",
-		"size": 4735,
-		"path": "../public/assets/checkout-ZRjD90ea.js"
+		"etag": "\"127d-DwmNY0RloACvqHMa7y8+H1kH0cI\"",
+		"mtime": "2026-10-22T23:15:00.295Z",
+		"size": 4733,
+		"path": "../public/assets/checkout-9MZuYbkA.js"
 	},
-	"/assets/dist-B63Vis7T.js": {
+	"/assets/dist-DJWiqJjL.js": {
 		"type": "text/javascript; charset=utf-8",
-		"etag": "\"282-TAquYXU0kRKigrhs7DqvjGZq3EA\"",
-		"mtime": "2026-10-22T20:08:24.426Z",
+		"etag": "\"282-AVn4Ni+vMG+R3Q4rplyBuDDR+qI\"",
+		"mtime": "2026-10-22T23:15:00.295Z",
 		"size": 642,
-		"path": "../public/assets/dist-B63Vis7T.js"
+		"path": "../public/assets/dist-DJWiqJjL.js"
 	},
-	"/assets/esm-UiaSkTsE.js": {
+	"/assets/esm-DS2_DsMI.js": {
 		"type": "text/javascript; charset=utf-8",
-		"etag": "\"14496-5ry7iJqk+FDpSh8s5KXZg0vNh28\"",
-		"mtime": "2026-10-22T20:08:24.426Z",
-		"size": 83094,
-		"path": "../public/assets/esm-UiaSkTsE.js"
+		"etag": "\"1443c-kjNiqx6z9rS+owuZ+Mp80RAlq1s\"",
+		"mtime": "2026-10-22T23:15:00.295Z",
+		"size": 83004,
+		"path": "../public/assets/esm-DS2_DsMI.js"
 	},
-	"/assets/faq-sp01_8F5.js": {
+	"/assets/faq-zFH29DGd.js": {
 		"type": "text/javascript; charset=utf-8",
-		"etag": "\"45a-vIoDBZO2uOtoh2vrTlNElmVhyK8\"",
-		"mtime": "2026-10-22T20:08:24.426Z",
+		"etag": "\"45a-v9cUqj1bI2SqdCn0g8W4g6k/60s\"",
+		"mtime": "2026-10-22T23:15:00.296Z",
 		"size": 1114,
-		"path": "../public/assets/faq-sp01_8F5.js"
+		"path": "../public/assets/faq-zFH29DGd.js"
 	},
-	"/assets/favorites-BGj2sPYK.js": {
+	"/assets/favorites-rd0ZYRgd.js": {
 		"type": "text/javascript; charset=utf-8",
-		"etag": "\"34a-fGcTg+IXKwmQnrLAVxWwoFt9rAM\"",
-		"mtime": "2026-10-22T20:08:24.427Z",
+		"etag": "\"34a-6uHUecaxgzqqcxYvCek0UM+Rtys\"",
+		"mtime": "2026-10-22T23:15:00.296Z",
 		"size": 842,
-		"path": "../public/assets/favorites-BGj2sPYK.js"
+		"path": "../public/assets/favorites-rd0ZYRgd.js"
 	},
-	"/assets/index-BiyC-TqN.js": {
+	"/assets/index-Do_dMYLy.js": {
 		"type": "text/javascript; charset=utf-8",
-		"etag": "\"76bc1-kVkEugiAneClVpy58tpaQUmhVwo\"",
-		"mtime": "2026-10-22T20:08:24.370Z",
-		"size": 486337,
-		"path": "../public/assets/index-BiyC-TqN.js"
+		"etag": "\"69ad1-rW4e/Da2gfYSki3Lc6sSi7zvf8c\"",
+		"mtime": "2026-10-22T23:15:00.293Z",
+		"size": 432849,
+		"path": "../public/assets/index-Do_dMYLy.js"
 	},
-	"/assets/initdb-DwLcS450.wasm": {
-		"type": "application/wasm",
-		"etag": "\"607ea-EA0LyIiqMneEA5ghLUd5KcTorTk\"",
-		"mtime": "2026-10-22T20:08:24.450Z",
-		"size": 395242,
-		"path": "../public/assets/initdb-DwLcS450.wasm"
-	},
-	"/assets/label-D_XnIpDd.js": {
+	"/assets/label-7FEPZnOF.js": {
 		"type": "text/javascript; charset=utf-8",
-		"etag": "\"24d-GbB+l02GzljlCeleIPa/aYvkr4E\"",
-		"mtime": "2026-10-22T20:08:24.427Z",
+		"etag": "\"24d-k8KcRoZ64ovy1ByjtMUWNTBK91w\"",
+		"mtime": "2026-10-22T23:15:00.296Z",
 		"size": 589,
-		"path": "../public/assets/label-D_XnIpDd.js"
+		"path": "../public/assets/label-7FEPZnOF.js"
 	},
-	"/assets/layout-DSVyvDPW.js": {
+	"/assets/layout-CJSkQ2M0.js": {
 		"type": "text/javascript; charset=utf-8",
-		"etag": "\"2686a-f+9OXdu63k+8d4TQl5AD1wT29WE\"",
-		"mtime": "2026-10-22T20:08:24.427Z",
-		"size": 157802,
-		"path": "../public/assets/layout-DSVyvDPW.js"
+		"etag": "\"3408a-LTl1MOZJXiqey/rLSW47hQ1clGU\"",
+		"mtime": "2026-10-22T23:15:00.296Z",
+		"size": 213130,
+		"path": "../public/assets/layout-CJSkQ2M0.js"
 	},
-	"/assets/login-BPl-Hckp.js": {
+	"/assets/login-CKz_YCt0.js": {
 		"type": "text/javascript; charset=utf-8",
-		"etag": "\"ebe-qtqhT36Hpd+naLEUgoZt/RtwG/0\"",
-		"mtime": "2026-10-22T20:08:24.427Z",
-		"size": 3774,
-		"path": "../public/assets/login-BPl-Hckp.js"
+		"etag": "\"eb9-sehoB+mQIdjJIS3FpFYjk83FTI4\"",
+		"mtime": "2026-10-22T23:15:00.296Z",
+		"size": 3769,
+		"path": "../public/assets/login-CKz_YCt0.js"
 	},
-	"/assets/mascot-Chvh-1kQ.js": {
+	"/assets/initdb-D3nwUMsW.wasm": {
+		"type": "application/wasm",
+		"etag": "\"607ea-OaK6hE/21jY+LavzmICKG3R1p40\"",
+		"mtime": "2026-10-22T23:15:00.301Z",
+		"size": 395242,
+		"path": "../public/assets/initdb-D3nwUMsW.wasm"
+	},
+	"/assets/mascot-BhIr0X28.js": {
 		"type": "text/javascript; charset=utf-8",
-		"etag": "\"47b-YPWI3S3+b9gdDDy5TkHKxqO1tOE\"",
-		"mtime": "2026-10-22T20:08:24.428Z",
+		"etag": "\"47b-jkJ68hNdBMKHfYhTa5A632qJVdg\"",
+		"mtime": "2026-10-22T23:15:00.297Z",
 		"size": 1147,
-		"path": "../public/assets/mascot-Chvh-1kQ.js"
+		"path": "../public/assets/mascot-BhIr0X28.js"
 	},
-	"/assets/master.marketing-BmJtE74-.js": {
+	"/assets/master.marketing-DOtdjzwj.js": {
 		"type": "text/javascript; charset=utf-8",
-		"etag": "\"e34-zasZWPixSbQPfh09cgi4jlhYVQo\"",
-		"mtime": "2026-10-22T20:08:24.428Z",
-		"size": 3636,
-		"path": "../public/assets/master.marketing-BmJtE74-.js"
+		"etag": "\"e32-UMCdRq5tCpIQzdMYUcFaAoQXTm4\"",
+		"mtime": "2026-10-22T23:15:00.297Z",
+		"size": 3634,
+		"path": "../public/assets/master.marketing-DOtdjzwj.js"
 	},
-	"/assets/master.onboarding-CtSQWmso.js": {
+	"/assets/master.onboarding-UgfaiCN8.js": {
 		"type": "text/javascript; charset=utf-8",
-		"etag": "\"bca-nkbNkh26Jyd7TPnrzpjHgMK9O7M\"",
-		"mtime": "2026-10-22T20:08:24.428Z",
-		"size": 3018,
-		"path": "../public/assets/master.onboarding-CtSQWmso.js"
+		"etag": "\"bc8-bhops34pOGC8zAFf+CjyySFpPzs\"",
+		"mtime": "2026-10-22T23:15:00.297Z",
+		"size": 3016,
+		"path": "../public/assets/master.onboarding-UgfaiCN8.js"
 	},
-	"/assets/master.orders-Lo-JaGr1.js": {
+	"/assets/master.orders-Dz4RCSxN.js": {
 		"type": "text/javascript; charset=utf-8",
-		"etag": "\"a3e-pNFl92BJa7+IjdtqN+9wjmgvUFI\"",
-		"mtime": "2026-10-22T20:08:24.429Z",
+		"etag": "\"a3e-hGQwvsOvY67K+uwz9RLCWjMwLcc\"",
+		"mtime": "2026-10-22T23:15:00.297Z",
 		"size": 2622,
-		"path": "../public/assets/master.orders-Lo-JaGr1.js"
+		"path": "../public/assets/master.orders-Dz4RCSxN.js"
 	},
-	"/assets/nodefs-Doh7emOz.js": {
+	"/assets/nodefs-Bog_lxu4.js": {
 		"type": "text/javascript; charset=utf-8",
-		"etag": "\"21c-udGTtPJ1opyAnlpmaQWCfIZQZSo\"",
-		"mtime": "2026-10-22T20:08:24.430Z",
-		"size": 540,
-		"path": "../public/assets/nodefs-Doh7emOz.js"
+		"etag": "\"220-ZxAUyDxyramh4gN0rbQ9WUg5PGo\"",
+		"mtime": "2026-10-22T23:15:00.298Z",
+		"size": 544,
+		"path": "../public/assets/nodefs-Bog_lxu4.js"
 	},
-	"/assets/not-found-i5RsCZif.js": {
+	"/assets/opfs-ahp-Bt8N9z2_.js": {
 		"type": "text/javascript; charset=utf-8",
-		"etag": "\"76-Trmr7GZIBZuvfg4uM18tBiRtOXg\"",
-		"mtime": "2026-10-22T20:08:24.431Z",
-		"size": 118,
-		"path": "../public/assets/not-found-i5RsCZif.js"
+		"etag": "\"26c4-93OZtOoNtvJc6rTFi7JhialKuXE\"",
+		"mtime": "2026-10-22T23:15:00.298Z",
+		"size": 9924,
+		"path": "../public/assets/opfs-ahp-Bt8N9z2_.js"
 	},
-	"/assets/dist-DKmpfhzf.js": {
+	"/assets/dist-D4urV7I0.js": {
 		"type": "text/javascript; charset=utf-8",
-		"etag": "\"931f2-2CFZovfpLftf9D5g7prcCErlyK0\"",
-		"mtime": "2026-10-22T20:08:24.426Z",
-		"size": 602610,
-		"path": "../public/assets/dist-DKmpfhzf.js"
+		"etag": "\"97292-bglmi7ytcEK20lec68ENAqIxB1k\"",
+		"mtime": "2026-10-22T23:15:00.295Z",
+		"size": 619154,
+		"path": "../public/assets/dist-D4urV7I0.js"
 	},
-	"/assets/opfs-ahp-9LmiXYVe.js": {
-		"type": "text/javascript; charset=utf-8",
-		"etag": "\"2713-gExJPlHDM4dGQ2bfjBzLx3OK76g\"",
-		"mtime": "2026-10-22T20:08:24.436Z",
-		"size": 10003,
-		"path": "../public/assets/opfs-ahp-9LmiXYVe.js"
-	},
-	"/assets/order._id-o1GIQ1sc.js": {
-		"type": "text/javascript; charset=utf-8",
-		"etag": "\"1188-EgtnYJAtGcI5hTooH2I18/xjcQ4\"",
-		"mtime": "2026-10-22T20:08:24.446Z",
-		"size": 4488,
-		"path": "../public/assets/order._id-o1GIQ1sc.js"
-	},
-	"/assets/orders-D2v6l9pW.js": {
-		"type": "text/javascript; charset=utf-8",
-		"etag": "\"665-yalYNWHup2obqNDFo27r901ct20\"",
-		"mtime": "2026-10-22T20:08:24.446Z",
-		"size": 1637,
-		"path": "../public/assets/orders-D2v6l9pW.js"
-	},
-	"/assets/plus-BS5zE0TY.js": {
-		"type": "text/javascript; charset=utf-8",
-		"etag": "\"cf-Hyut4iGAuY4tMVPBxgm3pct4wcg\"",
-		"mtime": "2026-10-22T20:08:24.447Z",
-		"size": 207,
-		"path": "../public/assets/plus-BS5zE0TY.js"
-	},
-	"/assets/product-card-DLBGtqBl.js": {
-		"type": "text/javascript; charset=utf-8",
-		"etag": "\"a2a-YW8a3Rtg/CGjFun5usAXqXMz1Ig\"",
-		"mtime": "2026-10-22T20:08:24.447Z",
-		"size": 2602,
-		"path": "../public/assets/product-card-DLBGtqBl.js"
-	},
-	"/assets/product._id-FM8D4cG5.js": {
-		"type": "text/javascript; charset=utf-8",
-		"etag": "\"4520-iQrQ8O8lT6cfZuN0TizMW9btvAI\"",
-		"mtime": "2026-10-22T20:08:24.447Z",
-		"size": 17696,
-		"path": "../public/assets/product._id-FM8D4cG5.js"
-	},
-	"/assets/rolldown-runtime-B0Z9INg1.js": {
-		"type": "text/javascript; charset=utf-8",
-		"etag": "\"385-vn6fLblvytQt1hv6CJ89eGYvXrc\"",
-		"mtime": "2026-10-22T20:08:24.447Z",
-		"size": 901,
-		"path": "../public/assets/rolldown-runtime-B0Z9INg1.js"
-	},
-	"/assets/routes-BhIUVKEp.js": {
-		"type": "text/javascript; charset=utf-8",
-		"etag": "\"21b8-o7GSGwGhbmE0nIFJ528DPj3G5YU\"",
-		"mtime": "2026-10-22T20:08:24.448Z",
-		"size": 8632,
-		"path": "../public/assets/routes-BhIUVKEp.js"
-	},
-	"/assets/sell-BcqMgyVc.js": {
-		"type": "text/javascript; charset=utf-8",
-		"etag": "\"15d5-7S8imYb6Iogevzc5f2sQQI/Egls\"",
-		"mtime": "2026-10-22T20:08:24.449Z",
-		"size": 5589,
-		"path": "../public/assets/sell-BcqMgyVc.js"
-	},
-	"/assets/styles-CqtaJyKO.css": {
-		"type": "text/css; charset=utf-8",
-		"etag": "\"9bd8-Pf6AG3CuUZq+r9JS+nUJJpRMth8\"",
-		"mtime": "2026-10-22T20:08:24.467Z",
-		"size": 39896,
-		"path": "../public/assets/styles-CqtaJyKO.css"
-	},
-	"/assets/textarea-DNzn-iT-.js": {
-		"type": "text/javascript; charset=utf-8",
-		"etag": "\"1fe-cUvMs9YDcSaeU8Fk13/HQNEJUeU\"",
-		"mtime": "2026-10-22T20:08:24.449Z",
-		"size": 510,
-		"path": "../public/assets/textarea-DNzn-iT-.js"
-	},
-	"/assets/truck-BtnebPWq.js": {
-		"type": "text/javascript; charset=utf-8",
-		"etag": "\"25d-zq0sXgl1Aop4vXUnX7CAMl2KdFw\"",
-		"mtime": "2026-10-22T20:08:24.450Z",
-		"size": 605,
-		"path": "../public/assets/truck-BtnebPWq.js"
-	},
-	"/assets/__vite-browser-external-CV6URZNE.js": {
-		"type": "text/javascript; charset=utf-8",
-		"etag": "\"5e-vxv9vt+Cx0Bz1KhXTg6lqN/o35E\"",
-		"mtime": "2026-10-22T20:08:24.370Z",
-		"size": 94,
-		"path": "../public/assets/__vite-browser-external-CV6URZNE.js"
-	},
-	"/__grok/icon-180.png": {
+	"/mascot.png": {
 		"type": "image/png",
-		"etag": "\"834-Xk8vfS0DTFn7ggtkfEduWTcNWGE\"",
-		"mtime": "2026-10-04T16:14:20.000Z",
-		"size": 2100,
-		"path": "../public/__grok/icon-180.png"
+		"etag": "\"cbc70-qrvtL9gz6TTBpro9zQS5mifkAK4\"",
+		"mtime": "2026-10-22T19:06:04.903Z",
+		"size": 834672,
+		"path": "../public/mascot.png"
+	},
+	"/assets/order._id-BpdOaO2m.js": {
+		"type": "text/javascript; charset=utf-8",
+		"etag": "\"1188-3kldtVRufUIAfDi1d9na/v/Fiqo\"",
+		"mtime": "2026-10-22T23:15:00.298Z",
+		"size": 4488,
+		"path": "../public/assets/order._id-BpdOaO2m.js"
+	},
+	"/assets/orders-BFgNlbNs.js": {
+		"type": "text/javascript; charset=utf-8",
+		"etag": "\"665-aF3DljmOPIiBG9nuKaQ9BtxYhJQ\"",
+		"mtime": "2026-10-22T23:15:00.298Z",
+		"size": 1637,
+		"path": "../public/assets/orders-BFgNlbNs.js"
+	},
+	"/assets/plus-BxNtmoOi.js": {
+		"type": "text/javascript; charset=utf-8",
+		"etag": "\"cf-7Q8+9XGDy+3EJPPG0Nk7luLaGro\"",
+		"mtime": "2026-10-22T23:15:00.298Z",
+		"size": 207,
+		"path": "../public/assets/plus-BxNtmoOi.js"
+	},
+	"/assets/product-card-BC_pF9j5.js": {
+		"type": "text/javascript; charset=utf-8",
+		"etag": "\"a2a-WTSRgJwYHUuu3Kc1V8ASTenx7N8\"",
+		"mtime": "2026-10-22T23:15:00.299Z",
+		"size": 2602,
+		"path": "../public/assets/product-card-BC_pF9j5.js"
+	},
+	"/assets/product._id-B87CLbC4.js": {
+		"type": "text/javascript; charset=utf-8",
+		"etag": "\"4547-G4fnxpYYfUYox9omRGZQYttUp6c\"",
+		"mtime": "2026-10-22T23:15:00.299Z",
+		"size": 17735,
+		"path": "../public/assets/product._id-B87CLbC4.js"
+	},
+	"/assets/rolldown-runtime-BWaJ3C7D.js": {
+		"type": "text/javascript; charset=utf-8",
+		"etag": "\"38f-8yiUtcGFA57A27925j8wamv82VA\"",
+		"mtime": "2026-10-22T23:15:00.299Z",
+		"size": 911,
+		"path": "../public/assets/rolldown-runtime-BWaJ3C7D.js"
+	},
+	"/assets/routes-BVI5PmD6.js": {
+		"type": "text/javascript; charset=utf-8",
+		"etag": "\"21b8-Qvd5AvWgLoTCL5X+GopY8PaTa18\"",
+		"mtime": "2026-10-22T23:15:00.299Z",
+		"size": 8632,
+		"path": "../public/assets/routes-BVI5PmD6.js"
+	},
+	"/assets/sell-Bcq1fiBo.js": {
+		"type": "text/javascript; charset=utf-8",
+		"etag": "\"15d3-diAmQ3Gs2aVVXBZAYUQq6BwWyTI\"",
+		"mtime": "2026-10-22T23:15:00.299Z",
+		"size": 5587,
+		"path": "../public/assets/sell-Bcq1fiBo.js"
+	},
+	"/assets/styles-ciBaISyO.css": {
+		"type": "text/css; charset=utf-8",
+		"etag": "\"9bf3-Iv/eS4TEeDPGAUDBehY2HkcAwCU\"",
+		"mtime": "2026-10-22T23:15:00.315Z",
+		"size": 39923,
+		"path": "../public/assets/styles-ciBaISyO.css"
+	},
+	"/assets/textarea-DoKhCk0i.js": {
+		"type": "text/javascript; charset=utf-8",
+		"etag": "\"1fe-EAQhS+vc4YPgNat4i9hetjOLOfM\"",
+		"mtime": "2026-10-22T23:15:00.300Z",
+		"size": 510,
+		"path": "../public/assets/textarea-DoKhCk0i.js"
+	},
+	"/assets/truck-BMWCK5lb.js": {
+		"type": "text/javascript; charset=utf-8",
+		"etag": "\"25d-mNz5VM/7NYxbZKVEX218sDe2284\"",
+		"mtime": "2026-10-22T23:15:00.300Z",
+		"size": 605,
+		"path": "../public/assets/truck-BMWCK5lb.js"
+	},
+	"/assets/__vite-browser-external-NkSIBfMg.js": {
+		"type": "text/javascript; charset=utf-8",
+		"etag": "\"5e-SykoIddOGOkpiI7Wvw5ueNtx/NM\"",
+		"mtime": "2026-10-22T23:15:00.293Z",
+		"size": 94,
+		"path": "../public/assets/__vite-browser-external-NkSIBfMg.js"
 	},
 	"/og.jpg": {
 		"type": "image/jpeg",
@@ -277,40 +270,12 @@ var public_assets_data_default = {
 		"size": 322,
 		"path": "../public/favicon.svg"
 	},
-	"/products/digital-knit.svg": {
-		"type": "image/svg+xml",
-		"etag": "\"59a-/FY4Jow92Cjyh1I5iU+Uh2q/x44\"",
-		"mtime": "2026-10-04T16:14:20.000Z",
-		"size": 1434,
-		"path": "../public/products/digital-knit.svg"
-	},
-	"/products/candles.jpg": {
-		"type": "image/jpeg",
-		"etag": "\"8af83-Wai0wSXiudDdqSGKueYZa23cQ4I\"",
-		"mtime": "2026-10-04T16:14:20.000Z",
-		"size": 569219,
-		"path": "../public/products/candles.jpg"
-	},
-	"/mascot.png": {
+	"/__grok/icon-180.png": {
 		"type": "image/png",
-		"etag": "\"cbc70-qrvtL9gz6TTBpro9zQS5mifkAK4\"",
-		"mtime": "2026-10-22T19:06:04.903Z",
-		"size": 834672,
-		"path": "../public/mascot.png"
-	},
-	"/products/board.jpg": {
-		"type": "image/jpeg",
-		"etag": "\"a3fc8-GO6CeHL0qXqOQb2piuMOYMcBSgk\"",
+		"etag": "\"834-Xk8vfS0DTFn7ggtkfEduWTcNWGE\"",
 		"mtime": "2026-10-04T16:14:20.000Z",
-		"size": 671688,
-		"path": "../public/products/board.jpg"
-	},
-	"/products/digital-brushes.svg": {
-		"type": "image/svg+xml",
-		"etag": "\"522-t3N/uuEcprz/xyNjnFHATXXLumA\"",
-		"mtime": "2026-10-04T16:14:20.000Z",
-		"size": 1314,
-		"path": "../public/products/digital-brushes.svg"
+		"size": 2100,
+		"path": "../public/__grok/icon-180.png"
 	},
 	"/products/digital-berry.svg": {
 		"type": "image/svg+xml",
@@ -319,12 +284,33 @@ var public_assets_data_default = {
 		"size": 1377,
 		"path": "../public/products/digital-berry.svg"
 	},
-	"/products/digital-lace.svg": {
+	"/products/digital-knit.svg": {
 		"type": "image/svg+xml",
-		"etag": "\"6ff-2/XUL4Ky1LX84c/cTApoGOi1Icc\"",
+		"etag": "\"59a-/FY4Jow92Cjyh1I5iU+Uh2q/x44\"",
 		"mtime": "2026-10-04T16:14:20.000Z",
-		"size": 1791,
-		"path": "../public/products/digital-lace.svg"
+		"size": 1434,
+		"path": "../public/products/digital-knit.svg"
+	},
+	"/products/digital-brushes.svg": {
+		"type": "image/svg+xml",
+		"etag": "\"522-t3N/uuEcprz/xyNjnFHATXXLumA\"",
+		"mtime": "2026-10-04T16:14:20.000Z",
+		"size": 1314,
+		"path": "../public/products/digital-brushes.svg"
+	},
+	"/products/board.jpg": {
+		"type": "image/jpeg",
+		"etag": "\"a3fc8-GO6CeHL0qXqOQb2piuMOYMcBSgk\"",
+		"mtime": "2026-10-04T16:14:20.000Z",
+		"size": 671688,
+		"path": "../public/products/board.jpg"
+	},
+	"/products/candles.jpg": {
+		"type": "image/jpeg",
+		"etag": "\"8af83-Wai0wSXiudDdqSGKueYZa23cQ4I\"",
+		"mtime": "2026-10-04T16:14:20.000Z",
+		"size": 569219,
+		"path": "../public/products/candles.jpg"
 	},
 	"/products/digital-north.svg": {
 		"type": "image/svg+xml",
@@ -333,6 +319,13 @@ var public_assets_data_default = {
 		"size": 1143,
 		"path": "../public/products/digital-north.svg"
 	},
+	"/products/digital-lace.svg": {
+		"type": "image/svg+xml",
+		"etag": "\"6ff-2/XUL4Ky1LX84c/cTApoGOi1Icc\"",
+		"mtime": "2026-10-04T16:14:20.000Z",
+		"size": 1791,
+		"path": "../public/products/digital-lace.svg"
+	},
 	"/products/digital-prints.svg": {
 		"type": "image/svg+xml",
 		"etag": "\"482-b9cDlXTU9C/fpxVVp01md9SvDI4\"",
@@ -340,33 +333,12 @@ var public_assets_data_default = {
 		"size": 1154,
 		"path": "../public/products/digital-prints.svg"
 	},
-	"/products/vase.jpg": {
-		"type": "image/jpeg",
-		"etag": "\"67ec4-C+4K8YV1KiB8YFRQawlu8gLcPlI\"",
-		"mtime": "2026-10-04T16:14:20.000Z",
-		"size": 425668,
-		"path": "../public/products/vase.jpg"
-	},
 	"/products/mug.jpg": {
 		"type": "image/jpeg",
 		"etag": "\"760bb-JXH8Ti/DwDZZ+F5V9Xz73tJyBNs\"",
 		"mtime": "2026-10-04T16:14:20.000Z",
 		"size": 483515,
 		"path": "../public/products/mug.jpg"
-	},
-	"/__grok/install/styles.css": {
-		"type": "text/css; charset=utf-8",
-		"etag": "\"1a3d-VUsWOMAheo1/P30EqU5qaIkyvIQ\"",
-		"mtime": "2026-10-04T16:14:20.000Z",
-		"size": 6717,
-		"path": "../public/__grok/install/styles.css"
-	},
-	"/__grok/install/assets/homescreen/logo-grok.svg": {
-		"type": "image/svg+xml",
-		"etag": "\"423-5mXO+yh9KW40jM3to5JlWPhxNK8\"",
-		"mtime": "2026-10-04T16:14:20.000Z",
-		"size": 1059,
-		"path": "../public/__grok/install/assets/homescreen/logo-grok.svg"
 	},
 	"/__grok/install/assets/homescreen/glass-share.svg": {
 		"type": "image/svg+xml",
@@ -382,54 +354,12 @@ var public_assets_data_default = {
 		"size": 1811,
 		"path": "../public/__grok/install/assets/homescreen/glass-puzzle.svg"
 	},
-	"/products/journal.jpg": {
-		"type": "image/jpeg",
-		"etag": "\"c6799-zvrl+daZnxLUl7DTs5M48ydo1TM\"",
+	"/__grok/install/styles.css": {
+		"type": "text/css; charset=utf-8",
+		"etag": "\"1a3d-VUsWOMAheo1/P30EqU5qaIkyvIQ\"",
 		"mtime": "2026-10-04T16:14:20.000Z",
-		"size": 812953,
-		"path": "../public/products/journal.jpg"
-	},
-	"/products/ring.jpg": {
-		"type": "image/jpeg",
-		"etag": "\"93ed4-gjXz7BYA57L3/D9r3AV9wlmVa9k\"",
-		"mtime": "2026-10-04T16:14:20.000Z",
-		"size": 605908,
-		"path": "../public/products/ring.jpg"
-	},
-	"/products/linen.jpg": {
-		"type": "image/jpeg",
-		"etag": "\"c1f2d-R9SgNiwh6PbR5ZacgMONAkQVGv4\"",
-		"mtime": "2026-10-04T16:14:20.000Z",
-		"size": 794413,
-		"path": "../public/products/linen.jpg"
-	},
-	"/products/throw.jpg": {
-		"type": "image/jpeg",
-		"etag": "\"aa797-hrJbGsOGlamMBrIUpUc/nBTJ1bQ\"",
-		"mtime": "2026-10-04T16:14:20.000Z",
-		"size": 698263,
-		"path": "../public/products/throw.jpg"
-	},
-	"/products/spoons.jpg": {
-		"type": "image/jpeg",
-		"etag": "\"e8f5a-K6EfKDqzduYpEhrfLOzS4YO42i4\"",
-		"mtime": "2026-10-04T16:14:20.000Z",
-		"size": 954202,
-		"path": "../public/products/spoons.jpg"
-	},
-	"/products/pillow.jpg": {
-		"type": "image/jpeg",
-		"etag": "\"c998b-inDNAj2euUY4FD4cjgVbCzEdZIs\"",
-		"mtime": "2026-10-04T16:14:20.000Z",
-		"size": 825739,
-		"path": "../public/products/pillow.jpg"
-	},
-	"/__grok/install/assets/homescreen/plus.svg": {
-		"type": "image/svg+xml",
-		"etag": "\"961-sSBPunx/13vbMNAlPxb7UeO3l3A\"",
-		"mtime": "2026-10-04T16:14:20.000Z",
-		"size": 2401,
-		"path": "../public/__grok/install/assets/homescreen/plus.svg"
+		"size": 6717,
+		"path": "../public/__grok/install/styles.css"
 	},
 	"/__grok/install/assets/homescreen/ob-phone.png": {
 		"type": "image/png",
@@ -438,6 +368,34 @@ var public_assets_data_default = {
 		"size": 103612,
 		"path": "../public/__grok/install/assets/homescreen/ob-phone.png"
 	},
+	"/products/vase.jpg": {
+		"type": "image/jpeg",
+		"etag": "\"67ec4-C+4K8YV1KiB8YFRQawlu8gLcPlI\"",
+		"mtime": "2026-10-04T16:14:20.000Z",
+		"size": 425668,
+		"path": "../public/products/vase.jpg"
+	},
+	"/products/journal.jpg": {
+		"type": "image/jpeg",
+		"etag": "\"c6799-zvrl+daZnxLUl7DTs5M48ydo1TM\"",
+		"mtime": "2026-10-04T16:14:20.000Z",
+		"size": 812953,
+		"path": "../public/products/journal.jpg"
+	},
+	"/products/linen.jpg": {
+		"type": "image/jpeg",
+		"etag": "\"c1f2d-R9SgNiwh6PbR5ZacgMONAkQVGv4\"",
+		"mtime": "2026-10-04T16:14:20.000Z",
+		"size": 794413,
+		"path": "../public/products/linen.jpg"
+	},
+	"/products/ring.jpg": {
+		"type": "image/jpeg",
+		"etag": "\"93ed4-gjXz7BYA57L3/D9r3AV9wlmVa9k\"",
+		"mtime": "2026-10-04T16:14:20.000Z",
+		"size": 605908,
+		"path": "../public/products/ring.jpg"
+	},
 	"/__grok/install/assets/homescreen/ob-ipad.png": {
 		"type": "image/png",
 		"etag": "\"18dd3-wlRwrpmBImStuiu+4poVz7ANin4\"",
@@ -445,29 +403,62 @@ var public_assets_data_default = {
 		"size": 101843,
 		"path": "../public/__grok/install/assets/homescreen/ob-ipad.png"
 	},
-	"/assets/pglite-n8RDJ3Sw.data": {
-		"type": "text/plain; charset=utf-8",
-		"etag": "\"600f14-BV9gfLeLeOIFIDDQJPm3R61FxmA\"",
-		"mtime": "2026-10-22T20:08:24.467Z",
-		"size": 6295316,
-		"path": "../public/assets/pglite-n8RDJ3Sw.data"
+	"/products/throw.jpg": {
+		"type": "image/jpeg",
+		"etag": "\"aa797-hrJbGsOGlamMBrIUpUc/nBTJ1bQ\"",
+		"mtime": "2026-10-04T16:14:20.000Z",
+		"size": 698263,
+		"path": "../public/products/throw.jpg"
 	},
-	"/assets/pglite-DgipwPsY.wasm": {
+	"/products/pillow.jpg": {
+		"type": "image/jpeg",
+		"etag": "\"c998b-inDNAj2euUY4FD4cjgVbCzEdZIs\"",
+		"mtime": "2026-10-04T16:14:20.000Z",
+		"size": 825739,
+		"path": "../public/products/pillow.jpg"
+	},
+	"/products/spoons.jpg": {
+		"type": "image/jpeg",
+		"etag": "\"e8f5a-K6EfKDqzduYpEhrfLOzS4YO42i4\"",
+		"mtime": "2026-10-04T16:14:20.000Z",
+		"size": 954202,
+		"path": "../public/products/spoons.jpg"
+	},
+	"/__grok/install/assets/homescreen/logo-grok.svg": {
+		"type": "image/svg+xml",
+		"etag": "\"423-5mXO+yh9KW40jM3to5JlWPhxNK8\"",
+		"mtime": "2026-10-04T16:14:20.000Z",
+		"size": 1059,
+		"path": "../public/__grok/install/assets/homescreen/logo-grok.svg"
+	},
+	"/__grok/install/assets/homescreen/plus.svg": {
+		"type": "image/svg+xml",
+		"etag": "\"961-sSBPunx/13vbMNAlPxb7UeO3l3A\"",
+		"mtime": "2026-10-04T16:14:20.000Z",
+		"size": 2401,
+		"path": "../public/__grok/install/assets/homescreen/plus.svg"
+	},
+	"/assets/pglite-k6Y9avCD.data": {
+		"type": "text/plain; charset=utf-8",
+		"etag": "\"5ffe38-3FhfnnplK778fxvOIeai4Uwa8Jc\"",
+		"mtime": "2026-10-22T23:15:00.315Z",
+		"size": 6291e3,
+		"path": "../public/assets/pglite-k6Y9avCD.data"
+	},
+	"/assets/pglite-CKQGo6A1.wasm": {
 		"type": "application/wasm",
-		"etag": "\"99eee1-4pv/gUUkNdWvrOIIrM5n9xHzeE0\"",
-		"mtime": "2026-10-22T20:08:24.450Z",
-		"size": 10088161,
-		"path": "../public/assets/pglite-DgipwPsY.wasm"
+		"etag": "\"9a77ff-SFPLt/MseNWcRj29JOOOtgdlCZ4\"",
+		"mtime": "2026-10-22T23:15:00.305Z",
+		"size": 10123263,
+		"path": "../public/assets/pglite-CKQGo6A1.wasm"
 	}
 };
-//#endregion
-//#region #nitro/virtual/public-assets-node
+// #nitro/virtual/public-assets-node
 function readAsset(id) {
 	const serverDir = dirname(fileURLToPath(globalThis.__nitro_main__));
 	return promises.readFile(resolve(serverDir, public_assets_data_default[id].path));
 }
-//#endregion
-//#region #nitro/virtual/public-assets
+// #nitro/virtual/public-assets
 var publicAssetBases = {};
 function isPublicAssetURL(id = "") {
 	if (public_assets_data_default[id]) return true;
@@ -477,8 +468,7 @@ function isPublicAssetURL(id = "") {
 function getAsset(id) {
 	return public_assets_data_default[id];
 }
-//#endregion
-//#region node_modules/nitro/dist/runtime/internal/static.mjs
+// node_modules/nitro/dist/runtime/internal/static.mjs
 var METHODS = /* @__PURE__ */ new Set(["HEAD", "GET"]);
 var EncodingMap = {
 	gzip: ".gz",
@@ -525,19 +515,16 @@ var static_default = defineHandler((event) => {
 	if (asset.size > 0 && !event.res.headers.has("Content-Length")) event.res.headers.set("Content-Length", asset.size.toString());
 	return readAsset(id);
 });
-//#endregion
-//#region scripts/install-page.html?raw
+// scripts/install-page.html?raw
 var install_page_default = "<!DOCTYPE html>\n<html lang=\"en\" class=\"device-desktop\">\n  <head>\n    <meta charset=\"utf-8\" />\n    <meta\n      name=\"viewport\"\n      content=\"width=device-width, initial-scale=1, viewport-fit=cover\"\n    />\n    <meta name=\"color-scheme\" content=\"dark\" />\n    <meta name=\"theme-color\" content=\"#000000\" />\n    <meta name=\"apple-mobile-web-app-status-bar-style\" content=\"black\" />\n    <meta name=\"apple-mobile-web-app-title\" content=\"{{APP_NAME}}\" />\n    <title>Add {{APP_NAME}} to your Home Screen</title>\n    <link rel=\"manifest\" href=\"/__grok/manifest.webmanifest\" />\n    <link rel=\"apple-touch-icon\" href=\"/__grok/icon-180.png\" />\n    <link rel=\"stylesheet\" href=\"/__grok/install/styles.css\" />\n    <script>\n      (function () {\n        var ua = navigator.userAgent || \"\";\n        var touch = navigator.maxTouchPoints || 0;\n        var isiPad = /iPad/.test(ua) || (/Macintosh/.test(ua) && touch > 1);\n        var isiPhone = /iPhone|iPod/.test(ua);\n        var isIOS = isiPhone || isiPad;\n        var isAndroid = /Android/i.test(ua);\n        var isAndroidPhone = isAndroid && /Mobile/i.test(ua);\n        var isAndroidTablet = isAndroid && !/Mobile/i.test(ua);\n        var minSide = Math.min(screen.width || 0, screen.height || 0);\n        var maxSide = Math.max(screen.width || 0, screen.height || 0);\n\n        var type = \"desktop\";\n        if (isiPhone) type = \"phone\";\n        else if (isiPad || isAndroidTablet) type = \"tablet\";\n        else if (isAndroidPhone) type = \"phone\";\n        else if (touch > 0 && minSide > 0 && minSide <= 500) type = \"phone\";\n        else if (touch > 0 && minSide > 500 && maxSide <= 1400) type = \"tablet\";\n\n        var iosMajor = null;\n        var osToken = null;\n        var safariToken = null;\n        var iphoneOs = ua.match(/iPhone OS (\\d+)[._]/);\n        var ipadOs = ua.match(/CPU OS (\\d+)[._](\\d+) like Mac OS X/);\n        var safariVer = ua.match(/Version\\/(\\d+)[._]/);\n        if (iphoneOs) osToken = parseInt(iphoneOs[1], 10);\n        else if (ipadOs) osToken = parseInt(ipadOs[1], 10);\n        if (isIOS && safariVer) safariToken = parseInt(safariVer[1], 10);\n        if (osToken != null || safariToken != null) {\n          iosMajor = Math.max(osToken || 0, safariToken || 0);\n        }\n\n        var root = document.documentElement;\n        var classes = [\"device-\" + type];\n        if (iosMajor != null) {\n          root.dataset.ios = String(iosMajor);\n          classes.push(iosMajor >= 27 ? \"ios-27-plus\" : \"ios-below-27\");\n        }\n        root.className = classes.join(\" \");\n      })();\n    <\/script>\n  </head>\n  <body>\n    <div class=\"page\">\n      <header class=\"powered\" aria-label=\"Powered by Grok\">\n        <span class=\"powered-by\">Powered by</span>\n        <span class=\"powered-brand\">\n          <img\n            class=\"grok-logo\"\n            src=\"/__grok/install/assets/homescreen/logo-grok.svg\"\n            width=\"14\"\n            height=\"14\"\n            alt=\"\"\n          />\n          <span class=\"powered-grok\">Grok</span>\n        </span>\n      </header>\n\n      <main class=\"content\">\n        <div class=\"ob\" aria-hidden=\"true\">\n          <img\n            class=\"ob-img ob-phone\"\n            src=\"/__grok/install/assets/homescreen/ob-phone.png\"\n            width=\"338\"\n            height=\"294\"\n            alt=\"\"\n          />\n          <img\n            class=\"ob-img ob-ipad\"\n            src=\"/__grok/install/assets/homescreen/ob-ipad.png\"\n            width=\"634\"\n            height=\"294\"\n            alt=\"\"\n          />\n        </div>\n\n        <section class=\"copy\">\n          <h1>Add {{APP_NAME}} to your&nbsp;Home&nbsp;Screen</h1>\n\n          <div class=\"steps\">\n            <p class=\"step step-tap step-ios27\">\n              <span class=\"muted\">Tap</span>\n              <span class=\"glass glass--icon\" aria-hidden=\"true\">\n                <img src=\"/__grok/install/assets/homescreen/glass-puzzle.svg\" width=\"24\" height=\"24\" alt=\"\" />\n              </span>\n              <span class=\"muted loc loc-phone\">in the bottom bar, then</span>\n              <span class=\"muted loc loc-ipad\">in the tool bar, then</span>\n              <span class=\"glass glass--icon\" aria-hidden=\"true\">\n                <img src=\"/__grok/install/assets/homescreen/glass-share.svg\" width=\"24\" height=\"24\" alt=\"\" />\n              </span>\n            </p>\n\n            <p class=\"step step-tap step-ios-legacy\">\n              <span class=\"muted\">Tap</span>\n              <span class=\"glass glass--icon\" aria-hidden=\"true\">\n                <img src=\"/__grok/install/assets/homescreen/glass-share.svg\" width=\"24\" height=\"24\" alt=\"\" />\n              </span>\n              <span class=\"muted loc loc-phone\">in the bottom bar</span>\n              <span class=\"muted loc loc-ipad\">in the tool bar</span>\n            </p>\n\n            <p class=\"step step-select\">\n              <span class=\"muted\">Select</span>\n              <span class=\"add-label\">\n                <img\n                  class=\"plus-icon\"\n                  src=\"/__grok/install/assets/homescreen/plus.svg\"\n                  width=\"16\"\n                  height=\"16\"\n                  alt=\"\"\n                />\n                <span class=\"add-text\">Add to Home Screen</span>\n              </span>\n            </p>\n          </div>\n        </section>\n      </main>\n\n      <main class=\"content content-desktop\">\n        <section class=\"copy\">\n          <h1>Open this link on your iPhone&nbsp;or&nbsp;iPad</h1>\n          <p class=\"desktop-note\">\n            This page shows how to add {{APP_NAME}} to an iOS Home Screen.\n          </p>\n          <a class=\"desktop-open\" href=\"{{APP_URL}}\">Open {{APP_NAME}}</a>\n        </section>\n      </main>\n    </div>\n  </body>\n</html>\n";
-//#endregion
-//#region \0virtual:grok-og-identity
+// \0virtual:grok-og-identity
 var grokOgIdentity = { "site": {
 	"title": "Живица",
 	"card": "custom",
 	"color": "3E4F45",
 	"image": "/og.jpg"
 } };
-//#endregion
-//#region scripts/grok-pwa-shared.mjs
+// scripts/grok-pwa-shared.mjs
 /**
 * Single source of truth for platform head chrome (PWA, extensions.js, OG),
 * shared by the Vite plugin and Nitro middleware. Plain ESM so `node --test`
@@ -900,8 +887,7 @@ function createHeadInjector(ctx = {}) {
 		}
 	};
 }
-//#endregion
-//#region server/middleware/grok-pwa.ts
+// server/middleware/grok-pwa.ts
 /**
 * Deployed-app (Nitro) half of the platform PWA chrome. Auto-registered as
 * global h3 middleware because vite.config.ts sets `serverDir: "./server"` —
@@ -965,8 +951,7 @@ async function grokPwaMiddleware(event, next) {
 	if (result instanceof Response && result.body && String(result.headers.get("content-type") ?? "").includes("text/html") && !result.headers.get("content-encoding")) return injectHeadStreaming(result, requestHost(event));
 	return result;
 }
-//#endregion
-//#region #nitro/virtual/routing
+// #nitro/virtual/routing
 var findRouteRules = /* @__PURE__ */ (() => {
 	const $0 = [{
 		name: "headers",
@@ -1001,8 +986,7 @@ var findRoute = /* @__PURE__ */ (() => {
 	});
 })();
 var globalMiddleware = [toEventHandler(static_default), toEventHandler(grokPwaMiddleware)].filter(Boolean);
-//#endregion
-//#region node_modules/nitro/dist/runtime/internal/error/prod.mjs
+// node_modules/nitro/dist/runtime/internal/error/prod.mjs
 var errorHandler = (error, event) => {
 	const res = defaultHandler(error, event);
 	return new NodeResponse(typeof res.body === "string" ? res.body : JSON.stringify(res.body, null, 2), res);
@@ -1037,8 +1021,7 @@ function defaultHandler(error, event) {
 		}
 	};
 }
-//#endregion
-//#region #nitro/virtual/error-handler
+// #nitro/virtual/error-handler
 var errorHandlers = [errorHandler];
 async function error_handler_default(error, event) {
 	for (const handler of errorHandlers) try {
@@ -1048,8 +1031,7 @@ async function error_handler_default(error, event) {
 		console.error(error);
 	}
 }
-//#endregion
-//#region #nitro/virtual/app
+// #nitro/virtual/app
 function createNitroApp() {
 	const captureError = (error, errorCtx) => {
 		if (errorCtx?.event) {
@@ -1092,8 +1074,7 @@ function createH3App(config) {
 	};
 	return h3App;
 }
-//#endregion
-//#region node_modules/nitro/dist/runtime/internal/app.mjs
+// node_modules/nitro/dist/runtime/internal/app.mjs
 var APP_ID = "default";
 function useNitroApp() {
 	let instance = useNitroApp._instance;
@@ -1140,8 +1121,7 @@ function getRouteRules(method, pathname) {
 		routeRuleMiddleware: middleware
 	};
 }
-//#endregion
-//#region node_modules/nitro/dist/runtime/internal/error/hooks.mjs
+// node_modules/nitro/dist/runtime/internal/error/hooks.mjs
 function _captureError(error, type) {
 	console.error(`[${type}]`, error);
 	useNitroApp().captureError?.(error, { tags: [type] });
@@ -1150,11 +1130,9 @@ function trapUnhandledErrors() {
 	process.on("unhandledRejection", (error) => _captureError(error, "unhandledRejection"));
 	process.on("uncaughtException", (error) => _captureError(error, "uncaughtException"));
 }
-//#endregion
-//#region #nitro/virtual/tracing
+// #nitro/virtual/tracing
 var tracingSrvxPlugins = [];
-//#endregion
-//#region node_modules/nitro/dist/presets/node/runtime/node-server.mjs
+// node_modules/nitro/dist/presets/node/runtime/node-server.mjs
 var _parsedPort = Number.parseInt(process.env.NITRO_PORT ?? process.env.PORT ?? "");
 var port = Number.isNaN(_parsedPort) ? 3e3 : _parsedPort;
 var host = process.env.NITRO_HOST || process.env.HOST;
@@ -1173,5 +1151,4 @@ serve({
 });
 trapUnhandledErrors();
 var node_server_default = {};
-//#endregion
 export { node_server_default as default };

@@ -1,6 +1,6 @@
 import { o as __toESM } from "../_runtime.mjs";
 import { n as require_react } from "./@radix-ui/react-compose-refs+[...].mjs";
-//#region node_modules/lucide-react/dist/esm/shared/src/utils.js
+// node_modules/lucide-react/dist/esm/shared/src/utils.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 /**
 * @license lucide-react v0.510.0 - ISC
@@ -20,8 +20,7 @@ var mergeClasses = (...classes) => classes.filter((className, index, array) => {
 var hasA11yProp = (props) => {
 	for (const prop in props) if (prop.startsWith("aria-") || prop === "role" || prop === "title") return true;
 };
-//#endregion
-//#region node_modules/lucide-react/dist/esm/defaultAttributes.js
+// node_modules/lucide-react/dist/esm/defaultAttributes.js
 /**
 * @license lucide-react v0.510.0 - ISC
 *
@@ -39,8 +38,7 @@ var defaultAttributes = {
 	strokeLinecap: "round",
 	strokeLinejoin: "round"
 };
-//#endregion
-//#region node_modules/lucide-react/dist/esm/Icon.js
+// node_modules/lucide-react/dist/esm/Icon.js
 /**
 * @license lucide-react v0.510.0 - ISC
 *
@@ -58,8 +56,7 @@ var Icon = (0, import_react.forwardRef)(({ color = "currentColor", size = 24, st
 	...!children && !hasA11yProp(rest) && { "aria-hidden": "true" },
 	...rest
 }, [...iconNode.map(([tag, attrs]) => (0, import_react.createElement)(tag, attrs)), ...Array.isArray(children) ? children : [children]]));
-//#endregion
-//#region node_modules/lucide-react/dist/esm/createLucideIcon.js
+// node_modules/lucide-react/dist/esm/createLucideIcon.js
 /**
 * @license lucide-react v0.510.0 - ISC
 *
@@ -503,5 +500,4 @@ var X = createLucideIcon("x", [["path", {
 	d: "m6 6 12 12",
 	key: "d8bk6v"
 }]]);
-//#endregion
 export { Copy as _, Sparkles as a, ShieldCheck as c, Plus as d, Package as f, Download as g, Heart as h, Trash2 as i, Share2 as l, Menu as m, Truck as n, SlidersHorizontal as o, Minus as p, TriangleAlert as r, ShoppingBag as s, X as t, Search as u, Check as v, ArrowRight as y };

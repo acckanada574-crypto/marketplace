@@ -60,5 +60,4 @@ function joinURL(base, ...input) {
 	} else url = segment;
 	return url;
 }
-//#endregion
 export { withoutTrailingSlash as i, joinURL as n, withLeadingSlash as r, decodePath as t };

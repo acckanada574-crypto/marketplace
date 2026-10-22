@@ -1,7 +1,7 @@
 import { o as __toESM } from "../_runtime.mjs";
 import { n as require_react } from "./@radix-ui/react-compose-refs+[...].mjs";
 import { l as require_react_dom } from "./@radix-ui/react-dialog+[...].mjs";
-//#region node_modules/sonner/dist/index.mjs
+// node_modules/sonner/dist/index.mjs
 var import_react = /* @__PURE__ */ __toESM(require_react(), 1);
 var import_react_dom = /* @__PURE__ */ __toESM(require_react_dom(), 1);
 function __insertCSS(code) {
@@ -952,5 +952,4 @@ var Toaster = /*#__PURE__*/ import_react.forwardRef(function Toaster(props, ref)
 		}));
 	}));
 });
-//#endregion
 export { toast as n, Toaster as t };
