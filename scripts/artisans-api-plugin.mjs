@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { Buffer } from "node:buffer";
+import nodeCrypto from "node:crypto";
 
 export function artisansApiPlugin() {
   return {
@@ -76,8 +77,43 @@ async function handleSellProduct(server, req, res) {
     const { getSql } = await server.ssrLoadModule("/src/lib/db.ts"); const sql = await getSql();
     const artisanRows = await sql`select id from artisans where user_id = ${session.user.id} limit 1`;
     if (artisanRows.length === 0) { res.statusCode = 400; res.end(JSON.stringify({ error: "Сначала создайте мастерскую" })); return; }
+    const artisanId = artisanRows[0].id;
     const id = `item-${Date.now().toString(36)}`;
-    await sql`insert into products (id, slug, title, subtitle, description, price, kind, category, artisan_id, image, materials, stock, rating, review_count, featured, is_new, digital_format, digital_pages, license, file_size, custom) values (${id}, ${id}, ${input.title}, ${input.subtitle}, ${input.description}, ${input.price}, ${input.kind}, ${input.category}, ${artisanRows[0].id}, ${input.image}, ${input.materials}, ${input.stock}, 0, 0, false, true, ${input.digitalFormat}, ${input.digitalPages}, ${input.license}, ${input.fileSize}, true)`;
+
+    await sql`
+      insert into products (
+        id, slug, title, subtitle, description, price, kind, category, artisan_id,
+        image, materials, stock, rating, review_count, featured, is_new,
+        digital_format, digital_pages, license, file_size, custom
+      ) values (
+        ${id}, ${id}, ${input.title}, ${input.subtitle}, ${input.description},
+        ${input.price}, ${input.kind}, ${input.category}, ${artisanId},
+        ${input.image}, ${input.materials}, ${input.stock}, 0, 0, false, true,
+        ${input.digitalFormat}, ${input.digitalPages}, ${input.license}, ${input.fileSize}, true
+      )
+    `;
+
+    // Техническая подпись (SHA-256) для цифровых товаров
+    if (input.kind === "digital") {
+      const payload = [
+        input.title,
+        input.subtitle,
+        input.description,
+        String(input.price),
+        artisanId,
+        input.digitalFormat || "",
+        input.digitalPages || "",
+        input.license || "",
+        id,
+      ].join("|");
+      const hash = nodeCrypto.createHash("sha256").update(payload).digest("hex");
+      await sql`
+        update products
+        set file_hash = ${hash}, signed_at = now(), signed_by = ${artisanId}
+        where id = ${id}
+      `;
+    }
+
     res.statusCode = 200; res.end(JSON.stringify({ id }));
   } catch (err) { if (!res.headersSent) { res.statusCode = 500; res.end(JSON.stringify({ error: err?.message })); } }
 }
@@ -88,7 +124,7 @@ async function handleGetArtisan(server, req, res, pathOnly) {
     const { getSql } = await server.ssrLoadModule("/src/lib/db.ts"); const sql = await getSql();
     const artisanRows = await sql`select id, name, city, craft, bio, since, mark from artisans where id = ${artisanId} and status = 'approved' limit 1`;
     if (artisanRows.length === 0) { res.statusCode = 404; res.end(JSON.stringify({ error: "Мастер не найден" })); return; }
-    const productRows = await sql`select id, slug, title, subtitle, description, price, kind, category, artisan_id, image, materials, size, care, ships_in_days, stock, rating, review_count, featured, is_new, digital_format, digital_pages, license, file_size, custom from products where artisan_id = ${artisanId} order by featured desc, created_at asc`;
+    const productRows = await sql`select id, slug, title, subtitle, description, price, kind, category, artisan_id, image, materials, size, care, ships_in_days, stock, rating, review_count, featured, is_new, digital_format, digital_pages, license, file_size, custom, file_hash, signed_at, signed_by from products where artisan_id = ${artisanId} order by featured desc, created_at asc`;
     res.statusCode = 200; res.end(JSON.stringify({ artisan: artisanRows[0], products: productRows }));
   } catch (err) { if (!res.headersSent) { res.statusCode = 500; res.end(JSON.stringify({ error: err?.message })); } }
 }

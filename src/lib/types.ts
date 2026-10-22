@@ -55,6 +55,10 @@ export type Product = {
   license?: string;
   fileSize?: string;
   custom?: boolean;
+  // Техническая подпись (SHA-256) для цифровых товаров
+  fileHash?: string;
+  signedAt?: string;
+  signedBy?: string;
 };
 
 export type CartLine = {

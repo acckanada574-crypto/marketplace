@@ -1,5 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { Check, Download, Heart, Minus, Plus, Share2, Truck } from "lucide-react";
+import { Check, Download, Heart, Minus, Plus, Share2, ShieldCheck, Truck } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { ProductCard } from "@/components/product-card";
@@ -239,6 +239,28 @@ function ProductPage() {
                 </div>
               ) : null}
             </dl>
+
+            {/* Блок SHA-256 для цифровых товаров */}
+            {product.kind === "digital" && product.fileHash ? (
+              <div className="mt-6 rounded-xl border border-primary/20 bg-primary/5 p-4 text-sm">
+                <p className="flex items-center gap-2 font-medium">
+                  <ShieldCheck className="size-4 text-primary" />
+                  Файл защищён технической подписью (SHA-256)
+                </p>
+                <p className="mt-2 break-all font-mono text-xs text-muted-foreground">
+                  {product.fileHash}
+                </p>
+                {product.signedAt ? (
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    Подписано: {new Date(product.signedAt).toLocaleString("ru-RU")}
+                  </p>
+                ) : null}
+                <p className="mt-2 text-xs text-muted-foreground">
+                  Если хеш изменится — значит, описание или файл были изменены после подписи.
+                </p>
+              </div>
+            ) : null}
+
             {product.kind === "digital" ? (
               <p className="mt-6 text-xs text-muted-foreground">
                 На этой странице можно посмотреть образец. Полный файл выдаётся в заказе. Для

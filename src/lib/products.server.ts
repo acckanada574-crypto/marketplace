@@ -1,6 +1,5 @@
 // src/lib/products.server.ts
-// Серверные запросы к БД. НИКОГДА не импортировать из клиентского кода —
-// getSql() бросает ошибку в браузере.
+// Серверные запросы к БД.
 
 import { getSql } from "@/lib/db";
 import type { Artisan, Product, Review, ProductKind, CategoryId } from "@/lib/types";
@@ -31,6 +30,9 @@ type ProductRow = {
   license: string | null;
   file_size: string | null;
   custom: boolean;
+  file_hash: string | null;
+  signed_at: string | null;
+  signed_by: string | null;
 };
 
 type ArtisanRow = {
@@ -79,6 +81,9 @@ function rowToProduct(row: ProductRow, reviews: Review[] = []): Product {
     license: row.license ?? undefined,
     fileSize: row.file_size ?? undefined,
     custom: row.custom,
+    fileHash: row.file_hash ?? undefined,
+    signedAt: row.signed_at ?? undefined,
+    signedBy: row.signed_by ?? undefined,
   };
 }
 
@@ -164,8 +169,8 @@ export async function getHomeData() {
   ]);
   return { featured, digital, physical, artisans };
 }
-// ── Дополнение к products.server.ts ─────────────────────────────────
 
+// ── Дополнение к products.server.ts ─────────────────────────────────
 
 export type ProductFilter = {
   q?: string;
@@ -177,7 +182,6 @@ export type ProductFilter = {
 export async function getFilteredProducts(filter: ProductFilter): Promise<Product[]> {
   const sql = await getSql();
 
-  // Собираем условия динамически. Значения всегда через параметры.
   const conditions: string[] = [];
   const params: unknown[] = [];
 
@@ -201,7 +205,7 @@ export async function getFilteredProducts(filter: ProductFilter): Promise<Produc
 
   const where = conditions.length ? `where ${conditions.join(" and ")}` : "";
 
-  let orderBy = "p.review_count * p.rating desc"; // popular
+  let orderBy = "p.review_count * p.rating desc";
   if (filter.sort === "new") orderBy = "p.is_new desc, p.created_at desc";
   if (filter.sort === "price-asc") orderBy = "p.price asc";
   if (filter.sort === "price-desc") orderBy = "p.price desc";
@@ -226,8 +230,7 @@ export async function getProductWithArtisan(id: string) {
   const artisan = artisans.find((a) => a.id === product.artisanId) ?? null;
   return { product, artisan };
 }
-// ── Похожие товары ────────────────────────────────────────────────
-// Тот же вид ИЛИ тот же мастер, исключая сам товар.
+
 export async function getRelatedProducts(
   currentId: string,
   kind: ProductKind,
@@ -244,7 +247,7 @@ export async function getRelatedProducts(
   `;
   return rows.map((row) => rowToProduct(row));
 }
-// ── Мастерская и её работы ────────────────────────────────────────
+
 export async function getArtisanById(id: string): Promise<Artisan | null> {
   const sql = await getSql();
   const rows = await sql<ArtisanRow>`
