@@ -1,4 +1,4 @@
-// node_modules/.nitro/vite/services/ssr/assets/_tanstack-start-manifest_v-DdC7Y8Xb.js
+// node_modules/.nitro/vite/services/ssr/assets/_tanstack-start-manifest_v-DxeYyUQN.js
 var tsrStartManifest = () => ({ routes: {
 	__root__: {
 		filePath: "D:/projects/marketplace/src/routes/__root.tsx",
@@ -20,13 +20,18 @@ var tsrStartManifest = () => ({ routes: {
 			"/api/favorites",
 			"/api/home",
 			"/api/orders",
+			"/api/sell",
 			"/artisan/$id",
 			"/master/marketing",
 			"/master/onboarding",
 			"/master/orders",
 			"/order/$id",
 			"/product/$id",
-			"/api/auth/$"
+			"/api/auth/$",
+			"/api/master/marketing",
+			"/api/master/onboarding",
+			"/api/master/orders",
+			"/api/order/$id"
 		],
 		preloads: [
 			"/assets/index-DbCAXgo-.js",

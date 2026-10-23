@@ -26,6 +26,7 @@ import { Route as ApiCheckoutRouteImport } from './routes/api.checkout'
 import { Route as ApiFavoritesRouteImport } from './routes/api.favorites'
 import { Route as ApiHomeRouteImport } from './routes/api.home'
 import { Route as ApiOrdersRouteImport } from './routes/api.orders'
+import { Route as ApiSellRouteImport } from './routes/api.sell'
 import { Route as ArtisanIdRouteImport } from './routes/artisan.$id'
 import { Route as MasterMarketingRouteImport } from './routes/master.marketing'
 import { Route as MasterOnboardingRouteImport } from './routes/master.onboarding'
@@ -33,6 +34,10 @@ import { Route as MasterOrdersRouteImport } from './routes/master.orders'
 import { Route as OrderIdRouteImport } from './routes/order.$id'
 import { Route as ProductIdRouteImport } from './routes/product.$id'
 import { Route as ApiAuthSplatRouteImport } from './routes/api.auth.$'
+import { Route as ApiMasterMarketingRouteImport } from './routes/api.master.marketing'
+import { Route as ApiMasterOnboardingRouteImport } from './routes/api.master.onboarding'
+import { Route as ApiMasterOrdersRouteImport } from './routes/api.master.orders'
+import { Route as ApiOrderIdRouteImport } from './routes/api.order.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -119,6 +124,11 @@ const ApiOrdersRoute = ApiOrdersRouteImport.update({
   path: '/api/orders',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiSellRoute = ApiSellRouteImport.update({
+  id: '/api/sell',
+  path: '/api/sell',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ArtisanIdRoute = ArtisanIdRouteImport.update({
   id: '/artisan/$id',
   path: '/artisan/$id',
@@ -154,6 +164,26 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   path: '/api/auth/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiMasterMarketingRoute = ApiMasterMarketingRouteImport.update({
+  id: '/api/master/marketing',
+  path: '/api/master/marketing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiMasterOnboardingRoute = ApiMasterOnboardingRouteImport.update({
+  id: '/api/master/onboarding',
+  path: '/api/master/onboarding',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiMasterOrdersRoute = ApiMasterOrdersRouteImport.update({
+  id: '/api/master/orders',
+  path: '/api/master/orders',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiOrderIdRoute = ApiOrderIdRouteImport.update({
+  id: '/api/order/$id',
+  path: '/api/order/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -173,6 +203,7 @@ export interface FileRoutesByFullPath {
   '/api/favorites': typeof ApiFavoritesRoute
   '/api/home': typeof ApiHomeRoute
   '/api/orders': typeof ApiOrdersRoute
+  '/api/sell': typeof ApiSellRoute
   '/artisan/$id': typeof ArtisanIdRoute
   '/master/marketing': typeof MasterMarketingRoute
   '/master/onboarding': typeof MasterOnboardingRoute
@@ -180,6 +211,10 @@ export interface FileRoutesByFullPath {
   '/order/$id': typeof OrderIdRoute
   '/product/$id': typeof ProductIdRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/master/marketing': typeof ApiMasterMarketingRoute
+  '/api/master/onboarding': typeof ApiMasterOnboardingRoute
+  '/api/master/orders': typeof ApiMasterOrdersRoute
+  '/api/order/$id': typeof ApiOrderIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -199,6 +234,7 @@ export interface FileRoutesByTo {
   '/api/favorites': typeof ApiFavoritesRoute
   '/api/home': typeof ApiHomeRoute
   '/api/orders': typeof ApiOrdersRoute
+  '/api/sell': typeof ApiSellRoute
   '/artisan/$id': typeof ArtisanIdRoute
   '/master/marketing': typeof MasterMarketingRoute
   '/master/onboarding': typeof MasterOnboardingRoute
@@ -206,6 +242,10 @@ export interface FileRoutesByTo {
   '/order/$id': typeof OrderIdRoute
   '/product/$id': typeof ProductIdRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/master/marketing': typeof ApiMasterMarketingRoute
+  '/api/master/onboarding': typeof ApiMasterOnboardingRoute
+  '/api/master/orders': typeof ApiMasterOrdersRoute
+  '/api/order/$id': typeof ApiOrderIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -226,6 +266,7 @@ export interface FileRoutesById {
   '/api/favorites': typeof ApiFavoritesRoute
   '/api/home': typeof ApiHomeRoute
   '/api/orders': typeof ApiOrdersRoute
+  '/api/sell': typeof ApiSellRoute
   '/artisan/$id': typeof ArtisanIdRoute
   '/master/marketing': typeof MasterMarketingRoute
   '/master/onboarding': typeof MasterOnboardingRoute
@@ -233,6 +274,10 @@ export interface FileRoutesById {
   '/order/$id': typeof OrderIdRoute
   '/product/$id': typeof ProductIdRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/master/marketing': typeof ApiMasterMarketingRoute
+  '/api/master/onboarding': typeof ApiMasterOnboardingRoute
+  '/api/master/orders': typeof ApiMasterOrdersRoute
+  '/api/order/$id': typeof ApiOrderIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -254,6 +299,7 @@ export interface FileRouteTypes {
     | '/api/favorites'
     | '/api/home'
     | '/api/orders'
+    | '/api/sell'
     | '/artisan/$id'
     | '/master/marketing'
     | '/master/onboarding'
@@ -261,6 +307,10 @@ export interface FileRouteTypes {
     | '/order/$id'
     | '/product/$id'
     | '/api/auth/$'
+    | '/api/master/marketing'
+    | '/api/master/onboarding'
+    | '/api/master/orders'
+    | '/api/order/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -280,6 +330,7 @@ export interface FileRouteTypes {
     | '/api/favorites'
     | '/api/home'
     | '/api/orders'
+    | '/api/sell'
     | '/artisan/$id'
     | '/master/marketing'
     | '/master/onboarding'
@@ -287,6 +338,10 @@ export interface FileRouteTypes {
     | '/order/$id'
     | '/product/$id'
     | '/api/auth/$'
+    | '/api/master/marketing'
+    | '/api/master/onboarding'
+    | '/api/master/orders'
+    | '/api/order/$id'
   id:
     | '__root__'
     | '/'
@@ -306,6 +361,7 @@ export interface FileRouteTypes {
     | '/api/favorites'
     | '/api/home'
     | '/api/orders'
+    | '/api/sell'
     | '/artisan/$id'
     | '/master/marketing'
     | '/master/onboarding'
@@ -313,6 +369,10 @@ export interface FileRouteTypes {
     | '/order/$id'
     | '/product/$id'
     | '/api/auth/$'
+    | '/api/master/marketing'
+    | '/api/master/onboarding'
+    | '/api/master/orders'
+    | '/api/order/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -333,6 +393,7 @@ export interface RootRouteChildren {
   ApiFavoritesRoute: typeof ApiFavoritesRoute
   ApiHomeRoute: typeof ApiHomeRoute
   ApiOrdersRoute: typeof ApiOrdersRoute
+  ApiSellRoute: typeof ApiSellRoute
   ArtisanIdRoute: typeof ArtisanIdRoute
   MasterMarketingRoute: typeof MasterMarketingRoute
   MasterOnboardingRoute: typeof MasterOnboardingRoute
@@ -340,6 +401,10 @@ export interface RootRouteChildren {
   OrderIdRoute: typeof OrderIdRoute
   ProductIdRoute: typeof ProductIdRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
+  ApiMasterMarketingRoute: typeof ApiMasterMarketingRoute
+  ApiMasterOnboardingRoute: typeof ApiMasterOnboardingRoute
+  ApiMasterOrdersRoute: typeof ApiMasterOrdersRoute
+  ApiOrderIdRoute: typeof ApiOrderIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -463,6 +528,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiOrdersRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/sell': {
+      id: '/api/sell'
+      path: '/api/sell'
+      fullPath: '/api/sell'
+      preLoaderRoute: typeof ApiSellRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/artisan/$id': {
       id: '/artisan/$id'
       path: '/artisan/$id'
@@ -512,6 +584,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAuthSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/master/marketing': {
+      id: '/api/master/marketing'
+      path: '/api/master/marketing'
+      fullPath: '/api/master/marketing'
+      preLoaderRoute: typeof ApiMasterMarketingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/master/onboarding': {
+      id: '/api/master/onboarding'
+      path: '/api/master/onboarding'
+      fullPath: '/api/master/onboarding'
+      preLoaderRoute: typeof ApiMasterOnboardingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/master/orders': {
+      id: '/api/master/orders'
+      path: '/api/master/orders'
+      fullPath: '/api/master/orders'
+      preLoaderRoute: typeof ApiMasterOrdersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/order/$id': {
+      id: '/api/order/$id'
+      path: '/api/order/$id'
+      fullPath: '/api/order/$id'
+      preLoaderRoute: typeof ApiOrderIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -533,6 +633,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiFavoritesRoute: ApiFavoritesRoute,
   ApiHomeRoute: ApiHomeRoute,
   ApiOrdersRoute: ApiOrdersRoute,
+  ApiSellRoute: ApiSellRoute,
   ArtisanIdRoute: ArtisanIdRoute,
   MasterMarketingRoute: MasterMarketingRoute,
   MasterOnboardingRoute: MasterOnboardingRoute,
@@ -540,6 +641,10 @@ const rootRouteChildren: RootRouteChildren = {
   OrderIdRoute: OrderIdRoute,
   ProductIdRoute: ProductIdRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
+  ApiMasterMarketingRoute: ApiMasterMarketingRoute,
+  ApiMasterOnboardingRoute: ApiMasterOnboardingRoute,
+  ApiMasterOrdersRoute: ApiMasterOrdersRoute,
+  ApiOrderIdRoute: ApiOrderIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

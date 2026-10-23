@@ -1,13 +1,13 @@
 import { y as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { n as require_jsx_runtime } from "../_libs/radix-ui__react-context+react.mjs";
 import { f as Package, g as Download, n as Truck, y as ArrowRight } from "../_libs/lucide-react.mjs";
-import { O as CATEGORIES, d as Route$23, p as Section, v as formatPrice } from "./router-LH2AA8pD.mjs";
-import { t as Button } from "./button-C6QwpHK3.mjs";
-import { n as ProductCard, t as Badge } from "./product-card-EjbYVR9Y.mjs";
-// node_modules/.nitro/vite/services/ssr/assets/routes-ZRvy6xD8.js
+import { O as CATEGORIES, d as Route$28, p as Section, v as formatPrice } from "./router-Dpfr_c1k.mjs";
+import { t as Button } from "./button-BSn4vtXw.mjs";
+import { n as ProductCard, t as Badge } from "./product-card-CxwWUhrB.mjs";
+// node_modules/.nitro/vite/services/ssr/assets/routes-DsRgn2vG.js
 var import_jsx_runtime = require_jsx_runtime();
 function Home() {
-	const { featured, digital, physical, artisans, totalProducts } = Route$23.useLoaderData();
+	const { featured, digital, physical, artisans, totalProducts } = Route$28.useLoaderData();
 	const heroProduct = featured[0];
 	const heroArtisan = heroProduct ? artisans.find((a) => a.id === heroProduct.artisanId) : void 0;
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("main", { children: [

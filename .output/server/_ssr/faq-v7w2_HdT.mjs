@@ -1,9 +1,9 @@
 import { n as require_jsx_runtime } from "../_libs/radix-ui__react-context+react.mjs";
-import { c as Route$18, f as PageHeading, p as Section } from "./router-LH2AA8pD.mjs";
-// node_modules/.nitro/vite/services/ssr/assets/faq-BBtKhl_Z.js
+import { c as Route$23, f as PageHeading, p as Section } from "./router-Dpfr_c1k.mjs";
+// node_modules/.nitro/vite/services/ssr/assets/faq-v7w2_HdT.js
 var import_jsx_runtime = require_jsx_runtime();
 function FaqPage() {
-	const items = Route$18.useLoaderData();
+	const items = Route$23.useLoaderData();
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("main", {
 		className: "py-10 pb-20",
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Section, { children: [

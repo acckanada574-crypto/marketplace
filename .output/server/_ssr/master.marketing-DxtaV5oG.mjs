@@ -3,9 +3,9 @@ import { n as require_react } from "../_libs/@radix-ui/react-compose-refs+[...].
 import { n as require_jsx_runtime } from "../_libs/radix-ui__react-context+react.mjs";
 import { _ as Copy, a as Sparkles } from "../_libs/lucide-react.mjs";
 import { n as toast } from "../_libs/sonner.mjs";
-import { a as Route$5, f as PageHeading, p as Section, v as formatPrice } from "./router-LH2AA8pD.mjs";
-import { t as Button } from "./button-C6QwpHK3.mjs";
-// node_modules/.nitro/vite/services/ssr/assets/master.marketing-DNm6l17O.js
+import { a as Route$9, f as PageHeading, p as Section, v as formatPrice } from "./router-Dpfr_c1k.mjs";
+import { t as Button } from "./button-BSn4vtXw.mjs";
+// node_modules/.nitro/vite/services/ssr/assets/master.marketing-DxtaV5oG.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var TYPES = [
@@ -31,7 +31,7 @@ var TYPES = [
 	}
 ];
 function MarketingPage() {
-	const products = Route$5.useLoaderData();
+	const products = Route$9.useLoaderData();
 	const [selectedId, setSelectedId] = (0, import_react.useState)(products[0]?.id ?? "");
 	const [busy, setBusy] = (0, import_react.useState)(null);
 	const [result, setResult] = (0, import_react.useState)(null);

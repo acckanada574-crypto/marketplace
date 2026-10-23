@@ -1,11 +1,11 @@
 import { y as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { n as require_jsx_runtime } from "../_libs/radix-ui__react-context+react.mjs";
-import { f as PageHeading, i as Route$3, p as Section, v as formatPrice } from "./router-LH2AA8pD.mjs";
-import { t as Button } from "./button-C6QwpHK3.mjs";
-// node_modules/.nitro/vite/services/ssr/assets/master.orders-QEiL-C4b.js
+import { f as PageHeading, i as Route$7, p as Section, v as formatPrice } from "./router-Dpfr_c1k.mjs";
+import { t as Button } from "./button-BSn4vtXw.mjs";
+// node_modules/.nitro/vite/services/ssr/assets/master.orders-9HGbQRLt.js
 var import_jsx_runtime = require_jsx_runtime();
 function MasterOrdersPage() {
-	const sales = Route$3.useLoaderData();
+	const sales = Route$7.useLoaderData();
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("main", {
 		className: "py-10 pb-20",
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Section, {
