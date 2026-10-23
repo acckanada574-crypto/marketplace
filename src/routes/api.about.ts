@@ -7,11 +7,11 @@ export const Route = createFileRoute("/api/about")({
       GET: async () => {
         try {
           const sql = await getSql();
-          const artisans = await sql`SELECT * FROM artisans LIMIT 6`; // Получаем мастеров
+          const artisans = await sql`SELECT * FROM artisans LIMIT 6`;
           
           return new Response(JSON.stringify({
             text: "Двор независимых мастеров. Физические вещи с теплом рук и цифровые издания.",
-            artisans: artisans // <--- ВАЖНО: отдаем массив мастеров
+            artisans: artisans
           }), { status: 200 });
         } catch (error) {
           return new Response(JSON.stringify({ error: "Ошибка БД" }), { status: 500 });
