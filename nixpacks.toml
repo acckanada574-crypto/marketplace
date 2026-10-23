@@ -2,10 +2,13 @@
 nixPkgs = ["nodejs_22"]
 
 [phases.install]
-cmds = ["npm install"]
+# Устанавливаем ТОЛЬКО те зависимости, которые нужны для запуска (без dev-пакетов)
+cmds = ["npm install --omit=dev"]
 
 [phases.build]
-cmds = ["NODE_OPTIONS=--max-old-space-size=460 npm run build"]
+# Пропускаем сборку! Netrun ничего не будет собирать.
+cmds = [] 
 
 [start]
-cmd = "HOST=0.0.0.0 node .output/server/index.mjs"
+# Сразу запускаем готовый сервер
+cmd = "node .output/server/index.mjs"
