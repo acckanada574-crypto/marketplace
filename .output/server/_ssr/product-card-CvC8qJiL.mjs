@@ -2,8 +2,8 @@ import { y as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { n as require_jsx_runtime } from "../_libs/radix-ui__react-context+react.mjs";
 import { m as Heart } from "../_libs/lucide-react.mjs";
 import { t as cva } from "../_libs/class-variance-authority+clsx.mjs";
-import { E as cn, _ as formatPrice, h as useMarket, v as kindLabel } from "./router-B9bwEVq4.mjs";
-// node_modules/.nitro/vite/services/ssr/assets/product-card-Cd8SboC3.js
+import { E as cn, _ as formatPrice, h as useMarket, v as kindLabel } from "./router-B3oI1Wg1.mjs";
+// node_modules/.nitro/vite/services/ssr/assets/product-card-CvC8qJiL.js
 var import_jsx_runtime = require_jsx_runtime();
 var badgeVariants = cva("inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-medium tracking-wide", {
 	variants: { variant: {

@@ -1,6 +1,6 @@
 import { n as require_jsx_runtime } from "../_libs/radix-ui__react-context+react.mjs";
-import { d as PageHeading, f as Section } from "./router-B9bwEVq4.mjs";
-// node_modules/.nitro/vite/services/ssr/assets/mascot-DcbGa5WG.js
+import { d as PageHeading, f as Section } from "./router-B3oI1Wg1.mjs";
+// node_modules/.nitro/vite/services/ssr/assets/mascot-CocZQhHH.js
 var import_jsx_runtime = require_jsx_runtime();
 function MascotPage() {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("main", {

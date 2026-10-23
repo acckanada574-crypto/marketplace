@@ -1,6 +1,6 @@
 import { n as require_jsx_runtime } from "../_libs/radix-ui__react-context+react.mjs";
-import { _ as formatPrice, a as Route$11, d as PageHeading, f as Section } from "./router-B9bwEVq4.mjs";
-// node_modules/.nitro/vite/services/ssr/assets/master.marketing-0zmfELKY.js
+import { _ as formatPrice, a as Route$11, d as PageHeading, f as Section } from "./router-B3oI1Wg1.mjs";
+// node_modules/.nitro/vite/services/ssr/assets/master.marketing-CSC7Ph_M.js
 var import_jsx_runtime = require_jsx_runtime();
 function MasterMarketingPage() {
 	const stats = Route$11.useLoaderData() || {

@@ -9,7 +9,8 @@ import { AsyncLocalStorage } from "node:async_hooks";
 var ssr_exports = /* @__PURE__ */ __exportAll$1({
 	createServerEntry: () => createServerEntry,
 	default: () => server_default,
-	n: () => __exportAll,
+	n: () => getRequestHeaders,
+	r: () => __exportAll,
 	t: () => server_exports
 });
 require_react();
@@ -1864,7 +1865,7 @@ var getBaseManifest = getProdBaseManifest;
 var createEarlyHintsForRequest = createEarlyHintsCollector;
 async function loadEntries() {
 	const [routerEntry, startEntry, pluginAdapters] = await Promise.all([
-		import("./router-B9bwEVq4.mjs").then((n) => n.t),
+		import("./router-B3oI1Wg1.mjs").then((n) => n.t),
 		import("./start-COmmreO7.mjs"),
 		import("./empty-plugin-adapters-CeyhLWeJ.mjs")
 	]);
@@ -2430,4 +2431,4 @@ var server_exports = /* @__PURE__ */ __exportAll({
 var fetch = createStartHandler(defaultStreamHandler);
 var createServerEntry = createServerEntry$1;
 var server_default = createServerEntry({ fetch });
-export { createServerEntry, server_default as default, __exportAll as n, ssr_exports as r, server_exports as t };
+export { createServerEntry, server_default as default, ssr_exports as i, getRequestHeaders as n, __exportAll as r, server_exports as t };

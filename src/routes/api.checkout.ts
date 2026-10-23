@@ -1,15 +1,22 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { getSql } from "@/lib/db";
-
-const MOCK_USER_ID = "dev-user";
+import { getCurrentUserId } from "@/lib/auth/session";
 
 export const Route = createFileRoute("/api/checkout")({
   server: {
     handlers: {
       POST: async ({ request }) => {
+        // 1. Проверяем, авторизован ли пользователь
+        const userId = await getCurrentUserId();
+        if (!userId) {
+          return new Response(JSON.stringify({ error: "Необходима авторизация для оформления заказа" }), { 
+            status: 401,
+            headers: { "Content-Type": "application/json" }
+          });
+        }
+
         try {
           const body = await request.json();
-          // Ожидаем, что фронтенд пришлет эти данные
           const { 
             customer_name, customer_email, customer_phone, 
             customer_city, customer_address, customer_postal, 
@@ -23,20 +30,20 @@ export const Route = createFileRoute("/api/checkout")({
           const commission = Math.round(total * 0.10);
           const payout = total - commission;
 
-          // 1. Создаем запись о заказе
+          // 2. Создаем запись о заказе с реальным user_id
           await sql`
             INSERT INTO orders (
               id, user_id, customer_name, customer_email, customer_phone, 
               customer_city, customer_address, customer_postal, 
               subtotal, total, commission_amount, payout_total, status
             ) VALUES (
-              ${orderId}, ${MOCK_USER_ID}, ${customer_name}, ${customer_email}, ${customer_phone}, 
+              ${orderId}, ${userId}, ${customer_name}, ${customer_email}, ${customer_phone}, 
               ${customer_city}, ${customer_address}, ${customer_postal}, 
               ${total}, ${total}, ${commission}, ${payout}, 'pending'
             )
           `;
 
-          // 2. Сохраняем каждый товар из корзины в order_items
+          // 3. Сохраняем каждый товар из корзины в order_items
           for (const item of items) {
             const itemId = crypto.randomUUID();
             const itemCommission = Math.round(item.price * item.quantity * 0.10);
@@ -54,13 +61,13 @@ export const Route = createFileRoute("/api/checkout")({
             `;
           }
 
-          // 3. Очищаем корзину пользователя
-          await sql`DELETE FROM cart WHERE user_id = ${MOCK_USER_ID}`;
+          // 4. Очищаем корзину ТОЛЬКО этого пользователя
+          await sql`DELETE FROM cart WHERE user_id = ${userId}`;
 
           return new Response(JSON.stringify({ success: true, orderId }), { status: 200 });
         } catch (error) {
           console.error("Ошибка оформления заказа:", error);
-          return new Response(JSON.stringify({ error: "Ошибка БД" }), { status: 500 });
+          return new Response(JSON.stringify({ error: "Ошибка БД при оформлении" }), { status: 500 });
         }
       },
     },

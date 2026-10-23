@@ -1,6 +1,6 @@
 import { n as require_jsx_runtime } from "../_libs/radix-ui__react-context+react.mjs";
-import { c as Route$28, d as PageHeading, f as Section } from "./router-B9bwEVq4.mjs";
-// node_modules/.nitro/vite/services/ssr/assets/faq-hUKEB0-k.js
+import { c as Route$28, d as PageHeading, f as Section } from "./router-B3oI1Wg1.mjs";
+// node_modules/.nitro/vite/services/ssr/assets/faq-XckmmJj_.js
 var import_jsx_runtime = require_jsx_runtime();
 function FaqPage() {
 	const items = Route$28.useLoaderData();

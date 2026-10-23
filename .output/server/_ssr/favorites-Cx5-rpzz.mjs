@@ -1,9 +1,9 @@
 import { y as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { n as require_jsx_runtime } from "../_libs/radix-ui__react-context+react.mjs";
-import { d as PageHeading, f as Section, h as useMarket, p as findProduct } from "./router-B9bwEVq4.mjs";
-import { r as ProductGrid } from "./product-card-Cd8SboC3.mjs";
-import { t as Button } from "./button-BDrK-bPs.mjs";
-// node_modules/.nitro/vite/services/ssr/assets/favorites-CxWpwsfO.js
+import { d as PageHeading, f as Section, h as useMarket, p as findProduct } from "./router-B3oI1Wg1.mjs";
+import { r as ProductGrid } from "./product-card-CvC8qJiL.mjs";
+import { t as Button } from "./button-D3PWLeyf.mjs";
+// node_modules/.nitro/vite/services/ssr/assets/favorites-Cx5-rpzz.js
 var import_jsx_runtime = require_jsx_runtime();
 function FavoritesPage() {
 	const favorites = useMarket((s) => s.favorites);

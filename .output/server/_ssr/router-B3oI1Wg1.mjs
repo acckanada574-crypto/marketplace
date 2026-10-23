@@ -3,7 +3,7 @@ import { n as require_react } from "../_libs/@radix-ui/react-compose-refs+[...].
 import { K as notFound, S as useRouter, _ as createFileRoute, b as Navigate, d as HeadContent, f as useRouterState, g as lazyRouteComponent, h as Outlet, m as createRouter, u as Scripts, v as createRootRoute, x as useNavigate, y as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { n as require_jsx_runtime } from "../_libs/radix-ui__react-context+react.mjs";
 import { a as DialogPortal, i as DialogOverlay, n as DialogClose, o as DialogTitle, r as DialogContent, t as Dialog } from "../_libs/@radix-ui/react-dialog+[...].mjs";
-import { n as __exportAll } from "./ssr.mjs";
+import { n as getRequestHeaders, r as __exportAll } from "./ssr.mjs";
 import { a as PostgresIntrospector, c as sql, i as PostgresAdapter, n as getKyselyDatabaseType, o as PostgresQueryCompiler, s as CompiledQuery, t as createKyselyAdapter } from "../_libs/@better-auth/kysely-adapter+[...].mjs";
 import { $ as encode, $t as queueAfterTransactionHook, A as jwtVerify, At as boolean, C as serializeSignedCookie, Ct as createFetch, D as decodeJwt, E as base64Url, Ft as object, Gt as createWithSpan, Ht as capitalizeFirstLetter, It as optional, Jt as ATTR_OPERATION_ID, Kt as ATTR_CONTEXT, Lt as record, Mt as literal, Nt as looseObject, O as decodeProtectedHeader, Ot as any, Pt as number, Qt as getCurrentAdapter, Rt as string, S as serializeCookie, St as betterFetch, Tt as normalizePathname, Ut as toKebabCase, Xt as safeJSONParse, Yt as import_src, Zt as getAuthTables, _ as runWithRequestState, _n as APIError, a as createAuthorizationURL, an as generateId, b as createRouter$1, bn as BASE_ERROR_CODES, c as createRateLimitKey, cn as logger, d as deprecate, dn as env, dt as JWTExpired, en as runWithAdapter, f as createAuthEndpoint, g as hasRequestState, gn as isTest, h as defineRequestState, hn as isProduction, i as refreshAccessToken, in as initGetFieldName, jt as email, k as importJWK, kt as array, l as findInvalidTrustedProxies, ln as shouldPublishLog, m as isAPIError, mn as isDevelopment, n as socialProviders, nn as getBetterAuthVersion, o as applyDefaultAccessTokenExpiry, on as createRandomStringGenerator, p as createAuthMiddleware, qt as ATTR_HOOK_TYPE, r as validateAuthorizationCode, rn as initGetModelName, s as isLoopbackHost, sn as createLogger, t as SocialProviderListEnum, tn as runWithTransaction, u as getIp, v as getCurrentAuthContext, vn as BetterAuthError, w as filterOutputFields, wt as isSafeUrlScheme, x as toResponse, xn as defineErrorCodes, y as runWithEndpointContext, yn as kAPIErrorHeaderSymbol, zt as union } from "../_libs/@better-auth/core+[...].mjs";
 import { l as Search, m as Heart, o as ShoppingBag, p as Menu, r as TriangleAlert, t as X } from "../_libs/lucide-react.mjs";
@@ -26,7 +26,7 @@ var getSSRBase = () => {
 	return `http://127.0.0.1:${process.env.PORT || process.env.NITRO_PORT || 8080}`;
 };
 var getServerCookie = async () => {
-	const { getRequestHeaders } = await import("./ssr.mjs").then((n) => n.r).then((n) => n.t);
+	const { getRequestHeaders } = await import("./ssr.mjs").then((n) => n.i).then((n) => n.t);
 	return getRequestHeaders().get("cookie");
 };
 var ApiError = class extends Error {
@@ -95,7 +95,7 @@ var CATEGORIES = [
 		hint: "Принты и кисти"
 	}
 ];
-// node_modules/.nitro/vite/services/ssr/assets/router-B9bwEVq4.js
+// node_modules/.nitro/vite/services/ssr/assets/router-B3oI1Wg1.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var FALLBACK_MESSAGE = "An unexpected error occurred. Try reloading the page.";
@@ -2999,7 +2999,7 @@ function NotFound() {
 		]
 	});
 }
-var $$splitComponentImporter$15 = () => import("./routes-Bfgeq0Sk.mjs");
+var $$splitComponentImporter$15 = () => import("./routes-jsdgE_cF.mjs");
 var Route$33 = createFileRoute("/")({
 	loader: () => apiFetch("/api/home"),
 	component: lazyRouteComponent($$splitComponentImporter$15, "component")
@@ -3210,9 +3210,9 @@ var Route$32 = createFileRoute("/about")({ server: { handlers: { GET: async () =
 		return new Response(JSON.stringify({ error: "Ошибка БД" }), { status: 500 });
 	}
 } } } });
-var $$splitComponentImporter$14 = () => import("./cart-DL7H_hPB.mjs");
+var $$splitComponentImporter$14 = () => import("./cart-DQr36Blq.mjs");
 var Route$31 = createFileRoute("/cart")({ component: lazyRouteComponent($$splitComponentImporter$14, "component") });
-var $$splitComponentImporter$13 = () => import("./catalog-U4O_cNOW.mjs");
+var $$splitComponentImporter$13 = () => import("./catalog-BOOAWnZO.mjs");
 function parseSearch(search) {
 	const kind = search.kind === "physical" || search.kind === "digital" ? search.kind : void 0;
 	const category = CATEGORIES.some((c) => c.id === search.category) ? search.category : void 0;
@@ -3237,9 +3237,9 @@ var Route$30 = createFileRoute("/catalog")({
 	},
 	component: lazyRouteComponent($$splitComponentImporter$13, "component")
 });
-var $$splitComponentImporter$12 = () => import("./checkout-DEvKkXCL.mjs");
+var $$splitComponentImporter$12 = () => import("./checkout-BbD7Rt6e.mjs");
 var Route$29 = createFileRoute("/checkout")({ component: lazyRouteComponent($$splitComponentImporter$12, "component") });
-var $$splitComponentImporter$11 = () => import("./faq-hUKEB0-k.mjs");
+var $$splitComponentImporter$11 = () => import("./faq-XckmmJj_.mjs");
 async function getFaq() {
 	return (await getSql())`
     select id, question, answer, category, position
@@ -3252,18 +3252,18 @@ var Route$28 = createFileRoute("/faq")({
 	loader: () => getFaq(),
 	component: lazyRouteComponent($$splitComponentImporter$11, "component")
 });
-var $$splitComponentImporter$10 = () => import("./favorites-CxWpwsfO.mjs");
+var $$splitComponentImporter$10 = () => import("./favorites-Cx5-rpzz.mjs");
 var Route$27 = createFileRoute("/favorites")({ component: lazyRouteComponent($$splitComponentImporter$10, "component") });
-var $$splitComponentImporter$9 = () => import("./login-D6--nArV.mjs");
+var $$splitComponentImporter$9 = () => import("./login-CeMHnmvZ.mjs");
 var Route$26 = createFileRoute("/login")({ component: lazyRouteComponent($$splitComponentImporter$9, "component") });
-var $$splitComponentImporter$8 = () => import("./mascot-DcbGa5WG.mjs");
+var $$splitComponentImporter$8 = () => import("./mascot-CocZQhHH.mjs");
 var Route$25 = createFileRoute("/mascot")({ component: lazyRouteComponent($$splitComponentImporter$8, "component") });
-var $$splitComponentImporter$7 = () => import("./orders-ifULr1iS.mjs");
+var $$splitComponentImporter$7 = () => import("./orders-Dba4kLGh.mjs");
 var Route$24 = createFileRoute("/orders")({
 	loader: () => apiFetch("/api/orders"),
 	component: lazyRouteComponent($$splitComponentImporter$7, "component")
 });
-var $$splitComponentImporter$6 = () => import("./sell-CzVKTeWf.mjs");
+var $$splitComponentImporter$6 = () => import("./sell-DUPodsck.mjs");
 var Route$23 = createFileRoute("/sell")({ component: lazyRouteComponent($$splitComponentImporter$6, "component") });
 var Route$22 = createFileRoute("/api/about")({ server: { handlers: { GET: async () => {
 	try {
@@ -3271,347 +3271,6 @@ var Route$22 = createFileRoute("/api/about")({ server: { handlers: { GET: async 
 		return new Response(JSON.stringify({
 			text: "Двор независимых мастеров. Физические вещи с теплом рук и цифровые издания.",
 			artisans
-		}), { status: 200 });
-	} catch (error) {
-		return new Response(JSON.stringify({ error: "Ошибка БД" }), { status: 500 });
-	}
-} } } });
-var MOCK_USER_ID$4 = "dev-user";
-var Route$21 = createFileRoute("/api/cart")({ server: { handlers: {
-	GET: async () => {
-		try {
-			const items = await (await getSql())`
-            SELECT c.id, c.quantity, p.id as product_id, p.title, p.price, p.image, p.kind
-            FROM cart c 
-            JOIN products p ON p.id = c.product_id
-            WHERE c.user_id = ${MOCK_USER_ID$4}
-          `;
-			return new Response(JSON.stringify({ items }), { status: 200 });
-		} catch (error) {
-			console.error("Ошибка получения корзины:", error);
-			return new Response(JSON.stringify({ error: "Ошибка БД" }), { status: 500 });
-		}
-	},
-	POST: async ({ request }) => {
-		try {
-			const { productId, quantity = 1 } = await request.json();
-			const sql = await getSql();
-			const existing = await sql`SELECT * FROM cart WHERE user_id = ${MOCK_USER_ID$4} AND product_id = ${productId}`;
-			if (existing.length > 0) await sql`UPDATE cart SET quantity = quantity + ${quantity} WHERE id = ${existing[0].id}`;
-			else await sql`INSERT INTO cart (id, user_id, product_id, quantity) VALUES (${crypto.randomUUID()}, ${MOCK_USER_ID$4}, ${productId}, ${quantity})`;
-			return new Response(JSON.stringify({ success: true }), { status: 200 });
-		} catch (error) {
-			console.error("Ошибка добавления в корзину:", error);
-			return new Response(JSON.stringify({ error: "Ошибка БД" }), { status: 500 });
-		}
-	},
-	DELETE: async ({ request }) => {
-		try {
-			const { searchParams } = new URL(request.url);
-			const id = searchParams.get("id");
-			if (!id) return new Response(JSON.stringify({ error: "id не указан" }), { status: 400 });
-			await (await getSql())`DELETE FROM cart WHERE id = ${id} AND user_id = ${MOCK_USER_ID$4}`;
-			return new Response(JSON.stringify({ success: true }), { status: 200 });
-		} catch (error) {
-			console.error("Ошибка удаления из корзины:", error);
-			return new Response(JSON.stringify({ error: "Ошибка БД" }), { status: 500 });
-		}
-	}
-} } });
-var Route$20 = createFileRoute("/api/catalog")({ server: { handlers: { GET: async ({ request }) => {
-	try {
-		const kind = new URL(request.url).searchParams.get("kind");
-		const sql = await getSql();
-		let products;
-		if (kind === "digital" || kind === "physical") products = await sql`SELECT * FROM products WHERE kind = ${kind} ORDER BY created_at DESC`;
-		else products = await sql`SELECT * FROM products ORDER BY created_at DESC`;
-		return new Response(JSON.stringify(products), {
-			status: 200,
-			headers: { "Content-Type": "application/json" }
-		});
-	} catch (error) {
-		console.error("Ошибка каталога:", error);
-		return new Response(JSON.stringify([]), { status: 200 });
-	}
-} } } });
-var MOCK_USER_ID$3 = "dev-user";
-var Route$19 = createFileRoute("/api/checkout")({ server: { handlers: { POST: async ({ request }) => {
-	try {
-		const { customer_name, customer_email, customer_phone, customer_city, customer_address, customer_postal, items, total } = await request.json();
-		const sql = await getSql();
-		const orderId = crypto.randomUUID();
-		const commission = Math.round(total * .1);
-		await sql`
-            INSERT INTO orders (
-              id, user_id, customer_name, customer_email, customer_phone, 
-              customer_city, customer_address, customer_postal, 
-              subtotal, total, commission_amount, payout_total, status
-            ) VALUES (
-              ${orderId}, ${MOCK_USER_ID$3}, ${customer_name}, ${customer_email}, ${customer_phone}, 
-              ${customer_city}, ${customer_address}, ${customer_postal}, 
-              ${total}, ${total}, ${commission}, ${total - commission}, 'pending'
-            )
-          `;
-		for (const item of items) {
-			const itemId = crypto.randomUUID();
-			const itemCommission = Math.round(item.price * item.quantity * .1);
-			const itemPayout = item.price * item.quantity - itemCommission;
-			await sql`
-              INSERT INTO order_items (
-                id, order_id, product_id, artisan_id, title, price, qty, kind, image, 
-                line_total, commission_amount, payout_amount
-              ) VALUES (
-                ${itemId}, ${orderId}, ${item.product_id}, ${item.artisan_id || "unknown"}, 
-                ${item.title}, ${item.price}, ${item.quantity}, ${item.kind || "physical"}, 
-                ${item.image || null}, ${item.price * item.quantity}, ${itemCommission}, ${itemPayout}
-              )
-            `;
-		}
-		await sql`DELETE FROM cart WHERE user_id = ${MOCK_USER_ID$3}`;
-		return new Response(JSON.stringify({
-			success: true,
-			orderId
-		}), { status: 200 });
-	} catch (error) {
-		console.error("Ошибка оформления заказа:", error);
-		return new Response(JSON.stringify({ error: "Ошибка БД" }), { status: 500 });
-	}
-} } } });
-var Route$18 = createFileRoute("/api/faq")({ server: { handlers: { GET: async () => {
-	try {
-		const items = await (await getSql())`SELECT * FROM faq WHERE published = true ORDER BY position ASC`;
-		return new Response(JSON.stringify({ items }), { status: 200 });
-	} catch (error) {
-		return new Response(JSON.stringify({ error: "Ошибка БД" }), { status: 500 });
-	}
-} } } });
-var MOCK_USER_ID$2 = "dev-user";
-var Route$17 = createFileRoute("/api/favorites")({ server: { handlers: {
-	GET: async () => {
-		try {
-			const items = await (await getSql())`
-            SELECT f.id, p.id as product_id, p.title, p.price, p.image, p.kind
-            FROM favorites f 
-            JOIN products p ON p.id = f.product_id
-            WHERE f.user_id = ${MOCK_USER_ID$2}
-          `;
-			return new Response(JSON.stringify({ items }), { status: 200 });
-		} catch (error) {
-			console.error("Ошибка получения избранного:", error);
-			return new Response(JSON.stringify({ error: "Ошибка БД" }), { status: 500 });
-		}
-	},
-	POST: async ({ request }) => {
-		try {
-			const { productId } = await request.json();
-			const sql = await getSql();
-			if ((await sql`SELECT * FROM favorites WHERE user_id = ${MOCK_USER_ID$2} AND product_id = ${productId}`).length === 0) await sql`INSERT INTO favorites (id, user_id, product_id) VALUES (${crypto.randomUUID()}, ${MOCK_USER_ID$2}, ${productId})`;
-			return new Response(JSON.stringify({ success: true }), { status: 200 });
-		} catch (error) {
-			console.error("Ошибка добавления в избранное:", error);
-			return new Response(JSON.stringify({ error: "Ошибка БД" }), { status: 500 });
-		}
-	},
-	DELETE: async ({ request }) => {
-		try {
-			const { searchParams } = new URL(request.url);
-			const id = searchParams.get("id");
-			if (!id) return new Response(JSON.stringify({ error: "id не указан" }), { status: 400 });
-			await (await getSql())`DELETE FROM favorites WHERE id = ${id} AND user_id = ${MOCK_USER_ID$2}`;
-			return new Response(JSON.stringify({ success: true }), { status: 200 });
-		} catch (error) {
-			console.error("Ошибка удаления из избранного:", error);
-			return new Response(JSON.stringify({ error: "Ошибка БД" }), { status: 500 });
-		}
-	}
-} } });
-var Route$16 = createFileRoute("/api/home")({ server: { handlers: { GET: async () => {
-	try {
-		const sql = await getSql();
-		const totalProducts = (await sql`SELECT count(*)::int as count FROM products`)[0]?.count || 0;
-		const featured = await sql`SELECT * FROM products WHERE featured = true LIMIT 6`;
-		const displayFeatured = featured.length > 0 ? featured : await sql`SELECT * FROM products LIMIT 6`;
-		const digital = await sql`SELECT * FROM products WHERE kind = 'digital' LIMIT 5`;
-		const physical = await sql`SELECT * FROM products WHERE kind = 'physical' LIMIT 3`;
-		const artisans = await sql`SELECT * FROM artisans LIMIT 6`;
-		return new Response(JSON.stringify({
-			featured: displayFeatured,
-			digital,
-			physical,
-			artisans,
-			totalProducts
-		}), {
-			status: 200,
-			headers: { "Content-Type": "application/json" }
-		});
-	} catch (error) {
-		console.error("Ошибка при загрузке данных из БД:", error);
-		return new Response(JSON.stringify({ error: "Ошибка базы данных" }), {
-			status: 500,
-			headers: { "Content-Type": "application/json" }
-		});
-	}
-} } } });
-var Route$15 = createFileRoute("/api/mascot")({ server: { handlers: { GET: async () => {
-	return new Response(JSON.stringify({
-		name: "Живица",
-		description: "Талисман маркетплейса — капля живицы."
-	}), { status: 200 });
-} } } });
-var MOCK_USER_ID$1 = "dev-user";
-var Route$14 = createFileRoute("/api/orders")({ server: { handlers: { GET: async () => {
-	try {
-		const orders = await (await getSql())`
-            SELECT * FROM orders 
-            WHERE user_id = ${MOCK_USER_ID$1} 
-            ORDER BY created_at DESC
-          `;
-		return new Response(JSON.stringify(orders), { status: 200 });
-	} catch (error) {
-		console.error("Ошибка получения заказов:", error);
-		return new Response(JSON.stringify({ error: "Ошибка БД" }), { status: 500 });
-	}
-} } } });
-var Route$13 = createFileRoute("/api/sell")({ server: { handlers: { POST: async ({ request }) => {
-	try {
-		await request.json();
-		return new Response(JSON.stringify({
-			success: true,
-			message: "Товар принят (заглушка)"
-		}), { status: 200 });
-	} catch (error) {
-		return new Response(JSON.stringify({ error: "Ошибка" }), { status: 500 });
-	}
-} } } });
-var $$splitComponentImporter$5 = () => import("./artisan._id-59SVDVlM.mjs");
-var Route$12 = createFileRoute("/artisan/$id")({
-	loader: async ({ params }) => {
-		try {
-			return await apiFetch(`/api/artisan/${params.id}`);
-		} catch (err) {
-			if (err instanceof ApiError && err.status === 404) throw notFound();
-			throw err;
-		}
-	},
-	component: lazyRouteComponent($$splitComponentImporter$5, "component")
-});
-var $$splitComponentImporter$4 = () => import("./master.marketing-0zmfELKY.mjs");
-var Route$11 = createFileRoute("/master/marketing")({
-	loader: () => apiFetch("/api/master/marketing"),
-	component: lazyRouteComponent($$splitComponentImporter$4, "component")
-});
-var $$splitComponentImporter$3 = () => import("./master.onboarding-sWfIxNpC.mjs");
-var Route$10 = createFileRoute("/master/onboarding")({ component: lazyRouteComponent($$splitComponentImporter$3, "component") });
-var $$splitComponentImporter$2 = () => import("./master.orders-LiMkbwrO.mjs");
-var Route$9 = createFileRoute("/master/orders")({
-	loader: () => apiFetch("/api/master/orders"),
-	component: lazyRouteComponent($$splitComponentImporter$2, "component")
-});
-var $$splitComponentImporter$1 = () => import("./order._id-DcLD5daZ.mjs");
-var Route$8 = createFileRoute("/order/$id")({
-	loader: async ({ params }) => {
-		return await apiFetch(`/api/order/${params.id}`);
-	},
-	component: lazyRouteComponent($$splitComponentImporter$1, "component")
-});
-var $$splitComponentImporter = () => import("./product._id-1m0ETxvG.mjs");
-var Route$7 = createFileRoute("/product/$id")({
-	loader: async ({ params }) => {
-		try {
-			return await apiFetch(`/api/product/${params.id}`);
-		} catch (err) {
-			if (err instanceof ApiError && err.status === 404) throw notFound();
-			throw err;
-		}
-	},
-	head: ({ loaderData }) => {
-		if (!loaderData) return { meta: [] };
-		const { product, artisan } = loaderData;
-		const title = `${product.title} — ${product.subtitle} | Живица`;
-		const description = product.description.slice(0, 160);
-		const url = `https://zhivitsa.ru/product/${product.id}`;
-		return { meta: [
-			{ title },
-			{
-				name: "description",
-				content: description
-			},
-			{
-				property: "og:title",
-				content: title
-			},
-			{
-				property: "og:description",
-				content: description
-			},
-			{
-				property: "og:image",
-				content: product.image
-			},
-			{
-				property: "og:url",
-				content: url
-			},
-			{
-				property: "og:type",
-				content: "product"
-			},
-			{
-				name: "twitter:card",
-				content: "summary_large_image"
-			},
-			{
-				name: "twitter:title",
-				content: title
-			},
-			{
-				name: "twitter:description",
-				content: description
-			},
-			{
-				name: "twitter:image",
-				content: product.image
-			},
-			{ "script:ld+json": {
-				"@context": "https://schema.org",
-				"@type": "Product",
-				name: product.title,
-				image: product.image,
-				description: product.description,
-				brand: {
-					"@type": "Brand",
-					name: "Живица"
-				},
-				offers: {
-					"@type": "Offer",
-					price: product.price,
-					priceCurrency: "RUB",
-					availability: product.stock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock"
-				},
-				aggregateRating: product.reviewCount > 0 ? {
-					"@type": "AggregateRating",
-					ratingValue: product.rating,
-					reviewCount: product.reviewCount
-				} : void 0,
-				seller: {
-					"@type": "Person",
-					name: artisan.name
-				}
-			} }
-		] };
-	},
-	component: lazyRouteComponent($$splitComponentImporter, "component")
-});
-var Route$6 = createFileRoute("/api/artisan/$id")({ server: { handlers: { GET: async ({ params }) => {
-	try {
-		const sql = await getSql();
-		const artisans = await sql`SELECT * FROM artisans WHERE id = ${params.id}`;
-		if (artisans.length === 0) return new Response(JSON.stringify({ error: "Мастер не найден" }), { status: 404 });
-		const artisan = artisans[0];
-		const products = await sql`SELECT * FROM products WHERE artisan_id = ${params.id} ORDER BY created_at DESC`;
-		return new Response(JSON.stringify({
-			artisan,
-			products
 		}), { status: 200 });
 	} catch (error) {
 		return new Response(JSON.stringify({ error: "Ошибка БД" }), { status: 500 });
@@ -11811,7 +11470,7 @@ var tanstackStartCookies = () => {
 					const setCookies = returned?.get("set-cookie");
 					if (!setCookies) return;
 					const parsed = parseSetCookieHeader(setCookies);
-					const { setCookie } = await import("./ssr.mjs").then((n) => n.r).then((n) => n.t);
+					const { setCookie } = await import("./ssr.mjs").then((n) => n.i).then((n) => n.t);
 					parsed.forEach((value, key) => {
 						if (!key) return;
 						try {
@@ -11999,7 +11658,7 @@ async function emitSessionCookie(ctx, sessionTokenName, sessionToken) {
 		return null;
 	}
 	try {
-		const { setCookie } = await import("./ssr.mjs").then((n) => n.r).then((n) => n.t);
+		const { setCookie } = await import("./ssr.mjs").then((n) => n.i).then((n) => n.t);
 		setCookie(sessionTokenName, sessionValue, {
 			path: cookieOptions.path ?? "/",
 			httpOnly: cookieOptions.httpOnly ?? true,
@@ -12031,7 +11690,7 @@ async function expireSessionDataCookie(ctx, cookie) {
 	const path = cookie.attributes.path ?? "/";
 	const secure = cookie.attributes.secure ?? true;
 	try {
-		const { setCookie } = await import("./ssr.mjs").then((n) => n.r).then((n) => n.t);
+		const { setCookie } = await import("./ssr.mjs").then((n) => n.i).then((n) => n.t);
 		setCookie(cookie.name, "", {
 			path,
 			httpOnly: true,
@@ -12059,7 +11718,7 @@ async function writeGateMarkerCookie(ctx, clear) {
 	const maxAge = clear ? 0 : typeof sessionMaxAge === "number" ? sessionMaxAge : void 0;
 	const value = clear ? "" : "1";
 	try {
-		const { setCookie } = await import("./ssr.mjs").then((n) => n.r).then((n) => n.t);
+		const { setCookie } = await import("./ssr.mjs").then((n) => n.i).then((n) => n.t);
 		setCookie(GATE_SESSION_MARKER_COOKIE, value, {
 			path: "/",
 			httpOnly: false,
@@ -12399,6 +12058,381 @@ var auth = betterAuth({
 		tanstackStartCookies()
 	]
 });
+/**
+* Возвращает ID текущего аутентифицированного пользователя.
+* Если сессии нет, возвращает null.
+*/
+async function getCurrentUserId() {
+	try {
+		const headers = getRequestHeaders();
+		return (await auth.api.getSession({ headers }))?.user?.id ?? null;
+	} catch (error) {
+		console.error("Ошибка при получении сессии:", error);
+		return null;
+	}
+}
+var Route$21 = createFileRoute("/api/cart")({ server: { handlers: {
+	GET: async () => {
+		const userId = await getCurrentUserId();
+		if (!userId) return new Response(JSON.stringify([]), { status: 200 });
+		try {
+			const items = await (await getSql())`
+            SELECT c.id, c.quantity, p.id as product_id, p.title, p.price, p.image, p.kind
+            FROM cart c 
+            JOIN products p ON p.id = c.product_id
+            WHERE c.user_id = ${userId} // <-- Используем реальный ID
+          `;
+			return new Response(JSON.stringify(items), { status: 200 });
+		} catch (error) {
+			console.error("Ошибка получения корзины:", error);
+			return new Response(JSON.stringify([]), { status: 200 });
+		}
+	},
+	POST: async ({ request }) => {
+		const userId = await getCurrentUserId();
+		if (!userId) return new Response(JSON.stringify({ error: "Необходима авторизация" }), { status: 401 });
+		try {
+			const { productId, quantity = 1 } = await request.json();
+			const sql = await getSql();
+			const existing = await sql`SELECT * FROM cart WHERE user_id = ${userId} AND product_id = ${productId}`;
+			if (existing.length > 0) await sql`UPDATE cart SET quantity = quantity + ${quantity} WHERE id = ${existing[0].id}`;
+			else await sql`INSERT INTO cart (id, user_id, product_id, quantity) VALUES (${crypto.randomUUID()}, ${userId}, ${productId}, ${quantity})`;
+			return new Response(JSON.stringify({ success: true }), { status: 200 });
+		} catch (error) {
+			console.error("Ошибка добавления в корзину:", error);
+			return new Response(JSON.stringify({ error: "Ошибка БД" }), { status: 500 });
+		}
+	},
+	DELETE: async ({ request }) => {
+		const userId = await getCurrentUserId();
+		if (!userId) return new Response(JSON.stringify({ error: "Необходима авторизация" }), { status: 401 });
+		try {
+			const { searchParams } = new URL(request.url);
+			const id = searchParams.get("id");
+			if (!id) return new Response(JSON.stringify({ error: "id не указан" }), { status: 400 });
+			await (await getSql())`DELETE FROM cart WHERE id = ${id} AND user_id = ${userId}`;
+			return new Response(JSON.stringify({ success: true }), { status: 200 });
+		} catch (error) {
+			console.error("Ошибка удаления из корзины:", error);
+			return new Response(JSON.stringify({ error: "Ошибка БД" }), { status: 500 });
+		}
+	}
+} } });
+var Route$20 = createFileRoute("/api/catalog")({ server: { handlers: { GET: async ({ request }) => {
+	try {
+		const kind = new URL(request.url).searchParams.get("kind");
+		const sql = await getSql();
+		let products;
+		if (kind === "digital" || kind === "physical") products = await sql`SELECT * FROM products WHERE kind = ${kind} ORDER BY created_at DESC`;
+		else products = await sql`SELECT * FROM products ORDER BY created_at DESC`;
+		return new Response(JSON.stringify(products), {
+			status: 200,
+			headers: { "Content-Type": "application/json" }
+		});
+	} catch (error) {
+		console.error("Ошибка каталога:", error);
+		return new Response(JSON.stringify([]), { status: 200 });
+	}
+} } } });
+var Route$19 = createFileRoute("/api/checkout")({ server: { handlers: { POST: async ({ request }) => {
+	const userId = await getCurrentUserId();
+	if (!userId) return new Response(JSON.stringify({ error: "Необходима авторизация для оформления заказа" }), {
+		status: 401,
+		headers: { "Content-Type": "application/json" }
+	});
+	try {
+		const { customer_name, customer_email, customer_phone, customer_city, customer_address, customer_postal, items, total } = await request.json();
+		const sql = await getSql();
+		const orderId = crypto.randomUUID();
+		const commission = Math.round(total * .1);
+		await sql`
+            INSERT INTO orders (
+              id, user_id, customer_name, customer_email, customer_phone, 
+              customer_city, customer_address, customer_postal, 
+              subtotal, total, commission_amount, payout_total, status
+            ) VALUES (
+              ${orderId}, ${userId}, ${customer_name}, ${customer_email}, ${customer_phone}, 
+              ${customer_city}, ${customer_address}, ${customer_postal}, 
+              ${total}, ${total}, ${commission}, ${total - commission}, 'pending'
+            )
+          `;
+		for (const item of items) {
+			const itemId = crypto.randomUUID();
+			const itemCommission = Math.round(item.price * item.quantity * .1);
+			const itemPayout = item.price * item.quantity - itemCommission;
+			await sql`
+              INSERT INTO order_items (
+                id, order_id, product_id, artisan_id, title, price, qty, kind, image, 
+                line_total, commission_amount, payout_amount
+              ) VALUES (
+                ${itemId}, ${orderId}, ${item.product_id}, ${item.artisan_id || "unknown"}, 
+                ${item.title}, ${item.price}, ${item.quantity}, ${item.kind || "physical"}, 
+                ${item.image || null}, ${item.price * item.quantity}, ${itemCommission}, ${itemPayout}
+              )
+            `;
+		}
+		await sql`DELETE FROM cart WHERE user_id = ${userId}`;
+		return new Response(JSON.stringify({
+			success: true,
+			orderId
+		}), { status: 200 });
+	} catch (error) {
+		console.error("Ошибка оформления заказа:", error);
+		return new Response(JSON.stringify({ error: "Ошибка БД при оформлении" }), { status: 500 });
+	}
+} } } });
+var Route$18 = createFileRoute("/api/faq")({ server: { handlers: { GET: async () => {
+	try {
+		const items = await (await getSql())`SELECT * FROM faq WHERE published = true ORDER BY position ASC`;
+		return new Response(JSON.stringify({ items }), { status: 200 });
+	} catch (error) {
+		return new Response(JSON.stringify({ error: "Ошибка БД" }), { status: 500 });
+	}
+} } } });
+var Route$17 = createFileRoute("/api/favorites")({ server: { handlers: {
+	GET: async () => {
+		const userId = await getCurrentUserId();
+		if (!userId) return new Response(JSON.stringify([]), { status: 200 });
+		try {
+			const items = await (await getSql())`
+            SELECT f.id, p.id as product_id, p.title, p.price, p.image, p.kind
+            FROM favorites f 
+            JOIN products p ON p.id = f.product_id
+            WHERE f.user_id = ${userId}
+          `;
+			return new Response(JSON.stringify(items), { status: 200 });
+		} catch (error) {
+			console.error("Ошибка получения избранного:", error);
+			return new Response(JSON.stringify([]), { status: 200 });
+		}
+	},
+	POST: async ({ request }) => {
+		const userId = await getCurrentUserId();
+		if (!userId) return new Response(JSON.stringify({ error: "Необходима авторизация" }), { status: 401 });
+		try {
+			const { productId } = await request.json();
+			const sql = await getSql();
+			if ((await sql`SELECT * FROM favorites WHERE user_id = ${userId} AND product_id = ${productId}`).length === 0) await sql`INSERT INTO favorites (id, user_id, product_id) VALUES (${crypto.randomUUID()}, ${userId}, ${productId})`;
+			return new Response(JSON.stringify({ success: true }), { status: 200 });
+		} catch (error) {
+			console.error("Ошибка добавления в избранное:", error);
+			return new Response(JSON.stringify({ error: "Ошибка БД" }), { status: 500 });
+		}
+	},
+	DELETE: async ({ request }) => {
+		const userId = await getCurrentUserId();
+		if (!userId) return new Response(JSON.stringify({ error: "Необходима авторизация" }), { status: 401 });
+		try {
+			const { searchParams } = new URL(request.url);
+			const id = searchParams.get("id");
+			if (!id) return new Response(JSON.stringify({ error: "id не указан" }), { status: 400 });
+			await (await getSql())`DELETE FROM favorites WHERE id = ${id} AND user_id = ${userId}`;
+			return new Response(JSON.stringify({ success: true }), { status: 200 });
+		} catch (error) {
+			console.error("Ошибка удаления из избранного:", error);
+			return new Response(JSON.stringify({ error: "Ошибка БД" }), { status: 500 });
+		}
+	}
+} } });
+var Route$16 = createFileRoute("/api/home")({ server: { handlers: { GET: async () => {
+	try {
+		const sql = await getSql();
+		const totalProducts = (await sql`SELECT count(*)::int as count FROM products`)[0]?.count || 0;
+		const featured = await sql`SELECT * FROM products WHERE featured = true LIMIT 6`;
+		const displayFeatured = featured.length > 0 ? featured : await sql`SELECT * FROM products LIMIT 6`;
+		const digital = await sql`SELECT * FROM products WHERE kind = 'digital' LIMIT 5`;
+		const physical = await sql`SELECT * FROM products WHERE kind = 'physical' LIMIT 3`;
+		const artisans = await sql`SELECT * FROM artisans LIMIT 6`;
+		return new Response(JSON.stringify({
+			featured: displayFeatured,
+			digital,
+			physical,
+			artisans,
+			totalProducts
+		}), {
+			status: 200,
+			headers: { "Content-Type": "application/json" }
+		});
+	} catch (error) {
+		console.error("Ошибка при загрузке данных из БД:", error);
+		return new Response(JSON.stringify({ error: "Ошибка базы данных" }), {
+			status: 500,
+			headers: { "Content-Type": "application/json" }
+		});
+	}
+} } } });
+var Route$15 = createFileRoute("/api/mascot")({ server: { handlers: { GET: async () => {
+	return new Response(JSON.stringify({
+		name: "Живица",
+		description: "Талисман маркетплейса — капля живицы."
+	}), { status: 200 });
+} } } });
+var Route$14 = createFileRoute("/api/orders")({ server: { handlers: { GET: async () => {
+	const userId = await getCurrentUserId();
+	if (!userId) return new Response(JSON.stringify([]), {
+		status: 200,
+		headers: { "Content-Type": "application/json" }
+	});
+	try {
+		const orders = await (await getSql())`
+            SELECT * FROM orders 
+            WHERE user_id = ${userId} 
+            ORDER BY created_at DESC
+          `;
+		return new Response(JSON.stringify(orders), {
+			status: 200,
+			headers: { "Content-Type": "application/json" }
+		});
+	} catch (error) {
+		console.error("Ошибка получения заказов:", error);
+		return new Response(JSON.stringify([]), { status: 200 });
+	}
+} } } });
+var Route$13 = createFileRoute("/api/sell")({ server: { handlers: { POST: async ({ request }) => {
+	try {
+		await request.json();
+		return new Response(JSON.stringify({
+			success: true,
+			message: "Товар принят (заглушка)"
+		}), { status: 200 });
+	} catch (error) {
+		return new Response(JSON.stringify({ error: "Ошибка" }), { status: 500 });
+	}
+} } } });
+var $$splitComponentImporter$5 = () => import("./artisan._id-WwFsuhGe.mjs");
+var Route$12 = createFileRoute("/artisan/$id")({
+	loader: async ({ params }) => {
+		try {
+			return await apiFetch(`/api/artisan/${params.id}`);
+		} catch (err) {
+			if (err instanceof ApiError && err.status === 404) throw notFound();
+			throw err;
+		}
+	},
+	component: lazyRouteComponent($$splitComponentImporter$5, "component")
+});
+var $$splitComponentImporter$4 = () => import("./master.marketing-CSC7Ph_M.mjs");
+var Route$11 = createFileRoute("/master/marketing")({
+	loader: () => apiFetch("/api/master/marketing"),
+	component: lazyRouteComponent($$splitComponentImporter$4, "component")
+});
+var $$splitComponentImporter$3 = () => import("./master.onboarding-DDxnynrx.mjs");
+var Route$10 = createFileRoute("/master/onboarding")({ component: lazyRouteComponent($$splitComponentImporter$3, "component") });
+var $$splitComponentImporter$2 = () => import("./master.orders-qhdYmNLG.mjs");
+var Route$9 = createFileRoute("/master/orders")({
+	loader: () => apiFetch("/api/master/orders"),
+	component: lazyRouteComponent($$splitComponentImporter$2, "component")
+});
+var $$splitComponentImporter$1 = () => import("./order._id-CBYwhmHA.mjs");
+var Route$8 = createFileRoute("/order/$id")({
+	loader: async ({ params }) => {
+		return await apiFetch(`/api/order/${params.id}`);
+	},
+	component: lazyRouteComponent($$splitComponentImporter$1, "component")
+});
+var $$splitComponentImporter = () => import("./product._id-CmNDKmTu.mjs");
+var Route$7 = createFileRoute("/product/$id")({
+	loader: async ({ params }) => {
+		try {
+			return await apiFetch(`/api/product/${params.id}`);
+		} catch (err) {
+			if (err instanceof ApiError && err.status === 404) throw notFound();
+			throw err;
+		}
+	},
+	head: ({ loaderData }) => {
+		if (!loaderData) return { meta: [] };
+		const { product, artisan } = loaderData;
+		const title = `${product.title} — ${product.subtitle} | Живица`;
+		const description = product.description.slice(0, 160);
+		const url = `https://zhivitsa.ru/product/${product.id}`;
+		return { meta: [
+			{ title },
+			{
+				name: "description",
+				content: description
+			},
+			{
+				property: "og:title",
+				content: title
+			},
+			{
+				property: "og:description",
+				content: description
+			},
+			{
+				property: "og:image",
+				content: product.image
+			},
+			{
+				property: "og:url",
+				content: url
+			},
+			{
+				property: "og:type",
+				content: "product"
+			},
+			{
+				name: "twitter:card",
+				content: "summary_large_image"
+			},
+			{
+				name: "twitter:title",
+				content: title
+			},
+			{
+				name: "twitter:description",
+				content: description
+			},
+			{
+				name: "twitter:image",
+				content: product.image
+			},
+			{ "script:ld+json": {
+				"@context": "https://schema.org",
+				"@type": "Product",
+				name: product.title,
+				image: product.image,
+				description: product.description,
+				brand: {
+					"@type": "Brand",
+					name: "Живица"
+				},
+				offers: {
+					"@type": "Offer",
+					price: product.price,
+					priceCurrency: "RUB",
+					availability: product.stock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock"
+				},
+				aggregateRating: product.reviewCount > 0 ? {
+					"@type": "AggregateRating",
+					ratingValue: product.rating,
+					reviewCount: product.reviewCount
+				} : void 0,
+				seller: {
+					"@type": "Person",
+					name: artisan.name
+				}
+			} }
+		] };
+	},
+	component: lazyRouteComponent($$splitComponentImporter, "component")
+});
+var Route$6 = createFileRoute("/api/artisan/$id")({ server: { handlers: { GET: async ({ params }) => {
+	try {
+		const sql = await getSql();
+		const artisans = await sql`SELECT * FROM artisans WHERE id = ${params.id}`;
+		if (artisans.length === 0) return new Response(JSON.stringify({ error: "Мастер не найден" }), { status: 404 });
+		const artisan = artisans[0];
+		const products = await sql`SELECT * FROM products WHERE artisan_id = ${params.id} ORDER BY created_at DESC`;
+		return new Response(JSON.stringify({
+			artisan,
+			products
+		}), { status: 200 });
+	} catch (error) {
+		return new Response(JSON.stringify({ error: "Ошибка БД" }), { status: 500 });
+	}
+} } } });
 var Route$5 = createFileRoute("/api/auth/$")({ server: { handlers: {
 	GET: async ({ request }) => auth.handler(request),
 	POST: async ({ request }) => auth.handler(request)

@@ -1,10 +1,10 @@
 import { y as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { n as require_jsx_runtime } from "../_libs/radix-ui__react-context+react.mjs";
 import { _ as ArrowRight, d as Package, h as Download, n as Truck } from "../_libs/lucide-react.mjs";
-import { D as CATEGORIES, _ as formatPrice, f as Section, u as Route$33 } from "./router-B9bwEVq4.mjs";
-import { n as ProductCard, t as Badge } from "./product-card-Cd8SboC3.mjs";
-import { t as Button } from "./button-BDrK-bPs.mjs";
-// node_modules/.nitro/vite/services/ssr/assets/routes-Bfgeq0Sk.js
+import { D as CATEGORIES, _ as formatPrice, f as Section, u as Route$33 } from "./router-B3oI1Wg1.mjs";
+import { n as ProductCard, t as Badge } from "./product-card-CvC8qJiL.mjs";
+import { t as Button } from "./button-D3PWLeyf.mjs";
+// node_modules/.nitro/vite/services/ssr/assets/routes-jsdgE_cF.js
 var import_jsx_runtime = require_jsx_runtime();
 function Home() {
 	const { featured, digital, physical, artisans, totalProducts } = Route$33.useLoaderData();
