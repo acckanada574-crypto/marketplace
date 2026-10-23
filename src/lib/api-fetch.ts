@@ -1,6 +1,10 @@
 import { createServerOnlyFn } from "@tanstack/react-start";
 
-const SSR_BASE = "http://localhost:8080";
+// Динамически определяем порт: на сервере берем из переменных окружения, локально — 8080
+const getSSRBase = () => {
+  const port = process.env.PORT || process.env.NITRO_PORT || 8080;
+  return `http://127.0.0.1:${port}`;
+};
 
 const getServerCookie = createServerOnlyFn(async () => {
   const { getRequestHeaders } = await import("@tanstack/react-start/server");
@@ -16,8 +20,11 @@ export class ApiError extends Error {
 }
 
 export async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
+  // Убеждаемся, что путь всегда начинается с / (это критично для браузера)
+  const safePath = path.startsWith("/") ? path : `/${path}`;
+  
   const isServer = typeof window === "undefined";
-  const url = isServer ? `${SSR_BASE}${path}` : path;
+  const url = isServer ? `${getSSRBase()}${safePath}` : safePath;
   
   const headers = new Headers(init?.headers);
 

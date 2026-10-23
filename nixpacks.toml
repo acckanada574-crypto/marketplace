@@ -1,2 +1,11 @@
+[phases.setup]
+nixPkgs = ["nodejs_22"]
+
 [phases.install]
 cmds = ["npm install"]
+
+[phases.build]
+cmds = ["NODE_OPTIONS=--max-old-space-size=460 npm run build"]
+
+[start]
+cmd = "HOST=0.0.0.0 node .output/server/index.mjs"
