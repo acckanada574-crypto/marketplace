@@ -7,27 +7,24 @@ export const Route = createFileRoute("/api/catalog")({
       GET: async ({ request }) => {
         try {
           const url = new URL(request.url);
-          const kind = url.searchParams.get("kind"); // 'digital' или 'physical'
-          const category = url.searchParams.get("category");
-
+          const kind = url.searchParams.get("kind");
           const sql = await getSql();
 
-          // Базовый запрос — получаем все товары
-          // В реальном проекте тут нужно динамически собирать WHERE условия,
-          // но для старта давай просто вернем все товары, чтобы каталог заработал.
-          // Если нужна фильтрация, мы добавим её чуть позже.
-          const products = await sql`SELECT * FROM products ORDER BY created_at DESC`;
+          let products;
+          if (kind === "digital" || kind === "physical") {
+            products = await sql`SELECT * FROM products WHERE kind = ${kind} ORDER BY created_at DESC`;
+          } else {
+            products = await sql`SELECT * FROM products ORDER BY created_at DESC`;
+          }
 
-          return new Response(JSON.stringify({ products }), {
+          // ВАЖНО: Возвращаем МАССИВ сразу, без обертки { products }
+          return new Response(JSON.stringify(products), {
             status: 200,
             headers: { "Content-Type": "application/json" },
           });
         } catch (error) {
-          console.error("Ошибка при загрузке каталога:", error);
-          return new Response(JSON.stringify({ error: "Ошибка базы данных" }), {
-            status: 500,
-            headers: { "Content-Type": "application/json" },
-          });
+          console.error("Ошибка каталога:", error);
+          return new Response(JSON.stringify([]), { status: 200 }); // Отдаем пустой массив при ошибке
         }
       },
     },
