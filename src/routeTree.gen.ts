@@ -20,6 +20,8 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as MascotRouteImport } from './routes/mascot'
 import { Route as OrdersRouteImport } from './routes/orders'
 import { Route as SellRouteImport } from './routes/sell'
+import { Route as ApiCatalogRouteImport } from './routes/api.catalog'
+import { Route as ApiHomeRouteImport } from './routes/api.home'
 import { Route as ArtisanIdRouteImport } from './routes/artisan.$id'
 import { Route as MasterMarketingRouteImport } from './routes/master.marketing'
 import { Route as MasterOnboardingRouteImport } from './routes/master.onboarding'
@@ -83,6 +85,16 @@ const SellRoute = SellRouteImport.update({
   path: '/sell',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiCatalogRoute = ApiCatalogRouteImport.update({
+  id: '/api/catalog',
+  path: '/api/catalog',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiHomeRoute = ApiHomeRouteImport.update({
+  id: '/api/home',
+  path: '/api/home',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ArtisanIdRoute = ArtisanIdRouteImport.update({
   id: '/artisan/$id',
   path: '/artisan/$id',
@@ -131,6 +143,8 @@ export interface FileRoutesByFullPath {
   '/mascot': typeof MascotRoute
   '/orders': typeof OrdersRoute
   '/sell': typeof SellRoute
+  '/api/catalog': typeof ApiCatalogRoute
+  '/api/home': typeof ApiHomeRoute
   '/artisan/$id': typeof ArtisanIdRoute
   '/master/marketing': typeof MasterMarketingRoute
   '/master/onboarding': typeof MasterOnboardingRoute
@@ -151,6 +165,8 @@ export interface FileRoutesByTo {
   '/mascot': typeof MascotRoute
   '/orders': typeof OrdersRoute
   '/sell': typeof SellRoute
+  '/api/catalog': typeof ApiCatalogRoute
+  '/api/home': typeof ApiHomeRoute
   '/artisan/$id': typeof ArtisanIdRoute
   '/master/marketing': typeof MasterMarketingRoute
   '/master/onboarding': typeof MasterOnboardingRoute
@@ -172,6 +188,8 @@ export interface FileRoutesById {
   '/mascot': typeof MascotRoute
   '/orders': typeof OrdersRoute
   '/sell': typeof SellRoute
+  '/api/catalog': typeof ApiCatalogRoute
+  '/api/home': typeof ApiHomeRoute
   '/artisan/$id': typeof ArtisanIdRoute
   '/master/marketing': typeof MasterMarketingRoute
   '/master/onboarding': typeof MasterOnboardingRoute
@@ -194,6 +212,8 @@ export interface FileRouteTypes {
     | '/mascot'
     | '/orders'
     | '/sell'
+    | '/api/catalog'
+    | '/api/home'
     | '/artisan/$id'
     | '/master/marketing'
     | '/master/onboarding'
@@ -214,6 +234,8 @@ export interface FileRouteTypes {
     | '/mascot'
     | '/orders'
     | '/sell'
+    | '/api/catalog'
+    | '/api/home'
     | '/artisan/$id'
     | '/master/marketing'
     | '/master/onboarding'
@@ -234,6 +256,8 @@ export interface FileRouteTypes {
     | '/mascot'
     | '/orders'
     | '/sell'
+    | '/api/catalog'
+    | '/api/home'
     | '/artisan/$id'
     | '/master/marketing'
     | '/master/onboarding'
@@ -255,6 +279,8 @@ export interface RootRouteChildren {
   MascotRoute: typeof MascotRoute
   OrdersRoute: typeof OrdersRoute
   SellRoute: typeof SellRoute
+  ApiCatalogRoute: typeof ApiCatalogRoute
+  ApiHomeRoute: typeof ApiHomeRoute
   ArtisanIdRoute: typeof ArtisanIdRoute
   MasterMarketingRoute: typeof MasterMarketingRoute
   MasterOnboardingRoute: typeof MasterOnboardingRoute
@@ -343,6 +369,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SellRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/catalog': {
+      id: '/api/catalog'
+      path: '/api/catalog'
+      fullPath: '/api/catalog'
+      preLoaderRoute: typeof ApiCatalogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/home': {
+      id: '/api/home'
+      path: '/api/home'
+      fullPath: '/api/home'
+      preLoaderRoute: typeof ApiHomeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/artisan/$id': {
       id: '/artisan/$id'
       path: '/artisan/$id'
@@ -407,6 +447,8 @@ const rootRouteChildren: RootRouteChildren = {
   MascotRoute: MascotRoute,
   OrdersRoute: OrdersRoute,
   SellRoute: SellRoute,
+  ApiCatalogRoute: ApiCatalogRoute,
+  ApiHomeRoute: ApiHomeRoute,
   ArtisanIdRoute: ArtisanIdRoute,
   MasterMarketingRoute: MasterMarketingRoute,
   MasterOnboardingRoute: MasterOnboardingRoute,
