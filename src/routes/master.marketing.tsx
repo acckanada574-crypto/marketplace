@@ -1,121 +1,53 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
-import { toast } from "sonner";
-import { Sparkles, Copy } from "lucide-react";
 import { PageHeading, Section } from "@/components/layout";
-import { Button } from "@/components/ui/button";
 import { apiFetch } from "@/lib/api-fetch";
 import { formatPrice } from "@/lib/format";
 
 export const Route = createFileRoute("/master/marketing")({
-  loader: () => apiFetch<any[]>("/api/my-products"),
-  component: MarketingPage,
+  // ВАЖНО: Путь теперь совпадает с нашим API-файлом
+  loader: () => apiFetch<any>("/api/master/marketing"),
+  component: MasterMarketingPage,
 });
 
-const TYPES = [
-  { id: "telegram", label: "Пост в Telegram" },
-  { id: "vk", label: "Пост в VK" },
-  { id: "reels", label: "Идея для Reels" },
-  { id: "hashtags", label: "Хэштеги" },
-  { id: "image-prompt", label: "Промпт для фото" },
-];
-
-function MarketingPage() {
-  const products = Route.useLoaderData();
-  const [selectedId, setSelectedId] = useState<string>(products[0]?.id ?? "");
-  const [busy, setBusy] = useState<string | null>(null);
-  const [result, setResult] = useState<{ type: string; text: string } | null>(null);
-
-  async function generate(type: string) {
-    if (!selectedId) { toast.error("Выберите товар"); return; }
-    setBusy(type);
-    setResult(null);
-    try {
-      const res = await fetch("/api/generate-promo", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ productId: selectedId, type }),
-      });
-      if (!res.ok) throw new Error("ИИ не ответил");
-      const data = await res.json();
-      setResult({ type, text: data.text });
-    } catch (err) {
-      toast.error("Ошибка ИИ. Проверьте, запущена ли Ollama.");
-    } finally {
-      setBusy(null);
-    }
-  }
-
-  async function copyToClipboard() {
-    if (!result) return;
-    await navigator.clipboard.writeText(result.text);
-    toast.success("Скопировано");
-  }
+function MasterMarketingPage() {
+  // Защита от пустых данных
+  const stats = Route.useLoaderData() || { totalSales: 0, totalRevenue: 0, totalViews: 0, conversionRate: 0 };
 
   return (
     <main className="py-10 pb-20">
-      <Section className="mx-auto max-w-3xl">
+      <Section className="mx-auto max-w-4xl">
         <PageHeading
-          kicker="Маркетинг"
+          kicker="Мастерская"
           title="ИИ-маркетолог"
-          description="Сгенерируйте посты и идеи для соцсетей на основе ваших товаров. Всё работает локально, без интернета."
         />
+        <p className="mt-2 text-muted-foreground">
+          Аналитика ваших продаж и рекомендации по продвижению.
+        </p>
 
-        {products.length === 0 ? (
-          <div className="text-center py-16 bg-card rounded-2xl shadow-border mt-8">
-            <p className="text-muted-foreground">Сначала добавьте хотя бы один товар.</p>
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 md:grid-cols-4">
+          <div className="rounded-xl border bg-card p-5 shadow-sm">
+            <p className="text-sm text-muted-foreground">Всего продаж</p>
+            <p className="mt-2 text-2xl font-semibold">{stats.totalSales}</p>
           </div>
-        ) : (
-          <>
-            <div className="rounded-2xl bg-card p-6 shadow-border mt-8">
-              <label className="text-sm font-medium">Выберите товар</label>
-              <select
-                className="mt-2 w-full h-11 rounded-md border border-input bg-background px-3 text-sm"
-                value={selectedId}
-                onChange={(e) => setSelectedId(e.target.value)}
-              >
-                {products.map((p: any) => (
-                  <option key={p.id} value={p.id}>
-                    {p.title} — {formatPrice(p.price)}
-                  </option>
-                ))}
-              </select>
+          <div className="rounded-xl border bg-card p-5 shadow-sm">
+            <p className="text-sm text-muted-foreground">Выручка</p>
+            <p className="mt-2 text-2xl font-semibold">{formatPrice(stats.totalRevenue)}</p>
+          </div>
+          <div className="rounded-xl border bg-card p-5 shadow-sm">
+            <p className="text-sm text-muted-foreground">Просмотры</p>
+            <p className="mt-2 text-2xl font-semibold">{stats.totalViews}</p>
+          </div>
+          <div className="rounded-xl border bg-card p-5 shadow-sm">
+            <p className="text-sm text-muted-foreground">Конверсия</p>
+            <p className="mt-2 text-2xl font-semibold">{stats.conversionRate}%</p>
+          </div>
+        </div>
 
-              <div className="mt-6 grid grid-cols-2 gap-2 sm:grid-cols-3">
-                {TYPES.map((t) => (
-                  <Button
-                    key={t.id}
-                    type="button"
-                    variant="outline"
-                    onClick={() => generate(t.id)}
-                    disabled={busy !== null}
-                    className="justify-start"
-                  >
-                    <Sparkles className="size-4 mr-2" />
-                    {busy === t.id ? "Пишем..." : t.label}
-                  </Button>
-                ))}
-              </div>
-            </div>
-
-            {result && (
-              <div className="rounded-2xl bg-card p-6 shadow-border mt-6">
-                <div className="flex items-center justify-between mb-3">
-                  <h3 className="font-display text-lg font-medium">
-                    {TYPES.find((t) => t.id === result.type)?.label}
-                  </h3>
-                  <Button size="sm" variant="ghost" onClick={copyToClipboard}>
-                    <Copy className="size-4 mr-1" />
-                    Копировать
-                  </Button>
-                </div>
-                <pre className="whitespace-pre-wrap text-sm leading-relaxed font-sans">
-                  {result.text}
-                </pre>
-              </div>
-            )}
-          </>
-        )}
+        <div className="mt-8 rounded-xl border border-dashed p-10 text-center">
+          <p className="text-muted-foreground">
+            Скоро здесь появятся графики и ИИ-рекомендации по вашим товарам.
+          </p>
+        </div>
       </Section>
     </main>
   );
