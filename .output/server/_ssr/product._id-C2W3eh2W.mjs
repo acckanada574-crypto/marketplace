@@ -4,11 +4,11 @@ import { y as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { n as require_jsx_runtime } from "../_libs/radix-ui__react-context+react.mjs";
 import { c as ShieldCheck, d as Plus, g as Download, h as Heart, l as Share2, n as Truck, p as Minus, v as Check } from "../_libs/lucide-react.mjs";
 import { n as toast } from "../_libs/sonner.mjs";
-import { E as cn, _ as formatPrice, f as Section, h as useMarket, n as Route$7, v as kindLabel } from "./router-BAOM3BO_.mjs";
-import { n as ProductCard, t as Badge } from "./product-card-CPwbFhbq.mjs";
-import { t as Button } from "./button-DwddLL8j.mjs";
+import { E as cn, _ as formatPrice, f as Section, h as useMarket, n as Route$7, v as kindLabel } from "./router-ClqpZo3t.mjs";
+import { n as ProductCard, t as Badge } from "./product-card-BBA085PN.mjs";
+import { t as Button } from "./button-DwD50u6R.mjs";
 import { t as Separator$1 } from "../_libs/radix-ui__react-separator.mjs";
-// node_modules/.nitro/vite/services/ssr/assets/product._id-CXwnUCol.js
+// node_modules/.nitro/vite/services/ssr/assets/product._id-C2W3eh2W.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var Separator = import_react.forwardRef(({ className, orientation = "horizontal", decorative = true, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Separator$1, {

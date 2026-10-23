@@ -1,8 +1,8 @@
 import { y as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { n as require_jsx_runtime } from "../_libs/radix-ui__react-context+react.mjs";
-import { _ as formatPrice, d as PageHeading, f as Section, i as Route$9 } from "./router-BAOM3BO_.mjs";
-import { t as Button } from "./button-DwddLL8j.mjs";
-// node_modules/.nitro/vite/services/ssr/assets/master.orders-_rMyisM9.js
+import { _ as formatPrice, d as PageHeading, f as Section, i as Route$9 } from "./router-ClqpZo3t.mjs";
+import { t as Button } from "./button-DwD50u6R.mjs";
+// node_modules/.nitro/vite/services/ssr/assets/master.orders-Dyscf3Kc.js
 var import_jsx_runtime = require_jsx_runtime();
 function MasterOrdersPage() {
 	const sales = Route$9.useLoaderData();

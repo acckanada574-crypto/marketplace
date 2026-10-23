@@ -1,8 +1,8 @@
 import { y as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { n as require_jsx_runtime } from "../_libs/radix-ui__react-context+react.mjs";
-import { _ as formatPrice, d as PageHeading, f as Section, r as Route$8 } from "./router-BAOM3BO_.mjs";
-import { t as Button } from "./button-DwddLL8j.mjs";
-// node_modules/.nitro/vite/services/ssr/assets/order._id-Bm6Mfr5Q.js
+import { _ as formatPrice, d as PageHeading, f as Section, r as Route$8 } from "./router-ClqpZo3t.mjs";
+import { t as Button } from "./button-DwD50u6R.mjs";
+// node_modules/.nitro/vite/services/ssr/assets/order._id-Cu8ql0pm.js
 var import_jsx_runtime = require_jsx_runtime();
 function OrderPage() {
 	const { order, items } = Route$8.useLoaderData();

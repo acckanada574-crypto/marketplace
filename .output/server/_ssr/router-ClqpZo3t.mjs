@@ -95,7 +95,7 @@ var CATEGORIES = [
 		hint: "Принты и кисти"
 	}
 ];
-// node_modules/.nitro/vite/services/ssr/assets/router-BAOM3BO_.js
+// node_modules/.nitro/vite/services/ssr/assets/router-ClqpZo3t.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var FALLBACK_MESSAGE = "An unexpected error occurred. Try reloading the page.";
@@ -2999,7 +2999,7 @@ function NotFound() {
 		]
 	});
 }
-var $$splitComponentImporter$15 = () => import("./routes-DWuyXbC8.mjs");
+var $$splitComponentImporter$15 = () => import("./routes-DG7pjKVO.mjs");
 var Route$33 = createFileRoute("/")({
 	loader: () => apiFetch("/api/home"),
 	component: lazyRouteComponent($$splitComponentImporter$15, "component")
@@ -3210,9 +3210,9 @@ var Route$32 = createFileRoute("/about")({ server: { handlers: { GET: async () =
 		return new Response(JSON.stringify({ error: "Ошибка БД" }), { status: 500 });
 	}
 } } } });
-var $$splitComponentImporter$14 = () => import("./cart-BBY0jYcg.mjs");
+var $$splitComponentImporter$14 = () => import("./cart-DjSyWAD2.mjs");
 var Route$31 = createFileRoute("/cart")({ component: lazyRouteComponent($$splitComponentImporter$14, "component") });
-var $$splitComponentImporter$13 = () => import("./catalog-CA2v0yOC.mjs");
+var $$splitComponentImporter$13 = () => import("./catalog-DObjJB_-.mjs");
 function parseSearch(search) {
 	const kind = search.kind === "physical" || search.kind === "digital" ? search.kind : void 0;
 	const category = CATEGORIES.some((c) => c.id === search.category) ? search.category : void 0;
@@ -3237,9 +3237,9 @@ var Route$30 = createFileRoute("/catalog")({
 	},
 	component: lazyRouteComponent($$splitComponentImporter$13, "component")
 });
-var $$splitComponentImporter$12 = () => import("./checkout-DoqNPXnw.mjs");
+var $$splitComponentImporter$12 = () => import("./checkout-C3ej2D7e.mjs");
 var Route$29 = createFileRoute("/checkout")({ component: lazyRouteComponent($$splitComponentImporter$12, "component") });
-var $$splitComponentImporter$11 = () => import("./faq-JErwPHEQ.mjs");
+var $$splitComponentImporter$11 = () => import("./faq-C8m2FKQR.mjs");
 async function getFaq() {
 	return (await getSql())`
     select id, question, answer, category, position
@@ -3252,18 +3252,18 @@ var Route$28 = createFileRoute("/faq")({
 	loader: () => getFaq(),
 	component: lazyRouteComponent($$splitComponentImporter$11, "component")
 });
-var $$splitComponentImporter$10 = () => import("./favorites-DcIS0wW5.mjs");
+var $$splitComponentImporter$10 = () => import("./favorites-DkSB30zn.mjs");
 var Route$27 = createFileRoute("/favorites")({ component: lazyRouteComponent($$splitComponentImporter$10, "component") });
-var $$splitComponentImporter$9 = () => import("./login-CaK4lsuw.mjs");
+var $$splitComponentImporter$9 = () => import("./login-DKOIpM6F.mjs");
 var Route$26 = createFileRoute("/login")({ component: lazyRouteComponent($$splitComponentImporter$9, "component") });
-var $$splitComponentImporter$8 = () => import("./mascot-g7OOy73W.mjs");
+var $$splitComponentImporter$8 = () => import("./mascot-CdEvKnte.mjs");
 var Route$25 = createFileRoute("/mascot")({ component: lazyRouteComponent($$splitComponentImporter$8, "component") });
-var $$splitComponentImporter$7 = () => import("./orders-COEiv87x.mjs");
+var $$splitComponentImporter$7 = () => import("./orders-FcZ9L3df.mjs");
 var Route$24 = createFileRoute("/orders")({
 	loader: () => apiFetch("/api/orders"),
 	component: lazyRouteComponent($$splitComponentImporter$7, "component")
 });
-var $$splitComponentImporter$6 = () => import("./sell-D2p7RaTg.mjs");
+var $$splitComponentImporter$6 = () => import("./sell-DWNhPH5C.mjs");
 var Route$23 = createFileRoute("/sell")({ component: lazyRouteComponent($$splitComponentImporter$6, "component") });
 var Route$22 = createFileRoute("/api/about")({ server: { handlers: { GET: async () => {
 	try {
@@ -3466,7 +3466,7 @@ var Route$14 = createFileRoute("/api/orders")({ server: { handlers: { GET: async
             WHERE user_id = ${MOCK_USER_ID$1} 
             ORDER BY created_at DESC
           `;
-		return new Response(JSON.stringify({ orders }), { status: 200 });
+		return new Response(JSON.stringify(orders), { status: 200 });
 	} catch (error) {
 		console.error("Ошибка получения заказов:", error);
 		return new Response(JSON.stringify({ error: "Ошибка БД" }), { status: 500 });
@@ -3483,7 +3483,7 @@ var Route$13 = createFileRoute("/api/sell")({ server: { handlers: { POST: async 
 		return new Response(JSON.stringify({ error: "Ошибка" }), { status: 500 });
 	}
 } } } });
-var $$splitComponentImporter$5 = () => import("./artisan._id-B4KZt30K.mjs");
+var $$splitComponentImporter$5 = () => import("./artisan._id-B71LbSRt.mjs");
 var Route$12 = createFileRoute("/artisan/$id")({
 	loader: async ({ params }) => {
 		try {
@@ -3495,26 +3495,26 @@ var Route$12 = createFileRoute("/artisan/$id")({
 	},
 	component: lazyRouteComponent($$splitComponentImporter$5, "component")
 });
-var $$splitComponentImporter$4 = () => import("./master.marketing--Z6qfQqR.mjs");
+var $$splitComponentImporter$4 = () => import("./master.marketing-CwbphkWW.mjs");
 var Route$11 = createFileRoute("/master/marketing")({
 	loader: () => apiFetch("/api/my-products"),
 	component: lazyRouteComponent($$splitComponentImporter$4, "component")
 });
-var $$splitComponentImporter$3 = () => import("./master.onboarding-CwF3dEs9.mjs");
+var $$splitComponentImporter$3 = () => import("./master.onboarding-DXY0ucL_.mjs");
 var Route$10 = createFileRoute("/master/onboarding")({ component: lazyRouteComponent($$splitComponentImporter$3, "component") });
-var $$splitComponentImporter$2 = () => import("./master.orders-_rMyisM9.mjs");
+var $$splitComponentImporter$2 = () => import("./master.orders-Dyscf3Kc.mjs");
 var Route$9 = createFileRoute("/master/orders")({
 	loader: () => apiFetch("/api/artisan-orders"),
 	component: lazyRouteComponent($$splitComponentImporter$2, "component")
 });
-var $$splitComponentImporter$1 = () => import("./order._id-Bm6Mfr5Q.mjs");
+var $$splitComponentImporter$1 = () => import("./order._id-Cu8ql0pm.mjs");
 var Route$8 = createFileRoute("/order/$id")({
 	loader: async ({ params }) => {
 		return await apiFetch(`/api/order/${params.id}`);
 	},
 	component: lazyRouteComponent($$splitComponentImporter$1, "component")
 });
-var $$splitComponentImporter = () => import("./product._id-CXwnUCol.mjs");
+var $$splitComponentImporter = () => import("./product._id-C2W3eh2W.mjs");
 var Route$7 = createFileRoute("/product/$id")({
 	loader: async ({ params }) => {
 		try {

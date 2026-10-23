@@ -14,7 +14,7 @@ export const Route = createFileRoute("/api/orders")({
             WHERE user_id = ${MOCK_USER_ID} 
             ORDER BY created_at DESC
           `;
-          return new Response(JSON.stringify({ orders }), { status: 200 });
+          return new Response(JSON.stringify(orders), { status: 200 });
         } catch (error) {
           console.error("Ошибка получения заказов:", error);
           return new Response(JSON.stringify({ error: "Ошибка БД" }), { status: 500 });
