@@ -1,32 +1,20 @@
-name: Deploy to Prisma
+name: Build Project
 
 on:
   push:
     branches:
       - main
 
-permissions:
-  contents: read
-  id-token: write
-
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
           cache: 'npm'
-
-      - uses: oven-sh/setup-bun@v2
-
-      - uses: prisma/cloud-deploy-action@v1
-        with:
-          build-command: npm run build
-          install-command: npm install
+      - run: npm install
+      - run: npm run build
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          PRISMA_SERVICE_TOKEN: ${{ secrets.PRISMA_SERVICE_TOKEN }}
-          PRISMA_WORKSPACE_ID: ${{ secrets.PRISMA_WORKSPACE_ID }}
