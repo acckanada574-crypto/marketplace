@@ -1,10 +1,10 @@
 import { n as require_jsx_runtime } from "../_libs/radix-ui__react-context+react.mjs";
-import { f as PageHeading, o as Route$10, p as Section } from "./router-Dpfr_c1k.mjs";
-import { r as ProductGrid } from "./product-card-CxwWUhrB.mjs";
-// node_modules/.nitro/vite/services/ssr/assets/artisan._id-DCL557-J.js
+import { f as PageHeading, o as Route$12, p as Section } from "./router-FI8Rf-Jt.mjs";
+import { r as ProductGrid } from "./product-card-BBmALH4S.mjs";
+// node_modules/.nitro/vite/services/ssr/assets/artisan._id-Db8WaAH5.js
 var import_jsx_runtime = require_jsx_runtime();
 function ArtisanPage() {
-	const { artisan, products } = Route$10.useLoaderData();
+	const { artisan, products } = Route$12.useLoaderData();
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("main", {
 		className: "py-10 pb-20",
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Section, { children: [

@@ -3,14 +3,14 @@ import { n as require_react } from "../_libs/@radix-ui/react-compose-refs+[...].
 import { y as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { n as require_jsx_runtime } from "../_libs/radix-ui__react-context+react.mjs";
 import { o as SlidersHorizontal } from "../_libs/lucide-react.mjs";
-import { C as SheetContent, D as cn, E as Input, O as CATEGORIES, S as Sheet, T as SheetTitle, f as PageHeading, l as Route$25, p as Section, w as SheetHeader } from "./router-Dpfr_c1k.mjs";
-import { t as Button } from "./button-BSn4vtXw.mjs";
-import { r as ProductGrid } from "./product-card-CxwWUhrB.mjs";
-// node_modules/.nitro/vite/services/ssr/assets/catalog-BOhKDX9B.js
+import { C as SheetContent, D as cn, E as Input, O as CATEGORIES, S as Sheet, T as SheetTitle, f as PageHeading, l as Route$30, p as Section, w as SheetHeader } from "./router-FI8Rf-Jt.mjs";
+import { t as Button } from "./button-BcCNbxf_.mjs";
+import { r as ProductGrid } from "./product-card-BBmALH4S.mjs";
+// node_modules/.nitro/vite/services/ssr/assets/catalog-CynRTIv_.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function Filters({ search, counts }) {
-	const navigate = Route$25.useNavigate();
+	const navigate = Route$30.useNavigate();
 	function patch(partial) {
 		navigate({
 			to: "/catalog",
@@ -72,9 +72,9 @@ function Filters({ search, counts }) {
 	});
 }
 function CatalogPage() {
-	const search = Route$25.useSearch();
-	const navigate = Route$25.useNavigate();
-	const filtered = Route$25.useLoaderData();
+	const search = Route$30.useSearch();
+	const navigate = Route$30.useNavigate();
+	const filtered = Route$30.useLoaderData();
 	const [open, setOpen] = (0, import_react.useState)(false);
 	const counts = {
 		all: filtered.length,

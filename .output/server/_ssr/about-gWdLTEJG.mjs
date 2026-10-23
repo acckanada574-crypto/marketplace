@@ -1,11 +1,11 @@
 import { y as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { n as require_jsx_runtime } from "../_libs/radix-ui__react-context+react.mjs";
-import { f as PageHeading, p as Section, u as Route$27 } from "./router-Dpfr_c1k.mjs";
-import { t as Button } from "./button-BSn4vtXw.mjs";
-// node_modules/.nitro/vite/services/ssr/assets/about-DEXOSsRB.js
+import { f as PageHeading, p as Section, u as Route$32 } from "./router-FI8Rf-Jt.mjs";
+import { t as Button } from "./button-BcCNbxf_.mjs";
+// node_modules/.nitro/vite/services/ssr/assets/about-gWdLTEJG.js
 var import_jsx_runtime = require_jsx_runtime();
 function AboutPage() {
-	const artisans = Route$27.useLoaderData();
+	const artisans = Route$32.useLoaderData();
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("main", {
 		className: "py-10 pb-20",
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Section, {
