@@ -1,34 +1,28 @@
 import { createFileRoute } from "@tanstack/react-router";
-// ВАЖНО: Проверь путь к твоему Prisma клиенту. 
-// Обычно это "@/lib/db" или "@/lib/prisma". Если не уверен, напиши мне.
-import { prisma } from "@/lib/db";
+import { getSql } from "@/lib/db";
 
 export const Route = createFileRoute("/api/home")({
   server: {
     handlers: {
       GET: async () => {
         try {
+          const sql = await getSql();
+
           // 1. Считаем общее количество товаров
-          const totalProducts = await prisma.product.count();
+          const countResult = await sql`SELECT count(*)::int as count FROM products`;
+          const totalProducts = countResult[0]?.count || 0;
 
-          // 2. Берем 6 товаров для витрины (featured)
-          const featured = await prisma.product.findMany({ take: 6 });
+          // 2. Берем 6 товаров для витрины
+          const featured = await sql`SELECT * FROM products LIMIT 6`;
+          
+          // 3. Берем цифровые и физические товары
+          // ВНИМАНИЕ: Если в твоей базе колонка называется не kind, а type или is_digital, 
+          // напиши мне, и мы поменяем это слово.
+          const digital = await sql`SELECT * FROM products WHERE kind = 'digital' LIMIT 5`;
+          const physical = await sql`SELECT * FROM products WHERE kind = 'physical' LIMIT 3`;
 
-          // 3. Берем цифровые товары (предполагаем, что поле называется kind или type)
-          // Если у тебя в базе поле называется иначе (например, isDigital), поправь здесь.
-          const digital = await prisma.product.findMany({ 
-            where: { kind: "digital" }, 
-            take: 5 
-          });
-
-          // 4. Берем физические товары
-          const physical = await prisma.product.findMany({ 
-            where: { kind: "physical" }, 
-            take: 3 
-          });
-
-          // 5. Берем мастеров (artisans)
-          const artisans = await prisma.artisan.findMany({ take: 6 });
+          // 4. Берем мастеров
+          const artisans = await sql`SELECT * FROM artisans LIMIT 6`;
 
           return new Response(JSON.stringify({
             featured,
