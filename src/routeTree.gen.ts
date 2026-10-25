@@ -29,6 +29,7 @@ import { Route as ApiFavoritesRouteImport } from './routes/api.favorites'
 import { Route as ApiHomeRouteImport } from './routes/api.home'
 import { Route as ApiMascotRouteImport } from './routes/api.mascot'
 import { Route as ApiOrdersRouteImport } from './routes/api.orders'
+import { Route as ApiReviewsRouteImport } from './routes/api.reviews'
 import { Route as ApiSellRouteImport } from './routes/api.sell'
 import { Route as ArtisanIdRouteImport } from './routes/artisan.$id'
 import { Route as MasterMarketingRouteImport } from './routes/master.marketing'
@@ -145,6 +146,11 @@ const ApiOrdersRoute = ApiOrdersRouteImport.update({
   path: '/api/orders',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiReviewsRoute = ApiReviewsRouteImport.update({
+  id: '/api/reviews',
+  path: '/api/reviews',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiSellRoute = ApiSellRouteImport.update({
   id: '/api/sell',
   path: '/api/sell',
@@ -242,6 +248,7 @@ export interface FileRoutesByFullPath {
   '/api/home': typeof ApiHomeRoute
   '/api/mascot': typeof ApiMascotRoute
   '/api/orders': typeof ApiOrdersRoute
+  '/api/reviews': typeof ApiReviewsRoute
   '/api/sell': typeof ApiSellRoute
   '/artisan/$id': typeof ArtisanIdRoute
   '/master/marketing': typeof MasterMarketingRoute
@@ -279,6 +286,7 @@ export interface FileRoutesByTo {
   '/api/home': typeof ApiHomeRoute
   '/api/mascot': typeof ApiMascotRoute
   '/api/orders': typeof ApiOrdersRoute
+  '/api/reviews': typeof ApiReviewsRoute
   '/api/sell': typeof ApiSellRoute
   '/artisan/$id': typeof ArtisanIdRoute
   '/master/marketing': typeof MasterMarketingRoute
@@ -317,6 +325,7 @@ export interface FileRoutesById {
   '/api/home': typeof ApiHomeRoute
   '/api/mascot': typeof ApiMascotRoute
   '/api/orders': typeof ApiOrdersRoute
+  '/api/reviews': typeof ApiReviewsRoute
   '/api/sell': typeof ApiSellRoute
   '/artisan/$id': typeof ArtisanIdRoute
   '/master/marketing': typeof MasterMarketingRoute
@@ -356,6 +365,7 @@ export interface FileRouteTypes {
     | '/api/home'
     | '/api/mascot'
     | '/api/orders'
+    | '/api/reviews'
     | '/api/sell'
     | '/artisan/$id'
     | '/master/marketing'
@@ -393,6 +403,7 @@ export interface FileRouteTypes {
     | '/api/home'
     | '/api/mascot'
     | '/api/orders'
+    | '/api/reviews'
     | '/api/sell'
     | '/artisan/$id'
     | '/master/marketing'
@@ -430,6 +441,7 @@ export interface FileRouteTypes {
     | '/api/home'
     | '/api/mascot'
     | '/api/orders'
+    | '/api/reviews'
     | '/api/sell'
     | '/artisan/$id'
     | '/master/marketing'
@@ -468,6 +480,7 @@ export interface RootRouteChildren {
   ApiHomeRoute: typeof ApiHomeRoute
   ApiMascotRoute: typeof ApiMascotRoute
   ApiOrdersRoute: typeof ApiOrdersRoute
+  ApiReviewsRoute: typeof ApiReviewsRoute
   ApiSellRoute: typeof ApiSellRoute
   ArtisanIdRoute: typeof ArtisanIdRoute
   MasterMarketingRoute: typeof MasterMarketingRoute
@@ -626,6 +639,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiOrdersRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/reviews': {
+      id: '/api/reviews'
+      path: '/api/reviews'
+      fullPath: '/api/reviews'
+      preLoaderRoute: typeof ApiReviewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/sell': {
       id: '/api/sell'
       path: '/api/sell'
@@ -767,6 +787,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiHomeRoute: ApiHomeRoute,
   ApiMascotRoute: ApiMascotRoute,
   ApiOrdersRoute: ApiOrdersRoute,
+  ApiReviewsRoute: ApiReviewsRoute,
   ApiSellRoute: ApiSellRoute,
   ArtisanIdRoute: ArtisanIdRoute,
   MasterMarketingRoute: MasterMarketingRoute,
