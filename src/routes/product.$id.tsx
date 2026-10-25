@@ -1,310 +1,133 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { Check, Download, Heart, Minus, Plus, Share2, ShieldCheck, Truck } from "lucide-react";
-import { useState } from "react";
-import { toast } from "sonner";
-import { ProductCard } from "@/components/product-card";
-import { Section } from "@/components/layout";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { downloadProductFile } from "@/lib/downloads";
-import { formatPrice, kindLabel } from "@/lib/format";
-import { useMarket } from "@/lib/store";
-import { apiFetch, ApiError } from "@/lib/api-fetch";
-import type { Artisan, Product } from "@/lib/types";
-import { cn } from "@/lib/utils";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { apiFetch } from "@/lib/api-fetch";
+import { formatPrice } from "@/lib/format";
 
 export const Route = createFileRoute("/product/$id")({
-  loader: async ({ params }) => {
-    try {
-      return await apiFetch<{ product: Product; artisan: Artisan; related: Product[] }>(
-        `/api/product/${params.id}`,
-      );
-    } catch (err) {
-      if (err instanceof ApiError && err.status === 404) throw notFound();
-      throw err;
-    }
-  },
-  head: ({ loaderData }) => {
-    if (!loaderData) return { meta: [] };
-    const { product, artisan } = loaderData;
-    const title = `${product.title} — ${product.subtitle} | Живица`;
-    const description = product.description.slice(0, 160);
-    const url = `https://zhivitsa.ru/product/${product.id}`;
-
-    return {
-      meta: [
-        { title },
-        { name: "description", content: description },
-        { property: "og:title", content: title },
-        { property: "og:description", content: description },
-        { property: "og:image", content: product.image },
-        { property: "og:url", content: url },
-        { property: "og:type", content: "product" },
-        { name: "twitter:card", content: "summary_large_image" },
-        { name: "twitter:title", content: title },
-        { name: "twitter:description", content: description },
-        { name: "twitter:image", content: product.image },
-        {
-          "script:ld+json": {
-            "@context": "https://schema.org",
-            "@type": "Product",
-            name: product.title,
-            image: product.image,
-            description: product.description,
-            brand: { "@type": "Brand", name: "Живица" },
-            offers: {
-              "@type": "Offer",
-              price: product.price,
-              priceCurrency: "RUB",
-              availability: product.stock > 0
-                ? "https://schema.org/InStock"
-                : "https://schema.org/OutOfStock",
-            },
-            aggregateRating: product.reviewCount > 0 ? {
-              "@type": "AggregateRating",
-              ratingValue: product.rating,
-              reviewCount: product.reviewCount,
-            } : undefined,
-            seller: { "@type": "Person", name: artisan.name },
-          },
-        },
-      ],
-    };
-  },
+  loader: ({ params }) => apiFetch<any>(`/api/product/${params.id}`),
   component: ProductPage,
 });
 
 function ProductPage() {
-  const { product, artisan, related } = Route.useLoaderData();
-  const addToCart = useMarket((s) => s.addToCart);
-  const addListing = useMarket((s) => s.addListing);
-  const favorites = useMarket((s) => s.favorites);
-  const toggleFavorite = useMarket((s) => s.toggleFavorite);
-  const loved = favorites.includes(product.id);
-  const [qty, setQty] = useState(1);
+  const { product, artisan, reviews } = Route.useLoaderData();
 
-  function add() {
-    addListing(product);
-    addToCart(product.id, qty);
-    toast.success("В корзине", { description: product.title });
-  }
-
-  async function handleShare() {
-    const baseUrl = `${window.location.origin}/product/${product.id}`;
-    const utmUrl = `${baseUrl}?utm_source=share&utm_medium=product&utm_campaign=zhivitsa`;
-
-    const shareData = {
-      title: product.title,
-      text: `${product.title} — ${product.subtitle}. На Живице.`,
-      url: utmUrl,
-    };
-
-    if (navigator.share) {
-      try { await navigator.share(shareData); return; } catch (e) { /* отменил */ }
-    }
-    try {
-      await navigator.clipboard.writeText(utmUrl);
-      toast.success("Ссылка скопирована", { description: "Отправьте её другу" });
-    } catch {
-      toast.error("Не удалось скопировать");
-    }
-  }
+  // Дополнительная защита: даже если сервер вдруг вернет строку, мы приведем к числу
+  const rating = Number(product.rating) || 0;
+  const reviewCount = Number(product.review_count) || 0;
+  const images = Array.isArray(product.images) ? product.images : [];
+  const allImages = [product.image, ...images].filter(Boolean);
 
   return (
     <main className="py-10 pb-20">
-      <Section>
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="grid gap-10 lg:grid-cols-2">
-          <div className="overflow-hidden rounded-2xl bg-muted">
-            <img
-              src={product.image}
-              alt={product.title}
-              className="aspect-photo w-full object-cover"
-            />
-          </div>
+          
+          {/* Галерея */}
           <div>
-            <div className="flex flex-wrap gap-2">
-              <Badge variant={product.kind === "digital" ? "digital" : "muted"}>
-                {kindLabel(product.kind)}
-              </Badge>
-              {product.isNew ? <Badge variant="default">Новое</Badge> : null}
-              {product.custom ? <Badge>Ваша работа</Badge> : null}
+            <div className="overflow-hidden rounded-2xl bg-muted">
+              <img 
+                src={product.image} 
+                alt={product.title} 
+                className="w-full h-auto object-cover aspect-square lg:aspect-auto" 
+              />
             </div>
-            <h1 className="font-display mt-4 text-4xl font-medium tracking-tight sm:text-5xl">
-              {product.title}
-            </h1>
-            <p className="mt-2 text-muted-foreground">{product.subtitle}</p>
-            {artisan ? (
-              <Link
-                to="/artisan/$id"
-                params={{ id: artisan.id }}
-                className="mt-4 inline-flex items-center gap-2 text-sm hover:text-primary"
-              >
-                <span className="flex size-8 items-center justify-center rounded-full border border-border font-display text-xs">
-                  {artisan.mark}
-                </span>
-                {artisan.name} · {artisan.city}
-              </Link>
-            ) : null}
-            <p className="mt-6 font-display text-3xl tabular-nums">{formatPrice(product.price)}</p>
-            <p className="mt-2 text-sm text-muted-foreground">
-              {product.rating.toFixed(1)} · {product.reviewCount} оценок
-            </p>
-            <p className="mt-6 max-w-prose leading-relaxed">{product.description}</p>
-
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              {product.kind === "physical" ? (
-                <div className="flex h-11 items-center rounded-md border border-border">
-                  <button
-                    type="button"
-                    className="size-11"
-                    aria-label="Меньше"
-                    onClick={() => setQty((n) => Math.max(1, n - 1))}
-                  >
-                    <Minus className="mx-auto size-4" />
-                  </button>
-                  <span className="w-8 text-center tabular-nums">{qty}</span>
-                  <button
-                    type="button"
-                    className="size-11"
-                    aria-label="Больше"
-                    onClick={() => setQty((n) => Math.min(product.stock, n + 1))}
-                  >
-                    <Plus className="mx-auto size-4" />
-                  </button>
-                </div>
-              ) : null}
-              <Button size="lg" onClick={add} disabled={product.stock <= 0}>
-                {product.stock <= 0 ? "Нет в наличии" : "В корзину"}
-              </Button>
-              <Button
-                size="lg"
-                variant={loved ? "secondary" : "outline"}
-                onClick={() => toggleFavorite(product.id)}
-              >
-                <Heart className={cn("size-4", loved && "fill-primary text-primary")} />
-                {loved ? "В избранном" : "Избранное"}
-              </Button>
-              <Button size="lg" variant="ghost" onClick={handleShare}>
-                <Share2 className="size-4" />
-                Поделиться
-              </Button>
-            </div>
-
-            <div className="mt-8 grid gap-3 text-sm">
-              {product.kind === "digital" ? (
-                <p className="flex items-start gap-2 text-muted-foreground">
-                  <Download className="mt-0.5 size-4 shrink-0 text-primary" />
-                  Мгновенная загрузка после оплаты. {product.digitalFormat}
-                  {product.fileSize ? ` · ${product.fileSize}` : ""}
-                </p>
-              ) : (
-                <p className="flex items-start gap-2 text-muted-foreground">
-                  <Truck className="mt-0.5 size-4 shrink-0 text-primary" />
-                  Отправка через {product.shipsInDays ?? 5} дн. Осталось {product.stock} шт.
-                </p>
-              )}
-              <p className="flex items-start gap-2 text-muted-foreground">
-                <Check className="mt-0.5 size-4 shrink-0 text-primary" />
-                {product.kind === "digital"
-                  ? product.license
-                  : "Упаковка мастера, страховка на пересылку"}
-              </p>
-            </div>
-
-            <Separator className="my-8" />
-            <dl className="grid grid-cols-1 gap-4 text-sm sm:grid-cols-2">
-              {product.materials ? (
-                <div>
-                  <dt className="text-muted-foreground">Материалы</dt>
-                  <dd className="mt-1">{product.materials}</dd>
-                </div>
-              ) : null}
-              {product.size ? (
-                <div>
-                  <dt className="text-muted-foreground">Размер</dt>
-                  <dd className="mt-1">{product.size}</dd>
-                </div>
-              ) : null}
-              {product.care ? (
-                <div>
-                  <dt className="text-muted-foreground">Уход</dt>
-                  <dd className="mt-1">{product.care}</dd>
-                </div>
-              ) : null}
-              {product.digitalPages ? (
-                <div>
-                  <dt className="text-muted-foreground">Состав файла</dt>
-                  <dd className="mt-1">{product.digitalPages}</dd>
-                </div>
-              ) : null}
-            </dl>
-
-            {/* Блок SHA-256 для цифровых товаров */}
-            {product.kind === "digital" && product.fileHash ? (
-              <div className="mt-6 rounded-xl border border-primary/20 bg-primary/5 p-4 text-sm">
-                <p className="flex items-center gap-2 font-medium">
-                  <ShieldCheck className="size-4 text-primary" />
-                  Файл защищён технической подписью (SHA-256)
-                </p>
-                <p className="mt-2 break-all font-mono text-xs text-muted-foreground">
-                  {product.fileHash}
-                </p>
-                {product.signedAt ? (
-                  <p className="mt-1 text-xs text-muted-foreground">
-                    Подписано: {new Date(product.signedAt).toLocaleString("ru-RU")}
-                  </p>
-                ) : null}
-                <p className="mt-2 text-xs text-muted-foreground">
-                  Если хеш изменится — значит, описание или файл были изменены после подписи.
-                </p>
+            {allImages.length > 1 && (
+              <div className="mt-4 grid grid-cols-4 gap-2">
+                {allImages.slice(1, 5).map((img: string, i: number) => (
+                  <img 
+                    key={i} 
+                    src={img} 
+                    alt="" 
+                    className="rounded-lg object-cover aspect-square" 
+                  />
+                ))}
               </div>
-            ) : null}
+            )}
+          </div>
 
-            {product.kind === "digital" ? (
-              <p className="mt-6 text-xs text-muted-foreground">
-                На этой странице можно посмотреть образец. Полный файл выдаётся в заказе. Для
-                знакомства с форматом —{" "}
-                <button
-                  type="button"
-                  className="underline underline-offset-4"
-                  onClick={() => downloadProductFile(product)}
-                >
-                  скачать демо-фрагмент
-                </button>
-                .
-              </p>
-            ) : null}
+          {/* Информация */}
+          <div>
+            <p className="text-xs uppercase tracking-widest text-muted-foreground">
+              {product.kind === "digital" ? "Цифровое" : "Физическое"} · {product.category}
+            </p>
+            <h1 className="mt-2 font-display text-4xl font-medium">{product.title}</h1>
+            {product.subtitle && (
+              <p className="mt-2 text-muted-foreground">{product.subtitle}</p>
+            )}
+
+            <div className="mt-4 flex items-center gap-3">
+              <span className="text-2xl font-semibold">{formatPrice(product.price)}</span>
+              {rating > 0 && (
+                <span className="text-sm text-muted-foreground">
+                  ★ {rating.toFixed(1)} ({reviewCount} отзывов)
+                </span>
+              )}
+            </div>
+
+            {artisan && (
+              <Link 
+                to="/artisan/$id" 
+                params={{ id: artisan.id }} 
+                className="mt-6 flex items-center gap-3 rounded-xl border p-4 transition-colors hover:bg-muted"
+              >
+                <div className="flex size-12 items-center justify-center rounded-full bg-muted font-medium">
+                  {artisan.mark || artisan.name?.[0] || "?"}
+                </div>
+                <div>
+                  <p className="font-medium">{artisan.name}</p>
+                  <p className="text-sm text-muted-foreground">{artisan.craft} · {artisan.city}</p>
+                </div>
+              </Link>
+            )}
+
+            <p className="mt-6 leading-relaxed">{product.description}</p>
+
+            {/* Характеристики для физических товаров */}
+            {product.kind === "physical" && (
+              <dl className="mt-6 space-y-2 text-sm">
+                {product.materials && <div><dt className="inline text-muted-foreground">Материалы: </dt><dd className="inline">{product.materials}</dd></div>}
+                {product.size && <div><dt className="inline text-muted-foreground">Размер: </dt><dd className="inline">{product.size}</dd></div>}
+                {product.care && <div><dt className="inline text-muted-foreground">Уход: </dt><dd className="inline">{product.care}</dd></div>}
+                {product.ships_in_days && <div><dt className="inline text-muted-foreground">Отправка: </dt><dd className="inline">в течение {product.ships_in_days} дней</dd></div>}
+                <div><dt className="inline text-muted-foreground">В наличии: </dt><dd className="inline">{product.stock} шт.</dd></div>
+              </dl>
+            )}
+
+            {/* Характеристики для цифровых товаров */}
+            {product.kind === "digital" && (
+              <dl className="mt-6 space-y-2 text-sm">
+                {product.digital_format && <div><dt className="inline text-muted-foreground">Формат: </dt><dd className="inline">{product.digital_format}</dd></div>}
+                {product.digital_pages && <div><dt className="inline text-muted-foreground">Объём: </dt><dd className="inline">{product.digital_pages}</dd></div>}
+                {product.license && <div><dt className="inline text-muted-foreground">Лицензия: </dt><dd className="inline">{product.license}</dd></div>}
+                {product.file_size && <div><dt className="inline text-muted-foreground">Размер файла: </dt><dd className="inline">{product.file_size}</dd></div>}
+              </dl>
+            )}
+
+            <div className="mt-8 flex gap-3">
+              <button className="rounded-lg bg-primary px-6 py-3 text-primary-foreground hover:bg-primary/90 transition-colors">
+                {product.kind === "digital" ? "Купить и скачать" : "Добавить в корзину"}
+              </button>
+            </div>
           </div>
         </div>
 
-        {product.reviews.length > 0 ? (
-          <div className="mt-16">
+        {/* Отзывы */}
+        {reviews && reviews.length > 0 && (
+          <section className="mt-16">
             <h2 className="font-display text-2xl font-medium">Отзывы</h2>
-            <div className="mt-6 grid gap-4 md:grid-cols-2">
-              {product.reviews.map((review) => (
-                <figure key={review.id} className="rounded-2xl bg-card p-5 shadow-border">
-                  <p className="text-sm text-muted-foreground">
-                    {review.author} · {review.rating.toFixed(1)}
-                  </p>
-                  <blockquote className="mt-2 leading-relaxed">{review.text}</blockquote>
-                </figure>
+            <div className="mt-6 space-y-4">
+              {reviews.map((r: any) => (
+                <div key={r.id} className="rounded-xl border p-4">
+                  <div className="flex items-center gap-2">
+                    <p className="font-medium">{r.author}</p>
+                    <span className="text-sm text-muted-foreground">★ {Number(r.rating).toFixed(1)}</span>
+                  </div>
+                  <p className="mt-2 text-sm leading-relaxed">{r.text}</p>
+                </div>
               ))}
             </div>
-          </div>
-        ) : null}
-
-        {related.length > 0 ? (
-          <div className="mt-16">
-            <h2 className="font-display mb-6 text-2xl font-medium">Рядом на витрине</h2>
-            <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
-              {related.map((item) => (
-                <ProductCard key={item.id} product={item} />
-              ))}
-            </div>
-          </div>
-        ) : null}
-      </Section>
+          </section>
+        )}
+      </div>
     </main>
   );
 }

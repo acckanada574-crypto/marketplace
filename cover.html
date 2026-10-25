@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500&display=swap');
+  
+  body { 
+    margin: 0; 
+    background: #333; /* Темный фон за пределами обложки */
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh; 
+  }
+  
+  .cover {
+    width: 1920px; /* Рекомендуемая ширина ВК */
+    height: 768px; /* Рекомендуемая высота ВК */
+    background-color: #F4F1EA; 
+    display: flex; 
+    justify-content: center; /* Центрируем контент (безопасная зона) */
+    position: relative;
+    overflow: hidden; 
+  }
+  
+  .content-wrapper {
+    display: flex; 
+    align-items: center; 
+    gap: 100px; /* Расстояние между текстом и маскотом */
+    margin-top: 30px; 
+  }
+  
+  .text-content { 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 2; 
+  }
+  
+  .title { 
+    font-family: 'Playfair Display', serif; 
+    font-size: 140px; /* Увеличенный шрифт */
+    color: #2A3B2C; 
+    margin: 0; 
+    line-height: 1; 
+  }
+
+  .divider {
+    width: 150px;
+    height: 4px;
+    background-color: #2A3B2C;
+    margin: 25px 0;
+  }
+  
+  .subtitle { 
+    font-family: 'Playfair Display', serif; 
+    font-size: 42px; 
+    color: #5A6B5C; 
+    margin: 0; 
+    font-style: italic; 
+  }
+  
+  .mascot-container {
+    width: 340px; 
+    height: 340px;
+    border-radius: 50%; 
+    overflow: hidden; 
+    border: 10px solid #FFFFFF; 
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15); 
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .mascot-container img {
+    width: 120%; 
+    height: auto;
+  }
+</style>
+</head>
+<body>
+
+  <div class="cover">
+    <div class="content-wrapper">
+      <div class="text-content">
+        <h1 class="title">Живица</h1>
+        <div class="divider"></div>
+        <p class="subtitle">Двор независимых мастеров.</p>
+      </div>
+
+      <div class="mascot-container">
+        <img src="public/mascot.png" alt="Маскот">
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

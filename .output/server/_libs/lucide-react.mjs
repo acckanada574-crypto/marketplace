@@ -92,16 +92,6 @@ var ArrowRight = createLucideIcon("arrow-right", [["path", {
 * This source code is licensed under the ISC license.
 * See the LICENSE file in the root directory of this source tree.
 */
-var Check = createLucideIcon("check", [["path", {
-	d: "M20 6 9 17l-5-5",
-	key: "1gmf2c"
-}]]);
-/**
-* @license lucide-react v0.510.0 - ISC
-*
-* This source code is licensed under the ISC license.
-* See the LICENSE file in the root directory of this source tree.
-*/
 var Download = createLucideIcon("download", [
 	["path", {
 		d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4",
@@ -210,59 +200,6 @@ var Search = createLucideIcon("search", [["path", {
 	cy: "11",
 	r: "8",
 	key: "4ej97u"
-}]]);
-/**
-* @license lucide-react v0.510.0 - ISC
-*
-* This source code is licensed under the ISC license.
-* See the LICENSE file in the root directory of this source tree.
-*/
-var Share2 = createLucideIcon("share-2", [
-	["circle", {
-		cx: "18",
-		cy: "5",
-		r: "3",
-		key: "gq8acd"
-	}],
-	["circle", {
-		cx: "6",
-		cy: "12",
-		r: "3",
-		key: "w7nqdw"
-	}],
-	["circle", {
-		cx: "18",
-		cy: "19",
-		r: "3",
-		key: "1xt0gg"
-	}],
-	["line", {
-		x1: "8.59",
-		x2: "15.42",
-		y1: "13.51",
-		y2: "17.49",
-		key: "47mynk"
-	}],
-	["line", {
-		x1: "15.41",
-		x2: "8.59",
-		y1: "6.51",
-		y2: "10.49",
-		key: "1n3mei"
-	}]
-]);
-/**
-* @license lucide-react v0.510.0 - ISC
-*
-* This source code is licensed under the ISC license.
-* See the LICENSE file in the root directory of this source tree.
-*/
-var ShieldCheck = createLucideIcon("shield-check", [["path", {
-	d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z",
-	key: "oel41y"
-}], ["path", {
-	d: "m9 12 2 2 4-4",
-	key: "dzmm74"
 }]]);
 /**
 * @license lucide-react v0.510.0 - ISC
@@ -454,4 +391,4 @@ var X = createLucideIcon("x", [["path", {
 	d: "m6 6 12 12",
 	key: "d8bk6v"
 }]]);
-export { ArrowRight as _, SlidersHorizontal as a, Share2 as c, Package as d, Minus as f, Check as g, Download as h, Trash2 as i, Search as l, Heart as m, Truck as n, ShoppingBag as o, Menu as p, TriangleAlert as r, ShieldCheck as s, X as t, Plus as u };
+export { SlidersHorizontal as a, Plus as c, Menu as d, Heart as f, Trash2 as i, Package as l, ArrowRight as m, Truck as n, ShoppingBag as o, Download as p, TriangleAlert as r, Search as s, X as t, Minus as u };
