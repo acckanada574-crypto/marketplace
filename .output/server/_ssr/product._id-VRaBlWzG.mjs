@@ -1,7 +1,7 @@
 import { y as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { n as require_jsx_runtime } from "../_libs/radix-ui__react-context+react.mjs";
-import { n as Route$8, v as formatPrice } from "./router-DnZ37u7Q.mjs";
-// node_modules/.nitro/vite/services/ssr/assets/product._id-Dc_EcpeT.js
+import { n as Route$8, v as formatPrice } from "./router-CE3wJeh9.mjs";
+// node_modules/.nitro/vite/services/ssr/assets/product._id-VRaBlWzG.js
 var import_jsx_runtime = require_jsx_runtime();
 function ProductPage() {
 	const { product, artisan, reviews } = Route$8.useLoaderData();

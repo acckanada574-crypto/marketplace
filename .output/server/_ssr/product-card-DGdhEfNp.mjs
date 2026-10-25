@@ -3,8 +3,8 @@ import { n as require_react } from "../_libs/@radix-ui/react-compose-refs+[...].
 import { y as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { n as require_jsx_runtime } from "../_libs/radix-ui__react-context+react.mjs";
 import { f as Heart, o as ShoppingBag } from "../_libs/lucide-react.mjs";
-import { O as apiFetch, v as formatPrice } from "./router-DnZ37u7Q.mjs";
-// node_modules/.nitro/vite/services/ssr/assets/product-card-4Pxe4mg1.js
+import { O as apiFetch, v as formatPrice } from "./router-CE3wJeh9.mjs";
+// node_modules/.nitro/vite/services/ssr/assets/product-card-DGdhEfNp.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function ProductCard({ product }) {

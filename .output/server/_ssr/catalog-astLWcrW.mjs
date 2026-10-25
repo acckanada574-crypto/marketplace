@@ -3,10 +3,10 @@ import { n as require_react } from "../_libs/@radix-ui/react-compose-refs+[...].
 import { y as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { n as require_jsx_runtime } from "../_libs/radix-ui__react-context+react.mjs";
 import { a as SlidersHorizontal } from "../_libs/lucide-react.mjs";
-import { C as SheetHeader, D as CATEGORIES, E as cn, S as SheetContent, T as Input, f as PageHeading, l as Route$31, p as Section, w as SheetTitle, x as Sheet } from "./router-DnZ37u7Q.mjs";
-import { t as Button } from "./button-wMC8Q2Po.mjs";
-import { n as ProductGrid } from "./product-card-4Pxe4mg1.mjs";
-// node_modules/.nitro/vite/services/ssr/assets/catalog-DkprJ3Bu.js
+import { C as SheetHeader, D as CATEGORIES, E as cn, S as SheetContent, T as Input, f as PageHeading, l as Route$31, p as Section, w as SheetTitle, x as Sheet } from "./router-CE3wJeh9.mjs";
+import { t as Button } from "./button-BwKkNb36.mjs";
+import { n as ProductGrid } from "./product-card-DGdhEfNp.mjs";
+// node_modules/.nitro/vite/services/ssr/assets/catalog-astLWcrW.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function Filters({ search, counts }) {

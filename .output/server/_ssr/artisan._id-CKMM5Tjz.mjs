@@ -1,7 +1,7 @@
 import { n as require_jsx_runtime } from "../_libs/radix-ui__react-context+react.mjs";
-import { f as PageHeading, o as Route$13, p as Section } from "./router-DnZ37u7Q.mjs";
-import { n as ProductGrid } from "./product-card-4Pxe4mg1.mjs";
-// node_modules/.nitro/vite/services/ssr/assets/artisan._id-CgB9r_bd.js
+import { f as PageHeading, o as Route$13, p as Section } from "./router-CE3wJeh9.mjs";
+import { n as ProductGrid } from "./product-card-DGdhEfNp.mjs";
+// node_modules/.nitro/vite/services/ssr/assets/artisan._id-CKMM5Tjz.js
 var import_jsx_runtime = require_jsx_runtime();
 function ArtisanPage() {
 	const { artisan, products } = Route$13.useLoaderData();

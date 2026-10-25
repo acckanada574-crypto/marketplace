@@ -1,15 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { getSql } from "@/lib/db";
-import { getCurrentUserId } from "@/lib/auth/session"; // <-- Импортируем хелпер
+import { getCurrentUserId } from "@/lib/auth/session";
 
 export const Route = createFileRoute("/api/cart")({
   server: {
     handlers: {
       GET: async () => {
-        const userId = await getCurrentUserId(); // <-- Получаем ID пользователя
-        if (!userId) {
-          return new Response(JSON.stringify([]), { status: 200 }); // Если гость, корзина пуста
-        }
+        const userId = await getCurrentUserId();
+        if (!userId) return new Response(JSON.stringify([]), { status: 200 });
 
         try {
           const sql = await getSql();
@@ -17,7 +15,7 @@ export const Route = createFileRoute("/api/cart")({
             SELECT c.id, c.quantity, p.id as product_id, p.title, p.price, p.image, p.kind
             FROM cart c 
             JOIN products p ON p.id = c.product_id
-            WHERE c.user_id = ${userId} // <-- Используем реальный ID
+            WHERE c.user_id = ${userId}
           `;
           return new Response(JSON.stringify(items), { status: 200 });
         } catch (error) {

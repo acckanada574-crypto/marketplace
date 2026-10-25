@@ -1,8 +1,8 @@
 import { y as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { n as require_jsx_runtime } from "../_libs/radix-ui__react-context+react.mjs";
-import { f as PageHeading, p as Section, u as Route$33 } from "./router-DnZ37u7Q.mjs";
-import { t as Button } from "./button-wMC8Q2Po.mjs";
-// node_modules/.nitro/vite/services/ssr/assets/about-B_I_KE4D.js
+import { f as PageHeading, p as Section, u as Route$33 } from "./router-CE3wJeh9.mjs";
+import { t as Button } from "./button-BwKkNb36.mjs";
+// node_modules/.nitro/vite/services/ssr/assets/about-BDCvkgMX.js
 var import_jsx_runtime = require_jsx_runtime();
 function AboutPage() {
 	const { text, artisans } = Route$33.useLoaderData();

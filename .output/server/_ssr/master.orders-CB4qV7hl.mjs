@@ -1,6 +1,6 @@
 import { n as require_jsx_runtime } from "../_libs/radix-ui__react-context+react.mjs";
-import { f as PageHeading, i as Route$10, p as Section, v as formatPrice } from "./router-DnZ37u7Q.mjs";
-// node_modules/.nitro/vite/services/ssr/assets/master.orders-DWnWXTSa.js
+import { f as PageHeading, i as Route$10, p as Section, v as formatPrice } from "./router-CE3wJeh9.mjs";
+// node_modules/.nitro/vite/services/ssr/assets/master.orders-CB4qV7hl.js
 var import_jsx_runtime = require_jsx_runtime();
 function MasterOrdersPage() {
 	const orders = Route$10.useLoaderData();

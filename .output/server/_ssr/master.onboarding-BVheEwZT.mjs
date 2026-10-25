@@ -3,11 +3,11 @@ import { n as require_react } from "../_libs/@radix-ui/react-compose-refs+[...].
 import { x as useNavigate } from "../_libs/@tanstack/react-router+[...].mjs";
 import { n as require_jsx_runtime } from "../_libs/radix-ui__react-context+react.mjs";
 import { n as toast } from "../_libs/sonner.mjs";
-import { T as Input, b as useCurrentUserState, f as PageHeading, p as Section, y as RedirectToSignIn } from "./router-DnZ37u7Q.mjs";
-import { t as Button } from "./button-wMC8Q2Po.mjs";
-import { t as Label } from "./label-D4HMyqjU.mjs";
-import { t as Textarea } from "./textarea-CoDV-Id4.mjs";
-// node_modules/.nitro/vite/services/ssr/assets/master.onboarding-HJbk-j8f.js
+import { T as Input, b as useCurrentUserState, f as PageHeading, p as Section, y as RedirectToSignIn } from "./router-CE3wJeh9.mjs";
+import { t as Button } from "./button-BwKkNb36.mjs";
+import { t as Label } from "./label-BsmsCLE4.mjs";
+import { t as Textarea } from "./textarea-Dkdffg_L.mjs";
+// node_modules/.nitro/vite/services/ssr/assets/master.onboarding-BVheEwZT.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function OnboardingPage() {

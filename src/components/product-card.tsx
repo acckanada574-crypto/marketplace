@@ -4,13 +4,12 @@ import { Heart, ShoppingBag } from "lucide-react";
 import { apiFetch } from "@/lib/api-fetch";
 import { formatPrice } from "@/lib/format";
 
-// ─── Компонент одной карточки товара ───
 export function ProductCard({ product }: { product: any }) {
   const [isAdding, setIsAdding] = useState(false);
   const [message, setMessage] = useState("");
 
   const handleAddToCart = async (e: React.MouseEvent) => {
-    e.preventDefault(); // Чтобы не переходить на страницу товара
+    e.preventDefault();
     e.stopPropagation();
     setIsAdding(true);
     setMessage("");
@@ -71,14 +70,9 @@ export function ProductCard({ product }: { product: any }) {
   );
 }
 
-// ─── Компонент сетки товаров (его мы случайно удалили) ───
 export function ProductGrid({ products }: { products: any[] }) {
   if (!products || products.length === 0) {
-    return (
-      <div className="py-12 text-center text-muted-foreground">
-        Товаров пока нет.
-      </div>
-    );
+    return <div className="py-12 text-center text-muted-foreground">Товаров пока нет.</div>;
   }
 
   return (

@@ -15,7 +15,6 @@ export const Route = createFileRoute("/api/product/$id/review")({
           const { rating, text } = await request.json();
           const sql = await getSql();
 
-          // Получаем имя пользователя для отзыва
           const users = await sql`SELECT name FROM "user" WHERE id = ${userId}`;
           const authorName = users[0]?.name || "Покупатель";
 
@@ -25,7 +24,6 @@ export const Route = createFileRoute("/api/product/$id/review")({
             VALUES (${id}, ${params.id}, ${authorName}, ${rating}, ${text}, CURRENT_DATE)
           `;
 
-          // Обновляем рейтинг товара
           await sql`
             UPDATE products 
             SET 
