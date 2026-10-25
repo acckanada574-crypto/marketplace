@@ -43,6 +43,7 @@ import { Route as ApiMasterOnboardingRouteImport } from './routes/api.master.onb
 import { Route as ApiMasterOrdersRouteImport } from './routes/api.master.orders'
 import { Route as ApiOrderIdRouteImport } from './routes/api.order.$id'
 import { Route as ApiProductIdRouteImport } from './routes/api.product.$id'
+import { Route as ApiProductIdReviewRouteImport } from './routes/api.product.$id.review'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -214,6 +215,11 @@ const ApiProductIdRoute = ApiProductIdRouteImport.update({
   path: '/api/product/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiProductIdReviewRoute = ApiProductIdReviewRouteImport.update({
+  id: '/review',
+  path: '/review',
+  getParentRoute: () => ApiProductIdRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -249,7 +255,8 @@ export interface FileRoutesByFullPath {
   '/api/master/onboarding': typeof ApiMasterOnboardingRoute
   '/api/master/orders': typeof ApiMasterOrdersRoute
   '/api/order/$id': typeof ApiOrderIdRoute
-  '/api/product/$id': typeof ApiProductIdRoute
+  '/api/product/$id': typeof ApiProductIdRouteWithChildren
+  '/api/product/$id/review': typeof ApiProductIdReviewRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -285,7 +292,8 @@ export interface FileRoutesByTo {
   '/api/master/onboarding': typeof ApiMasterOnboardingRoute
   '/api/master/orders': typeof ApiMasterOrdersRoute
   '/api/order/$id': typeof ApiOrderIdRoute
-  '/api/product/$id': typeof ApiProductIdRoute
+  '/api/product/$id': typeof ApiProductIdRouteWithChildren
+  '/api/product/$id/review': typeof ApiProductIdReviewRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -322,7 +330,8 @@ export interface FileRoutesById {
   '/api/master/onboarding': typeof ApiMasterOnboardingRoute
   '/api/master/orders': typeof ApiMasterOrdersRoute
   '/api/order/$id': typeof ApiOrderIdRoute
-  '/api/product/$id': typeof ApiProductIdRoute
+  '/api/product/$id': typeof ApiProductIdRouteWithChildren
+  '/api/product/$id/review': typeof ApiProductIdReviewRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -361,6 +370,7 @@ export interface FileRouteTypes {
     | '/api/master/orders'
     | '/api/order/$id'
     | '/api/product/$id'
+    | '/api/product/$id/review'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -397,6 +407,7 @@ export interface FileRouteTypes {
     | '/api/master/orders'
     | '/api/order/$id'
     | '/api/product/$id'
+    | '/api/product/$id/review'
   id:
     | '__root__'
     | '/'
@@ -433,6 +444,7 @@ export interface FileRouteTypes {
     | '/api/master/orders'
     | '/api/order/$id'
     | '/api/product/$id'
+    | '/api/product/$id/review'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -469,7 +481,7 @@ export interface RootRouteChildren {
   ApiMasterOnboardingRoute: typeof ApiMasterOnboardingRoute
   ApiMasterOrdersRoute: typeof ApiMasterOrdersRoute
   ApiOrderIdRoute: typeof ApiOrderIdRoute
-  ApiProductIdRoute: typeof ApiProductIdRoute
+  ApiProductIdRoute: typeof ApiProductIdRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -712,8 +724,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiProductIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/product/$id/review': {
+      id: '/api/product/$id/review'
+      path: '/review'
+      fullPath: '/api/product/$id/review'
+      preLoaderRoute: typeof ApiProductIdReviewRouteImport
+      parentRoute: typeof ApiProductIdRoute
+    }
   }
 }
+
+interface ApiProductIdRouteChildren {
+  ApiProductIdReviewRoute: typeof ApiProductIdReviewRoute
+}
+
+const ApiProductIdRouteChildren: ApiProductIdRouteChildren = {
+  ApiProductIdReviewRoute: ApiProductIdReviewRoute,
+}
+
+const ApiProductIdRouteWithChildren = ApiProductIdRoute._addFileChildren(
+  ApiProductIdRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -749,7 +780,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiMasterOnboardingRoute: ApiMasterOnboardingRoute,
   ApiMasterOrdersRoute: ApiMasterOrdersRoute,
   ApiOrderIdRoute: ApiOrderIdRoute,
-  ApiProductIdRoute: ApiProductIdRoute,
+  ApiProductIdRoute: ApiProductIdRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -1,71 +1,86 @@
+import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Heart } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { formatPrice, kindLabel } from "@/lib/format";
-import { useMarket } from "@/lib/store";
-import type { Product } from "@/lib/types";
-import { cn } from "@/lib/utils";
+import { Heart, ShoppingBag } from "lucide-react";
+import { apiFetch } from "@/lib/api-fetch";
+import { formatPrice } from "@/lib/format";
 
-export function ProductCard({ product }: { product: Product }) {
-  const favorites = useMarket((s) => s.favorites);
-  const toggleFavorite = useMarket((s) => s.toggleFavorite);
-  const loved = favorites.includes(product.id);
+// ─── Компонент одной карточки товара ───
+export function ProductCard({ product }: { product: any }) {
+  const [isAdding, setIsAdding] = useState(false);
+  const [message, setMessage] = useState("");
+
+  const handleAddToCart = async (e: React.MouseEvent) => {
+    e.preventDefault(); // Чтобы не переходить на страницу товара
+    e.stopPropagation();
+    setIsAdding(true);
+    setMessage("");
+
+    try {
+      await apiFetch("/api/cart", {
+        method: "POST",
+        body: JSON.stringify({ productId: product.id, quantity: 1 }),
+        headers: { "Content-Type": "application/json" },
+      });
+      setMessage("Добавлено!");
+      setTimeout(() => setMessage(""), 2000);
+    } catch (err: any) {
+      if (err.status === 401) {
+        setMessage("Войдите, чтобы добавить");
+      } else {
+        setMessage("Ошибка");
+      }
+    } finally {
+      setIsAdding(false);
+    }
+  };
 
   return (
-    <article className="group flex flex-col">
-      <Link
-        to="/product/$id"
-        params={{ id: product.id }}
-        className="relative overflow-hidden rounded-xl bg-muted"
-      >
-        <img
-          src={product.image}
-          alt={product.title}
-          className="aspect-photo w-full object-cover transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
-        />
-        <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">
-          <Badge variant={product.kind === "digital" ? "digital" : "muted"}>
-            {kindLabel(product.kind)}
-          </Badge>
-          {product.isNew ? <Badge variant="default">Новое</Badge> : null}
+    <div className="group relative">
+      <Link to="/product/$id" params={{ id: product.id }} className="block">
+        <div className="relative overflow-hidden rounded-xl bg-muted aspect-[4/5]">
+          <img
+            src={product.image}
+            alt={product.title}
+            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+          />
+          <button className="absolute right-3 top-3 rounded-full bg-white/80 p-2 backdrop-blur hover:bg-white transition-colors">
+            <Heart className="size-4" />
+          </button>
+        </div>
+        <div className="mt-4 flex justify-between">
+          <div>
+            <h3 className="font-medium">{product.title}</h3>
+            <p className="text-sm text-muted-foreground">{product.subtitle}</p>
+          </div>
+          <p className="font-medium">{formatPrice(product.price)}</p>
         </div>
       </Link>
-      <div className="mt-3 flex items-start justify-between gap-3">
-        <div className="min-w-0">
-          <Link
-            to="/product/$id"
-            params={{ id: product.id }}
-            className="font-display text-lg leading-snug font-medium tracking-tight text-foreground hover:text-primary"
-          >
-            {product.title}
-          </Link>
-          <p className="mt-0.5 truncate text-sm text-muted-foreground">{product.subtitle}</p>
-        </div>
+      
+      <div className="mt-2 flex items-center gap-2">
         <button
-          type="button"
-          aria-label={loved ? "Убрать из избранного" : "В избранное"}
-          onClick={() => toggleFavorite(product.id)}
-          className={cn(
-            "relative size-11 shrink-0 rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground",
-            loved && "text-primary",
-          )}
+          onClick={handleAddToCart}
+          disabled={isAdding}
+          className="flex items-center gap-2 rounded-lg bg-primary/10 px-3 py-1.5 text-sm font-medium text-primary hover:bg-primary/20 transition-colors disabled:opacity-50"
         >
-          <Heart className={cn("mx-auto size-4", loved && "fill-primary")} />
+          <ShoppingBag className="size-4" />
+          {isAdding ? "..." : "В корзину"}
         </button>
+        {message && <span className="text-xs text-muted-foreground">{message}</span>}
       </div>
-      <p className="mt-2 font-medium tabular-nums">{formatPrice(product.price)}</p>
-    </article>
+    </div>
   );
 }
 
-export function ProductGrid({ products }: { products: Product[] }) {
-  if (products.length === 0) {
+// ─── Компонент сетки товаров (его мы случайно удалили) ───
+export function ProductGrid({ products }: { products: any[] }) {
+  if (!products || products.length === 0) {
     return (
-      <p className="rounded-xl bg-card px-5 py-12 text-center text-muted-foreground shadow-border">
-        Ничего не нашлось. Снимите фильтр или попробуйте другое слово.
-      </p>
+      <div className="py-12 text-center text-muted-foreground">
+        Товаров пока нет.
+      </div>
     );
   }
+
   return (
     <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
       {products.map((product) => (
