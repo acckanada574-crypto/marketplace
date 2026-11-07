@@ -4,11 +4,13 @@ import { getCurrentUserId } from "@/lib/auth/session";
 import path from "node:path";
 import fs from "node:fs/promises";
 
+const MAX_SIZE = 10 * 1024 * 1024;
+const ALLOWED = ["image/jpeg", "image/png", "image/webp"];
+
 export const Route = createFileRoute("/api/products")({
   server: {
     handlers: {
       POST: async ({ request }) => {
-        // 1. Получаем ID авторизованного пользователя
         const userId = await getCurrentUserId();
         if (!userId) {
           return new Response(JSON.stringify({ error: "Необходима авторизация" }), {
@@ -46,7 +48,7 @@ export const Route = createFileRoute("/api/products")({
             title.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "") +
             "-" + id.slice(0, 6);
 
-          // 2. Записываем в базу с ID реального пользователя
+          // ВОТ ЗДЕСЬ МЫ ИСПОЛЬЗУЕМ userId ВМЕСТО glass-master:
           await sql`
             INSERT INTO products (
               id, slug, title, subtitle, description, price, kind, category, artisan_id,
