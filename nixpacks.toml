@@ -1,14 +1,2 @@
-[phases.setup]
-nixPkgs = ["nodejs_22"]
-
-[phases.install]
-# Устанавливаем ТОЛЬКО те зависимости, которые нужны для запуска (без dev-пакетов)
-cmds = ["npm install --omit=dev"]
-
 [phases.build]
-# Пропускаем сборку! Netrun ничего не будет собирать.
-cmds = [] 
-
-[start]
-# Сразу запускаем готовый сервер
-cmd = "node .output/server/index.mjs"
+cmds = ["npm run build"]
