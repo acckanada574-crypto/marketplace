@@ -2,8 +2,7 @@
 cmds = ["npm install --include=dev"]
 
 [phases.build]
-cmds = ["npm run build"]
-dependsOn = ["install"]
+cmds = ["echo 'Skipping build, using pre-built .output'"]
 
 [start]
 cmd = "node .output/server/index.mjs"
