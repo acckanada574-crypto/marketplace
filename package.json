@@ -8,8 +8,6 @@
   "type": "module",
   "overrides": {
     "nf3": "0.3.17",
-    "react": "19.2.0",
-    "react-dom": "19.2.0",
     "vitest": "^5.0.0"
   },
   "scripts": {
