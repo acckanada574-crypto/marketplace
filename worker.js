@@ -1,4 +1,5 @@
-import { Client } from 'pg';
+import pkg from 'pg';
+const { Pool } = pkg;
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -7,13 +8,21 @@ const OLLAMA_URL = 'http://127.0.0.1:11434/api/generate';
 const TEXT_MODEL = 'qwen2.5:7b';
 const VISION_MODEL = 'qwen2.5vl:7b';
 const POLL_INTERVAL_MS = 60_000;
+const SITE_URL = 'https://marketplace.de2.netrun.io'; // Боевой сайт
 
 if (!DB_URL) {
   console.error('❌ DATABASE_URL не задан.');
   process.exit(1);
 }
 
-const db = new Client({ connectionString: DB_URL });
+const pool = new Pool({ 
+  connectionString: DB_URL,
+  ssl: { rejectUnauthorized: false }
+});
+
+pool.on('error', (err) => {
+  console.error('❌ Ошибка пула БД:', err.message);
+});
 
 function log(msg) {
   const ts = new Date().toISOString().slice(0, 19).replace('T', ' ');
@@ -48,17 +57,33 @@ async function generateText(title, rawDescription) {
   }
 }
 
-// --- Ветка 2: Анализ картинки (Qwen2.5-VL 7B) ---
+// --- Ветка 2: Анализ картинки (ИСПРАВЛЕНО) ---
 async function analyzeImage(imagePath, expectedTitle) {
   try {
-    const fullPath = path.join(process.cwd(), 'public', imagePath);
-    const b64 = fs.readFileSync(fullPath).toString('base64');
+    let b64;
+    
+    // Если картинка в облаке (начинается с http) или лежит на сайте
+    if (imagePath.startsWith('http')) {
+      const response = await fetch(imagePath);
+      const arrayBuffer = await response.arrayBuffer();
+      b64 = Buffer.from(arrayBuffer).toString('base64');
+    } else {
+      // Формируем полную ссылку на картинку на твоем сайте
+      const fullUrl = `${SITE_URL}${imagePath.startsWith('/') ? '' : '/'}${imagePath}`;
+      console.log(`   Скачиваю картинку с сайта: ${fullUrl}`);
+      
+      const response = await fetch(fullUrl);
+      if (!response.ok) throw new Error(`Не удалось скачать картинку: HTTP ${response.status}`);
+      
+      const arrayBuffer = await response.arrayBuffer();
+      b64 = Buffer.from(arrayBuffer).toString('base64');
+    }
 
     const prompt = `Проанализируй фото товара. Ожидается: "${expectedTitle}".
 1. На фото действительно этот товар?
 2. Похоже на ручную работу?
 3. Есть признаки стока, фабрики или ИИ-генерации?
-Верни ТОЛЬКО JSON: {"matches": true/false, "looks_handmade": true/false, "is_stock_or_ai": true/false, "notes": "кратко"}`;
+Верни ТОЛЬКО валидный JSON: {"matches": true/false, "looks_handmade": true/false, "is_stock_or_ai": true/false, "notes": "кратко"}`;
 
     const res = await fetch(OLLAMA_URL, {
       method: 'POST',
@@ -123,7 +148,7 @@ async function processProduct(product) {
   log(`   Вердикт: текст=${textVerdict}, vision=${JSON.stringify(vision)} → ${finalStatus}`);
 
   try {
-    await db.query(
+    await pool.query(
       `UPDATE products SET title=$1, subtitle=$2, description=$3, status=$4, ai_data=$5 WHERE id=$6`,
       [
         aiText.title,
@@ -140,7 +165,7 @@ async function processProduct(product) {
 }
 
 async function markForReview(id, reason) {
-  await db.query(`UPDATE products SET status='needs_review', ai_data=$1 WHERE id=$2`, [
+  await pool.query(`UPDATE products SET status='needs_review', ai_data=$1 WHERE id=$2`, [
     JSON.stringify({ error: reason }),
     id,
   ]);
@@ -148,7 +173,7 @@ async function markForReview(id, reason) {
 
 async function tick() {
   try {
-    const res = await db.query("SELECT * FROM products WHERE status = 'pending' LIMIT 5");
+    const res = await pool.query("SELECT * FROM products WHERE status = 'pending' LIMIT 5");
     if (res.rows.length === 0) return;
 
     log(`📦 В очереди: ${res.rows.length}`);
@@ -161,7 +186,6 @@ async function tick() {
 }
 
 async function main() {
-  await db.connect();
   log('🚀 Воркер запущен с Vision (qwen2.5vl:7b)');
   await tick();
   setInterval(tick, POLL_INTERVAL_MS);

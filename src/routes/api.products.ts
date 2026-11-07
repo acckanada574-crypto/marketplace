@@ -36,7 +36,15 @@ export const Route = createFileRoute("/api/products")({
           const buffer = Buffer.from(await imageFile.arrayBuffer());
           const ext = imageFile.name.split(".").pop()?.toLowerCase() || "jpg";
           const fileName = `master-${Date.now()}-${crypto.randomUUID().slice(0, 8)}.${ext}`;
-          const uploadDir = path.join(process.cwd(), "public", "products");
+          
+          // УМНЫЙ ПУТЬ: Если есть папка .output (на сервере), сохраняем туда. Если нет (локально) - в public.
+          let uploadDir = path.join(process.cwd(), "public", "products");
+          try {
+            await fs.access(path.join(process.cwd(), ".output", "public"));
+            uploadDir = path.join(process.cwd(), ".output", "public", "products");
+          } catch (e) {
+            // Папки .output нет, значит мы локально, оставляем public
+          }
 
           await fs.mkdir(uploadDir, { recursive: true });
           await fs.writeFile(path.join(uploadDir, fileName), buffer);
@@ -48,7 +56,6 @@ export const Route = createFileRoute("/api/products")({
             title.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "") +
             "-" + id.slice(0, 6);
 
-          // ВОТ ЗДЕСЬ МЫ ИСПОЛЬЗУЕМ userId ВМЕСТО glass-master:
           await sql`
             INSERT INTO products (
               id, slug, title, subtitle, description, price, kind, category, artisan_id,
