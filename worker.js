@@ -8,7 +8,7 @@ const OLLAMA_URL = 'http://127.0.0.1:11434/api/generate';
 const TEXT_MODEL = 'qwen2.5:7b';
 const VISION_MODEL = 'qwen2.5vl:7b';
 const POLL_INTERVAL_MS = 60_000;
-const SITE_URL = 'https://marketplace.de2.netrun.io'; // Боевой сайт
+const SITE_URL = 'https://marketplace.de2.netrun.io';
 
 if (!DB_URL) {
   console.error('❌ DATABASE_URL не задан.');
@@ -29,7 +29,6 @@ function log(msg) {
   console.log(`[${ts}] ${msg}`);
 }
 
-// --- Ветка 1: Генерация текста (Qwen 2.5 7B) ---
 async function generateText(title, rawDescription) {
   const prompt = `Ты — копирайтер маркетплейса ручной работы.
 Сделай красивую карточку для товара "${title}".
@@ -57,24 +56,17 @@ async function generateText(title, rawDescription) {
   }
 }
 
-// --- Ветка 2: Анализ картинки (ИСПРАВЛЕНО) ---
 async function analyzeImage(imagePath, expectedTitle) {
   try {
     let b64;
-    
-    // Если картинка в облаке (начинается с http) или лежит на сайте
     if (imagePath.startsWith('http')) {
       const response = await fetch(imagePath);
       const arrayBuffer = await response.arrayBuffer();
       b64 = Buffer.from(arrayBuffer).toString('base64');
     } else {
-      // Формируем полную ссылку на картинку на твоем сайте
       const fullUrl = `${SITE_URL}${imagePath.startsWith('/') ? '' : '/'}${imagePath}`;
-      console.log(`   Скачиваю картинку с сайта: ${fullUrl}`);
-      
       const response = await fetch(fullUrl);
       if (!response.ok) throw new Error(`Не удалось скачать картинку: HTTP ${response.status}`);
-      
       const arrayBuffer = await response.arrayBuffer();
       b64 = Buffer.from(arrayBuffer).toString('base64');
     }
@@ -106,7 +98,6 @@ async function analyzeImage(imagePath, expectedTitle) {
   }
 }
 
-// --- Ветка 3: Текстовый редактор (Qwen 2.5 7B) ---
 async function checkApproval(text) {
   const prompt = `Проверь текст карточки: "${text}". Если мат, бред, выдуманные факты — REJECT. Иначе — APPROVE. Только одно слово.`;
   try {
@@ -126,7 +117,6 @@ async function checkApproval(text) {
   }
 }
 
-// --- Обработка одного товара ---
 async function processProduct(product) {
   log(`→ Товар: "${product.title}" (${product.id})`);
 
