@@ -39,3 +39,5 @@ desktop.ini
 .cache/
 coverage/
 .output/
+
+.output/
