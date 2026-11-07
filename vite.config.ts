@@ -1,19 +1,16 @@
-import { defineConfig } from "vite";
-import tsConfigPaths from "vite-tsconfig-paths";
-import { tanstackStart } from "@tanstack/react-start/plugin/vite";
-import tailwindcss from "@tailwindcss/vite";
-import react from "@vitejs/plugin-react";
-import { nitro } from "nitro/vite";
+import { defineConfig } from 'vite'
+import tsconfigPaths from 'vite-tsconfig-paths'
+import { tanstackStart } from '@tanstack/react-start/plugin/vite'
+import viteReact from '@vitejs/plugin-react'
 
 export default defineConfig({
-  server: {
-    port: 8080,
-  },
   plugins: [
-    tsConfigPaths(),
-    tailwindcss(),
+    tsconfigPaths(),
     tanstackStart(),
-    nitro(),
-    react(),
+    viteReact()
   ],
-});
+  // ВОТ ЭТА СТРОКА ИСПРАВЛЯЕТ ОШИБКУ НА NETRUN:
+  ssr: {
+    noExternal: true,
+  },
+})
