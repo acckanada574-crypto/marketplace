@@ -1,26 +1,59 @@
-# Marketplace local control agent
+# Управление ПК с телефона
 
-This agent is intentionally **not included yet**. The production-safe integration uses a separate local process on the PC, reachable only through Tailscale, with an allowlist and explicit approval for writes.
+## Что уже есть в репозитории
 
-## Recommended control path from a phone
+- `local-agent/server.mjs` — локальная панель с белым списком операций;
+- подтверждение для операций, изменяющих состояние Docker;
+- команды проверки `status`, `typecheck`, `lint`, `test`, `build`;
+- `compose.yaml` с PostgreSQL и MinIO;
+- `.env.example` без реальных секретов.
+
+Агент **не выполняет произвольный текст shell-команды**.
+
+## Безопасная схема
 
 ```text
-Phone -> Tailscale -> PC agent -> allowlisted local commands
+Телефон -> Tailscale -> ПК -> local-agent -> разрешённые команды
 ```
 
-Do not expose the agent, Ollama, PostgreSQL, or MinIO directly to the public internet. Do not put tokens or `.env` files in Git.
+Не публикуйте в интернет агент, Ollama, PostgreSQL или MinIO. Не добавляйте токены и `.env` в Git.
 
-## First PC setup
+## Установка на Windows
 
-1. Install Git, Node.js 22.12+, Docker Desktop, Ollama and Tailscale.
-2. Clone the repository and switch to `feature/local-file-storage`.
-3. Copy `.env.example` to `.env` and replace every `change-this`/`replace-with` value locally.
-4. Start services: `docker compose up -d postgres minio`.
-5. Pull models: `ollama pull qwen2.5:7b` and `ollama pull qwen2.5vl:7b`.
-6. Run checks before exposing any local control interface: `npm ci`, `npm run typecheck`, `npm run lint`, `npm test`, `npm run build`.
+1. Установите Git, Node.js 22.12+, Docker Desktop, Ollama, Tailscale и приложение Tailscale на телефон.
+2. Клонируйте репозиторий и переключитесь на `feature/local-file-storage`.
+3. Скопируйте `.env.example` в `.env` и замените локальные пароли.
+4. Запустите Docker Desktop и выполните `docker compose up -d postgres minio`.
+5. Загрузите модели: `ollama pull qwen2.5:7b` и `ollama pull qwen2.5vl:7b`.
+6. Установите зависимости: `npm ci`.
+7. Выполните проверки: `npm run typecheck`, `npm run lint`, `npm test`, `npm run build`.
 
-## Control policy
+## Запуск агента
 
-Allowed read/check operations may include status, logs, typecheck, lint, tests and build. Require a local confirmation for `git push`, migrations, service restart, file deletion, environment changes and deployment. Never implement an endpoint that executes arbitrary shell text from a phone.
+В PowerShell из корня проекта создайте случайный токен длиной не менее 32 символов и запустите:
 
-The assistant can prepare code and commits in GitHub. Execution on the PC requires the local agent and your confirmation.
+```powershell
+$env:AGENT_TOKEN = "вставьте-длинный-случайный-токен"
+$env:MARKETPLACE_DIR = (Get-Location).Path
+$env:AGENT_HOST = "0.0.0.0"
+node local-agent/server.mjs
+```
+
+`0.0.0.0` означает прослушивание интерфейсов ПК. Доступ к порту должен быть разрешён только в вашей Tailscale-сети через Windows Firewall. Более безопасный вариант — указать Tailscale IP самого ПК вместо `0.0.0.0`.
+
+На телефоне откройте:
+
+```text
+http://TAILSCALE_IP_ПК:8787/
+```
+
+Токен вводится в браузере телефона и не хранится в Git. Для действий `composeUp` и `composeDown` требуется отдельное подтверждение.
+
+## Ограничения
+
+- агент не даёт произвольный shell-доступ;
+- `git push`, миграции, удаление файлов, изменение `.env` и деплой намеренно не включены;
+- перед первым доступом с телефона проверьте правило Windows Firewall;
+- используйте длинный уникальный `AGENT_TOKEN` и не отправляйте его в чат.
+
+После локальной проверки можно добавить новые операции по одной, с отдельным подтверждением и тестом.
