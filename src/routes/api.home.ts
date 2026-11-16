@@ -7,26 +7,18 @@ export const Route = createFileRoute("/api/home")({
       GET: async () => {
         try {
           const sql = await getSql();
-
-          const countResult = await sql`SELECT count(*)::int as count FROM products`;
+          const published = "status = 'published'";
+          const countResult = await sql`SELECT count(*)::int as count FROM products WHERE ${published}`;
           const totalProducts = countResult[0]?.count || 0;
+          const featured = await sql`SELECT * FROM products WHERE ${published} AND featured = true LIMIT 6`;
+          const displayFeatured = featured.length > 0
+            ? featured
+            : await sql`SELECT * FROM products WHERE ${published} LIMIT 6`;
+          const digital = await sql`SELECT * FROM products WHERE ${published} AND kind = 'digital' LIMIT 5`;
+          const physical = await sql`SELECT * FROM products WHERE ${published} AND kind = 'physical' LIMIT 3`;
+          const artisans = await sql`SELECT * FROM artisans WHERE status = 'approved' LIMIT 6`;
 
-          // Берем товары, которые помечены как featured, или просто первые 6
-          const featured = await sql`SELECT * FROM products WHERE featured = true LIMIT 6`;
-          // Если featured пуст, берем просто 6 товаров
-          const displayFeatured = featured.length > 0 ? featured : await sql`SELECT * FROM products LIMIT 6`;
-
-          const digital = await sql`SELECT * FROM products WHERE kind = 'digital' LIMIT 5`;
-          const physical = await sql`SELECT * FROM products WHERE kind = 'physical' LIMIT 3`;
-          const artisans = await sql`SELECT * FROM artisans LIMIT 6`;
-
-          return new Response(JSON.stringify({
-            featured: displayFeatured,
-            digital,
-            physical,
-            artisans,
-            totalProducts
-          }), {
+          return new Response(JSON.stringify({ featured: displayFeatured, digital, physical, artisans, totalProducts }), {
             status: 200,
             headers: { "Content-Type": "application/json" },
           });
