@@ -17,7 +17,10 @@ if (!DB_URL) {
   process.exit(1);
 }
 
-const pool = new Pool({ connectionString: DB_URL, ssl: process.env.DATABASE_SSL === 'false' ? false : { rejectUnauthorized: false } });
+const pool = new Pool({
+  connectionString: DB_URL,
+  ssl: process.env.DATABASE_SSL === 'false' ? false : { rejectUnauthorized: false },
+});
 pool.on('error', (err) => console.error('❌ Ошибка пула БД:', err.message));
 
 function log(msg) {
@@ -32,7 +35,11 @@ function parseJsonResponse(response) {
 }
 
 async function generate(prompt, model, options = {}) {
-  const res = await fetch(OLLAMA_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ model, prompt, stream: false, format: 'json', options }) });
+  const res = await fetch(OLLAMA_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ model, prompt, stream: false, format: 'json', options }),
+  });
   if (!res.ok) throw new Error(`Ollama HTTP ${res.status}`);
   return res.json();
 }
@@ -62,7 +69,11 @@ async function analyzeImage(imagePath, expectedTitle) {
   try {
     const prompt = `Проанализируй фото товара. Ожидается: "${expectedTitle}".\nПроверь совпадение, признаки ручной работы и стока/ИИ.\nВерни только JSON: {"matches":true,"looks_handmade":true,"is_stock_or_ai":false,"notes":"кратко"}`;
     const image = await readImage(imagePath);
-    const res = await fetch(OLLAMA_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ model: VISION_MODEL, prompt, images: [image], stream: false, format: 'json', options: { temperature: 0.2, num_predict: 300 } }) });
+    const res = await fetch(OLLAMA_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ model: VISION_MODEL, prompt, images: [image], stream: false, format: 'json', options: { temperature: 0.2, num_predict: 300 } }),
+    });
     if (!res.ok) throw new Error(`Ollama HTTP ${res.status}`);
     return parseJsonResponse((await res.json()).response);
   } catch (err) {
@@ -79,8 +90,13 @@ async function processProduct(product) {
   const vision = await analyzeImage(product.image, aiText.title);
   if (!vision) return markForReview(product.id, 'vision_failed');
 
-  const status = vision.matches === true && vision.looks_handmade === true && vision.is_stock_or_ai === false ? 'ai_processed' : 'needs_review';
-  await pool.query('UPDATE products SET title=$1, subtitle=$2, description=$3, status=$4, ai_data=$5 WHERE id=$6', [aiText.title, aiText.subtitle, aiText.description, status, JSON.stringify({ text: aiText, vision, reviewed_by_ai: true }), product.id]);
+  // AI never publishes a product by itself. The owner/moderator must approve it.
+  const status = 'needs_review';
+  await pool.query(
+    'UPDATE products SET title=$1, subtitle=$2, description=$3, status=$4, ai_data=$5 WHERE id=$6',
+    [aiText.title, aiText.subtitle, aiText.description, status, JSON.stringify({ text: aiText, vision, reviewed_by_ai: true }), product.id],
+  );
+  log(`   AI обработал товар; статус=${status}`);
 }
 
 async function markForReview(id, reason) {
