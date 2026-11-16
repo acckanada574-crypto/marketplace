@@ -7,15 +7,14 @@ export const Route = createFileRoute("/api/home")({
       GET: async () => {
         try {
           const sql = await getSql();
-          const published = "status = 'published'";
-          const countResult = await sql`SELECT count(*)::int as count FROM products WHERE ${published}`;
+          const countResult = await sql`SELECT count(*)::int as count FROM products WHERE status = 'published'`;
           const totalProducts = countResult[0]?.count || 0;
-          const featured = await sql`SELECT * FROM products WHERE ${published} AND featured = true LIMIT 6`;
+          const featured = await sql`SELECT * FROM products WHERE status = 'published' AND featured = true LIMIT 6`;
           const displayFeatured = featured.length > 0
             ? featured
-            : await sql`SELECT * FROM products WHERE ${published} LIMIT 6`;
-          const digital = await sql`SELECT * FROM products WHERE ${published} AND kind = 'digital' LIMIT 5`;
-          const physical = await sql`SELECT * FROM products WHERE ${published} AND kind = 'physical' LIMIT 3`;
+            : await sql`SELECT * FROM products WHERE status = 'published' LIMIT 6`;
+          const digital = await sql`SELECT * FROM products WHERE status = 'published' AND kind = 'digital' LIMIT 5`;
+          const physical = await sql`SELECT * FROM products WHERE status = 'published' AND kind = 'physical' LIMIT 3`;
           const artisans = await sql`SELECT * FROM artisans WHERE status = 'approved' LIMIT 6`;
 
           return new Response(JSON.stringify({ featured: displayFeatured, digital, physical, artisans, totalProducts }), {
