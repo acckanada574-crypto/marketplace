@@ -1,4 +1,5 @@
 import http from 'node:http';
+import { randomUUID } from 'node:crypto';
 import { spawn } from 'node:child_process';
 import path from 'node:path';
 
@@ -18,9 +19,7 @@ const commands = {
   composeDown: { command: 'docker', args: ['compose', 'down'], mutating: true },
 };
 
-if (!TOKEN || TOKEN.length < 32) {
-  throw new Error('Set AGENT_TOKEN to a random value of at least 32 characters.');
-}
+if (!TOKEN || TOKEN.length < 32) throw new Error('Set AGENT_TOKEN to a random value of at least 32 characters.');
 
 function json(res, status, body) {
   res.writeHead(status, { 'content-type': 'application/json; charset=utf-8' });
@@ -33,7 +32,7 @@ function authorized(req) {
 
 function run(name) {
   const spec = commands[name];
-  const id = crypto.randomUUID();
+  const id = randomUUID();
   const job = { id, name, status: 'running', output: '', startedAt: new Date().toISOString() };
   jobs.set(id, job);
   const child = spawn(spec.command, spec.args, { cwd: WORKSPACE, shell: false, env: process.env });
@@ -43,7 +42,7 @@ function run(name) {
   return job;
 }
 
-const page = `<!doctype html><meta charset="utf-8"><title>Marketplace PC Agent</title><style>body{font:16px system-ui;max-width:720px;margin:40px auto;padding:0 16px}button{margin:4px;padding:10px 14px}pre{white-space:pre-wrap;background:#f4f4f4;padding:12px}</style><h1>Marketplace PC Agent</h1><p>Выполняются только заранее разрешённые операции.</p><div id="buttons"></div><pre id="out">Готово</pre><script>const token=prompt('AGENT_TOKEN');const names=['status','typecheck','lint','test','build','composeUp','composeDown'];const box=document.querySelector('#buttons');for(const name of names){const b=document.createElement('button');b.textContent=name;b.onclick=async()=>{const r=await fetch('/v1/jobs',{method:'POST',headers:{'authorization':'Bearer '+token,'content-type':'application/json'},body:JSON.stringify({name})});document.querySelector('#out').textContent=JSON.stringify(await r.json(),null,2)};box.append(b)}</script>`;
+const page = `<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Marketplace PC Agent</title><style>body{font:16px system-ui;max-width:720px;margin:40px auto;padding:0 16px}button{margin:4px;padding:10px 14px}pre{white-space:pre-wrap;background:#f4f4f4;padding:12px;border-radius:8px}.danger{background:#fee2e2}</style><h1>Marketplace PC Agent</h1><p>Выполняются только заранее разрешённые операции.</p><div id="buttons"></div><pre id="out">Готово</pre><script>const token=prompt('AGENT_TOKEN');const names=['status','typecheck','lint','test','build','composeUp','composeDown'];const mutating=new Set(['composeUp','composeDown']);const box=document.querySelector('#buttons');async function refresh(){const r=await fetch('/v1/jobs',{headers:{authorization:'Bearer '+token}});document.querySelector('#out').textContent=JSON.stringify(await r.json(),null,2)}for(const name of names){const b=document.createElement('button');b.textContent=name;b.className=mutating.has(name)?'danger':'';b.onclick=async()=>{const confirm=mutating.has(name)?window.confirm('Подтвердить: '+name+'?'):true;if(!confirm)return;const r=await fetch('/v1/jobs',{method:'POST',headers:{authorization:'Bearer '+token,'content-type':'application/json'},body:JSON.stringify({name,confirm})});document.querySelector('#out').textContent=JSON.stringify(await r.json(),null,2);setTimeout(refresh,1000)};box.append(b)}setInterval(refresh,2000);</script>`;
 
 const server = http.createServer(async (req, res) => {
   if (req.method === 'GET' && req.url === '/') { res.writeHead(200, { 'content-type': 'text/html; charset=utf-8' }); res.end(page); return; }
@@ -59,4 +58,5 @@ const server = http.createServer(async (req, res) => {
   }
   json(res, 404, { error: 'Not found' });
 });
+
 server.listen(PORT, HOST, () => console.log(`PC agent listening on http://${HOST}:${PORT}`));
