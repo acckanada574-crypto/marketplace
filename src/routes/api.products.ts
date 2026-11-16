@@ -1,84 +1,42 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { getSql } from "@/lib/db";
 import { getCurrentUserId } from "@/lib/auth/session";
-import path from "node:path";
-import fs from "node:fs/promises";
+import { MAX_PRODUCT_IMAGES, saveProductImage, removeUpload } from "@/lib/uploads.server";
 
-const MAX_SIZE = 10 * 1024 * 1024;
-const ALLOWED = ["image/jpeg", "image/png", "image/webp"];
+const json = (body: unknown, status = 200) =>
+  new Response(JSON.stringify(body), { status, headers: { "Content-Type": "application/json" } });
 
 export const Route = createFileRoute("/api/products")({
   server: {
     handlers: {
       POST: async ({ request }) => {
         const userId = await getCurrentUserId();
-        if (!userId) {
-          return new Response(JSON.stringify({ error: "Необходима авторизация" }), {
-            status: 401,
-            headers: { "Content-Type": "application/json" },
-          });
-        }
-
+        if (!userId) return json({ error: "Необходима авторизация" }, 401);
+        const saved = [];
         try {
           const formData = await request.formData();
-          const title = (formData.get("title") as string)?.trim();
+          const title = String(formData.get("title") ?? "").trim();
+          const rawDescription = String(formData.get("description") ?? "").trim();
           const price = Number(formData.get("price"));
-          const rawDescription = (formData.get("description") as string)?.trim();
-          const imageFile = formData.get("image") as File | null;
-
-          if (!title || !price || !imageFile) {
-            return new Response(
-              JSON.stringify({ error: "Заполните название, цену и загрузите фото" }),
-              { status: 400, headers: { "Content-Type": "application/json" } }
-            );
-          }
-
-          const buffer = Buffer.from(await imageFile.arrayBuffer());
-          const ext = imageFile.name.split(".").pop()?.toLowerCase() || "jpg";
-          const fileName = `master-${Date.now()}-${crypto.randomUUID().slice(0, 8)}.${ext}`;
-          
-          // УМНЫЙ ПУТЬ: Если есть папка .output (на сервере), сохраняем туда. Если нет (локально) - в public.
-          let uploadDir = path.join(process.cwd(), "public", "products");
-          try {
-            await fs.access(path.join(process.cwd(), ".output", "public"));
-            uploadDir = path.join(process.cwd(), ".output", "public", "products");
-          } catch (e) {
-            // Папки .output нет, значит мы локально, оставляем public
-          }
-
-          await fs.mkdir(uploadDir, { recursive: true });
-          await fs.writeFile(path.join(uploadDir, fileName), buffer);
-
-          const imagePath = `/products/${fileName}`;
-          const sql = await getSql();
+          const kind = formData.get("kind") === "digital" ? "digital" : "physical";
+          const files = formData.getAll("images").filter((value): value is File => value instanceof File && value.size > 0);
+          const legacyImage = formData.get("image");
+          if (legacyImage instanceof File && legacyImage.size > 0) files.unshift(legacyImage);
+          if (!title || !Number.isInteger(price) || price <= 0 || files.length === 0) return json({ error: "Заполните название, целую цену и загрузите хотя бы одно фото" }, 400);
+          if (files.length > MAX_PRODUCT_IMAGES) return json({ error: `Можно загрузить не более ${MAX_PRODUCT_IMAGES} изображений` }, 400);
+          for (const file of files) saved.push(await saveProductImage(file));
           const id = crypto.randomUUID();
-          const slug =
-            title.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "") +
-            "-" + id.slice(0, 6);
-
-          await sql`
-            INSERT INTO products (
-              id, slug, title, subtitle, description, price, kind, category, artisan_id,
-              image, images, materials, size, stock, rating, review_count,
-              featured, is_new, custom, status, source_data
-            ) VALUES (
-              ${id}, ${slug}, ${title}, 'На модерации', ${rawDescription || ""},
-              ${price}, 'physical', 'ceramics', ${userId},
-              ${imagePath}, '[]', '', '', 5, 0, 0,
-              false, true, false, 'pending',
-              ${JSON.stringify({ raw_description: rawDescription, uploaded_by: userId })}
-            )
-          `;
-
-          return new Response(
-            JSON.stringify({ success: true, productId: id, image: imagePath }),
-            { status: 200, headers: { "Content-Type": "application/json" } }
-          );
+          const image = saved[0].publicPath;
+          const images = saved.map((file) => file.publicPath);
+          const slug = `${title.toLowerCase().replace(/\s+/g, "-").replace(/[^a-zа-яё0-9-]/gi, "") || "product"}-${id.slice(0, 6)}`;
+          const sql = await getSql();
+          await sql`INSERT INTO products (id, slug, title, subtitle, description, price, kind, category, artisan_id, image, images, materials, size, stock, rating, review_count, featured, is_new, custom, status, source_data) VALUES (${id}, ${slug}, ${title}, 'На модерации', ${rawDescription}, ${price}, ${kind}, 'other', ${userId}, ${image}, ${JSON.stringify(images)}, '', '', ${kind === "digital" ? 0 : 5}, 0, 0, false, true, false, 'pending', ${JSON.stringify({ raw_description: rawDescription, uploaded_by: userId, local_storage: true })})`;
+          for (const file of saved) await sql`INSERT INTO product_files (id, product_id, uploaded_by, kind, original_name, storage_key, mime_type, size_bytes, sha256) VALUES (${file.id}, ${id}, ${userId}, 'image', ${file.originalName}, ${file.storageKey}, ${file.mimeType}, ${file.sizeBytes}, ${file.sha256})`;
+          return json({ success: true, productId: id, image, images });
         } catch (error) {
+          await Promise.all(saved.map(removeUpload));
           console.error("Ошибка загрузки товара:", error);
-          return new Response(JSON.stringify({ error: "Ошибка сервера" }), {
-            status: 500, headers: { "Content-Type": "application/json" },
-          });
+          return json({ error: error instanceof Error ? error.message : "Ошибка сервера" }, 500);
         }
       },
     },
