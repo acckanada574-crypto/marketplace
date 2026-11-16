@@ -15,7 +15,7 @@ build/
 
 # Логи
 npm-debug.log*
-yarn-debug.log*
+yarn-error.log*
 yarn-error.log*
 *.log
 
@@ -30,14 +30,14 @@ desktop.ini
 *.swp
 *.swo
 
-# Базы данных PGLite (создаётся при запуске)
+# Локальные базы и пользовательские файлы
 .pglite/
 *.db
 *.sqlite
+public/storage/
+storage/
 
 # Прочее
 .cache/
 coverage/
-.output/
-
 .output/
